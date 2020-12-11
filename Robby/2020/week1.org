@@ -1,0 +1,4204 @@
+* Startup
+  #+NAME: startup
+  #+begin_src emacs-lisp :results silent
+  (setq org-babel-python-command "~/anaconda3/envs/aoc/bin/python" org-src-tab-acts-natively nil)
+  #+END_SRC
+* day1
+** init_day1
+   #+name: init_day1
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/1/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[c795a8e77b387dcc7f7fa345f25b6425957b2a0d]: init_day1
+   #+begin_example
+   2008
+   1529
+   1594
+   1422
+   1518
+   1278
+   1553
+   1563
+   1911
+   1799
+   1554
+   1247
+   1256
+   1558
+   483
+   1228
+   1931
+   1915
+   1982
+   1823
+   2003
+   1894
+   1388
+   1925
+   1501
+   1236
+   1897
+   1245
+   1386
+   1967
+   1806
+   1861
+   1837
+   1895
+   207
+   2002
+   1688
+   1214
+   1464
+   1905
+   1936
+   1926
+   899
+   245
+   1589
+   1449
+   1190
+   1332
+   1444
+   2000
+   1210
+   1979
+   1472
+   1477
+   1904
+   1354
+   1930
+   1318
+   1981
+   1929
+   1763
+   1840
+   1536
+   1862
+   1262
+   1202
+   1993
+   1963
+   1872
+   1907
+   1287
+   1231
+   1387
+   1555
+   1782
+   1301
+   1468
+   1476
+   1908
+   1436
+   1941
+   1252
+   1824
+   1910
+   1817
+   1818
+   131
+   1201
+   1869
+   1357
+   1983
+   1543
+   1836
+   1860
+   1648
+   1916
+   1825
+   1875
+   1233
+   1289
+   1071
+   1355
+   1761
+   1846
+   1392
+   1966
+   1204
+   1906
+   1830
+   1309
+   1427
+   1347
+   1315
+   1602
+   1323
+   1461
+   313
+   1841
+   1857
+   1741
+   1663
+   1947
+   1600
+   1954
+   1974
+   1922
+   1884
+   1844
+   1463
+   1777
+   1720
+   1888
+   1874
+   1435
+   1816
+   1268
+   1901
+   1945
+   1548
+   1794
+   1886
+   1580
+   1746
+   1958
+   1495
+   1821
+   1538
+   1937
+   584
+   1637
+   1185
+   1540
+   1959
+   1595
+   1523
+   1919
+   1644
+   1478
+   1822
+   1502
+   1466
+   1617
+   1258
+   267
+   1855
+   1887
+   1471
+   1632
+   1726
+   1415
+   1424
+   841
+   1410
+   1393
+   1293
+   1927
+   1934
+   1923
+   1848
+   1847
+   1968
+   1371
+   1497
+   1751
+   1851
+   1882
+   1250
+   1953
+   2004
+   1420
+   1662
+   1519
+   1679
+   1369
+   1964
+   1642
+   1809
+   1609
+   1517
+   1175
+   #+end_example
+
+
+** day1-common (test)
+   #+name: test_set_day1
+   #+begin_src python :results value :cache yes
+   #
+   data="""1721
+979
+366
+299
+675
+1456"""
+   return data
+   #+end_src
+
+   #+RESULTS[087730f1665c0821acee34b824af10bfcbac02d6]: test_set_day1
+   : 1721
+   : 979
+   : 366
+   : 299
+   : 675
+   : 1456
+
+   #+name: day1-com
+   #+begin_src python :results output :var data=test_set_day1
+     sdata = data.splitlines()
+     for num, s in enumerate(sdata):
+         x1 = int(s)
+         for num2, s2 in enumerate(sdata[num:]):
+             x2 = int(s2)
+             for s3 in sdata[num2:]:
+                 x3 = int(s3)
+                 if x1 + x2 + x3 == 2020:
+                     res = x1 * x2 * x3
+
+     print(res)
+   #+end_src
+
+   #+RESULTS: day1-com
+   : 514579
+
+** day1a
+   #+name: day1a
+   #+begin_src python :results output :var data=init_day1 :noweb yes
+   <<day1-com>>
+   #+end_src
+
+   #+RESULTS: day1a
+   : 838624
+
+** day1b
+   #+name: day1b
+   #+begin_src python :results output :var data=init_day1 :noweb yes
+   <<day1-com>>
+   #+end_src
+
+   #+RESULTS: day1b
+   : 52764180
+* day2
+** init_day2
+   #+name: init_day2
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/2/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[21242cb6530a003e9afe620d8324805f8c5050eb]: init_day2
+   #+begin_example
+   8-11 l: qllllqllklhlvtl
+   1-3 m: wmmmmmttm
+   2-4 p: pgppp
+   11-12 n: nnndnnnnnnnn
+   17-19 q: qprqdcgrqrqmmhtqqvr
+   16-17 k: nphkpzqswcltkkbkk
+   6-9 c: rvcvlcjcbhxs
+   18-20 v: hbjhmrtwzfqfvhzjjvcv
+   5-9 z: jzzhzttttnz
+   7-13 d: bdqdtddddnwdd
+   9-11 d: ddddddddxdldddd
+   6-10 f: fblhfdztgf
+   2-11 b: vszxfnwghcb
+   15-18 n: nbnmwxnnlkmlknnnhn
+   2-9 z: lhwqvczrrqqhqlfvkbcm
+   15-16 d: dndddddddjdddddbdld
+   7-8 k: kkkmkkkf
+   1-8 p: rdcmrkbwqjpph
+   2-6 s: cswdpsjgsfvzkvqqmrqf
+   9-11 m: mmmmmmmzbmmmv
+   8-9 j: jjjjjjjjfj
+   7-8 d: dddsjnds
+   1-4 f: qffb
+   3-8 f: cphmtfff
+   1-13 s: rjsscssstsvssss
+   9-14 s: gtsnlbqnckhxmssbbs
+   12-14 j: jfjnjbjrjpdndj
+   15-16 t: tttttttttttttttwt
+   7-8 r: rgrdrrrrrrrrjhrrrrrr
+   5-8 t: lpcqfgzttlt
+   1-12 r: wrrrrrrjrrrrrrrr
+   14-19 d: ddvcdddddddhddprldl
+   4-8 d: pkddlzxsl
+   7-11 x: xhxqxcfkxwxxnm
+   3-7 q: qqqqqqjqqqd
+   3-13 s: rtzsktsdfhtbs
+   8-15 n: nnnnnnnnknnnnnsnnn
+   10-13 r: rrrrrrrrrrrrnr
+   1-9 r: ldfdgzprnptrd
+   2-3 k: rqkthj
+   4-7 p: prrpswdpnmpxmjzsp
+   12-13 p: pmwbptnpppjprfpkppgj
+   4-6 w: cfwdlw
+   2-9 r: pnnvrfjhz
+   14-16 b: bbbbbbbbbbbbbtbbb
+   2-7 l: xlmzgklxljcl
+   1-6 c: cccccccc
+   11-12 w: dmpzfzpwwnwwpggw
+   2-3 c: xrccccmcc
+   12-13 k: kkkkkkkvkkkvkknkkk
+   10-12 h: hhnhcvhhhqhh
+   17-18 d: dddjddbdzdddvddddw
+   1-5 p: pppphp
+   11-13 v: fvvvvjlvbvrvdhbvv
+   10-14 b: bzxxqcgqnbkmhm
+   1-14 g: xggghgngqnggggggggg
+   9-10 s: xslsmpfnxvvssqmgf
+   16-17 s: nfqggjzbfsssllwns
+   9-10 w: wwwwwwwwfw
+   13-15 z: zzzjzzzjzzzzzzgz
+   7-10 n: jfnwgwnnnn
+   4-5 b: btbqb
+   1-5 w: vwflw
+   15-16 v: vvxvdvvvvzvxmhxvv
+   3-4 b: cgbbqk
+   1-3 f: bffffdfclfffgfkf
+   6-11 m: xckgmdcqmwk
+   6-9 c: vcptncxbcg
+   5-6 m: mmmmdm
+   2-3 d: dmdd
+   5-7 v: vvhrxkd
+   7-10 b: bbbbbbqbbbbb
+   8-9 m: mhvmmwlgm
+   3-4 x: xvtxkz
+   3-9 w: wwlwwwwwkqww
+   4-18 g: mxslljzcgpwsrggqqc
+   2-3 x: xcff
+   16-17 j: jjjjjjjjjjfqjfjwhjjj
+   9-13 p: ppppppppgppppp
+   16-17 f: fffffffffffffffffff
+   3-5 c: cncpcck
+   9-11 c: kzcwczccccmcfsrcc
+   3-7 s: ssdsssvnsssssjs
+   1-6 v: vvvvqv
+   5-7 b: fzbbxbbbgbb
+   3-9 t: gtttttttftt
+   5-19 p: ngpnpklwsclptfjvtgm
+   3-4 d: dddtdddddd
+   4-5 m: mjmmwl
+   11-13 l: lllblllllvllrl
+   2-6 h: cphqvz
+   17-19 w: gwwrvfglsljwfgxwbbw
+   15-17 x: gfcxzcwgjmkwfqxrxzrd
+   13-14 w: lrmhhxwfkwnkwnbsq
+   7-8 f: ffffffgcff
+   11-19 v: vvvvvvvvvvzvvvvvvvlv
+   7-8 k: kxkkkkpk
+   7-14 v: vfvvvskttcvvvvvfvv
+   11-12 m: mmmdhmmgmkgmjmr
+   1-7 p: hpppppppppbnc
+   3-8 n: rttbbpjnmzn
+   8-9 n: nrfnnvxrp
+   3-4 x: tnxnngq
+   9-12 s: mbhsxshssrtwvm
+   11-15 n: nwmnlhgjnnptkmn
+   1-4 x: xmxl
+   1-6 f: bffffffffff
+   2-4 r: zrrr
+   2-3 t: ttmwvt
+   3-5 n: ngnnr
+   13-17 p: jtpppfgklkpshpndpp
+   1-7 r: rrrrrrrrrrrr
+   7-10 h: hmhhhhhhhzhhhhhhh
+   9-15 l: glxqscckgxtkzfllk
+   2-3 s: gfsh
+   5-6 b: dpphbj
+   6-13 h: hhhhhhhhhhhbshgh
+   5-13 d: dddpbddddddddddd
+   10-11 p: pppppppppdppppp
+   5-7 j: jjjjjcx
+   8-9 r: rrrrmrrrm
+   1-3 f: ffff
+   8-15 b: bbbbbbbgbbbbbbrb
+   3-6 h: hhrhhhhhhh
+   9-10 v: tkwvvvjvvvblvxvxhxvv
+   5-9 t: ttttttttmtf
+   1-4 m: fmmmmm
+   5-9 n: nfnlnkblnnfnxtzn
+   3-11 v: dnsvvvbvnvvxvj
+   8-13 h: nfgmbfjhdhlhb
+   2-14 q: cxtgcrpsxnjshlqbh
+   5-13 b: bbbbjbbbbbbbbbbbbbb
+   4-5 l: wldljllcl
+   19-20 b: jbvbbbbbqqbbbbbbbbbs
+   5-14 b: bbbbbbbbbbbbbbbbb
+   2-5 q: qmqjqhfk
+   12-13 s: sssfsnsssssssxsms
+   3-17 z: zzzzzzzzzzzzzzzznzz
+   13-14 t: ttztttstttbttb
+   2-6 q: vqhhrqlgvckvsrpwmqwz
+   15-16 d: dddddddddddddddhd
+   5-6 w: wwwwdwww
+   1-2 f: jffkf
+   6-10 j: jjjjjrjwjbjxgpjjjm
+   4-5 c: cvgccmcqzrcd
+   3-7 h: mghkhfgzmkz
+   10-17 f: ffffsfffffffpffwkff
+   4-9 g: ggbgcgjgggggg
+   8-11 d: mdnddhpddddm
+   6-7 c: ctcldgc
+   13-14 m: mmmmmmmmmmmmlmm
+   18-19 t: ttttttttptttttnttgt
+   7-8 g: qngggtghnxggs
+   3-12 c: scccrbjtdccq
+   2-3 q: qgqjq
+   5-6 x: xxxxzxxxxx
+   6-10 v: nwjsxvzhvgmsglftbpvc
+   2-5 m: xjtbsffdwmxmhxrmpm
+   4-7 c: mfgcvqccg
+   1-7 c: cctcccc
+   3-4 m: cnnw
+   10-13 s: sstssssszsssss
+   9-10 h: hchhhhjhdh
+   2-4 j: xjjgsz
+   4-11 b: rbblbbpmbmbdbjgcbhk
+   10-11 r: rrrrrrrrrjrrr
+   3-6 g: hvgfzgjrkdf
+   1-10 b: tbbbbbbpbbbbbb
+   12-13 n: nhnnnnnnnnjnznnrnrxl
+   7-13 w: wwmwfncfwdxww
+   3-4 c: wccq
+   7-16 x: xxxxxxtxxxxxxxxxx
+   3-7 k: zmhkssxs
+   1-8 n: gnnnnnnnnn
+   13-14 r: rrrrrrrrrrrrmr
+   2-3 r: rrlr
+   3-4 c: sccccwvpjpplgctg
+   1-2 b: svbs
+   1-2 f: fbfffrff
+   6-14 l: lllllvlllllxtllqllll
+   13-14 f: ffffffffkfffjf
+   1-6 z: zzzrzfzzzzm
+   4-8 k: kzzktkgrzjdkq
+   6-8 j: jjjfsgjjbt
+   3-7 q: qtqqqqq
+   17-18 x: djxqkrlcwxxxlvhjxh
+   6-8 c: tqpcgcjc
+   2-13 f: khqhkkszblvffhfwcg
+   7-18 p: kjxrtcpptzpxddbkts
+   5-12 l: llldllllllntm
+   2-7 q: bvvrnhqhpqw
+   2-6 s: scssswssss
+   1-2 n: njdnnnn
+   4-8 h: hhhzhhhhhhhhhhhhhhh
+   9-10 j: jjjjjjjjkjjxqjjw
+   4-9 t: tzdqtlttttktttttcttt
+   4-5 w: wdwht
+   8-9 x: xfxxxxfrsxp
+   3-4 m: mmmmgwwbmztpmbmmmtls
+   8-17 f: mgzhfgfffswbgnvbc
+   5-6 t: tttttg
+   4-18 x: xxxwxxxxxxxbxxxnxxx
+   2-4 l: cqglmhmtjls
+   2-4 z: zfgzr
+   11-18 k: nrdngbjkpckjxwdbrh
+   8-9 f: fffffffpf
+   4-7 g: ggtgghgsnggr
+   5-6 w: wswwlw
+   3-5 b: dfbbjbccx
+   2-3 t: tdwfzg
+   4-5 r: rhrbw
+   4-5 j: jjjjtjjn
+   3-4 k: hkzkk
+   1-2 c: cdzccc
+   3-5 r: vhlrrvhr
+   4-9 l: qbjdqldwzdl
+   6-11 f: flvpvfcfrgg
+   17-18 g: xgggggghgggglggggz
+   5-6 v: bhvgvl
+   7-15 n: nnnnnnnnnnnnnngnnnnn
+   6-15 d: dtddsddfddmcpdf
+   10-12 b: bbbbbbbbvlbbbbbbb
+   2-12 d: szdghlzwxpnd
+   3-4 z: zzzw
+   6-15 t: mrnjvfhtlqwlfzt
+   8-10 x: lcxcbrxxjw
+   6-13 r: rgszrlzmmlpdngchhxz
+   1-14 g: fgggggggggggggggggg
+   3-5 n: znnnjpksqtzt
+   17-18 l: bcfmqlsltppxwsxslb
+   5-8 t: tttnctttt
+   4-5 m: mmmmnmml
+   15-20 k: kmkpvxkgnckknzkpkqkt
+   12-15 x: xxxxvxlxxkdxxxx
+   1-5 v: vjdndsvsjvqzvnv
+   1-4 k: kkkkkkk
+   5-8 c: cxccccccc
+   2-4 v: vdvd
+   12-14 w: wwwwwwwwwwqwwbww
+   2-3 b: kbbtbrllwp
+   14-15 f: ffffffffffffffm
+   9-10 v: nlngldlnvsbwcvvt
+   4-5 c: kccxccc
+   5-9 m: bmmmmmmmzmf
+   8-9 f: fzfvffjffffv
+   3-14 r: rrqrrrrrrrrrrjrh
+   13-14 p: ppptpppppptpqdpm
+   6-12 t: tttjtvtgcwvttttqkt
+   5-10 z: glsrzctzzz
+   5-8 s: gckwcshsl
+   17-19 n: nnnnhnnnnnnnntwnnnd
+   7-9 r: rrrrfdrrxrrrrrrrrrrq
+   17-20 m: rmxbmmvwphmxmzlmbmxm
+   14-15 l: kkjwtlsrlhltmdl
+   14-17 f: ffffffffffffffffff
+   3-13 l: khxtqtwbvpmgll
+   2-4 w: wwbmww
+   9-15 n: nwxcnxnckttrkdqnn
+   3-4 t: fgnwjbtlntsr
+   15-16 x: mcxxxxxxrxxxpczx
+   6-16 w: vtcvkmrwvlmwdvrwmqj
+   1-3 c: mmcjckwn
+   1-10 c: ccccccccckccccc
+   14-16 l: kqjhpjgzvxlnxxll
+   4-7 r: xrtrrrrrcrrmrrrr
+   8-13 m: mmmmmmmmmmmmcmm
+   7-8 r: trkrrrrwf
+   3-4 n: pnjn
+   1-5 k: skkknkk
+   11-16 k: kfkkkjkqpqgkzkkkkwsn
+   13-17 f: gdllffxlxwncljgwf
+   3-5 s: gwspdtjtnlbsfffvhlg
+   15-17 m: krmfcsqbmmmjwgkdmm
+   13-14 l: knhdrdzcmdhlll
+   2-3 p: frps
+   2-9 z: lzwnzmvnqgkpbxv
+   5-9 n: nnngrnnbj
+   3-5 c: mncnbk
+   2-5 n: djgnnnnnzbnnnx
+   7-8 v: vvgvgvvm
+   5-15 w: wwwwwwwwwwwwwwwwwww
+   6-7 d: dddddcz
+   7-9 g: glrgcggvgckrgggz
+   2-3 n: dnwbnc
+   6-8 t: lttztzqt
+   1-4 m: mmmxm
+   4-14 l: qqhgtftklcnmllcbgbrx
+   2-3 d: sdnk
+   12-15 l: lqllljfglvldcql
+   2-10 k: kgkkkkkkkkxkkkkkkkkk
+   10-17 h: ljpwchmhhzmhdhmrchp
+   6-10 w: lpcfgkslrwwrlkhx
+   3-7 w: wrpwcpw
+   8-9 z: kczxltgzh
+   6-11 n: nnnnnhnsnlnnn
+   2-9 s: smssssssgss
+   2-4 x: xxwhxbfjj
+   1-2 z: fzzzzzzzzzzzzzz
+   4-5 p: pplcdpp
+   3-4 c: gncxlzc
+   16-17 x: fxqltszfgnnkxgrxhcbk
+   13-17 n: nnnnnnnnnnnnnnnnvn
+   1-6 x: dxxxxxx
+   7-8 r: scbnvqrpcbgmpmrrs
+   2-17 d: ddddddddddddddddhd
+   13-19 v: fvtphwfnmpfpbpjnnbv
+   7-18 q: cpwqnhqjqfkqqncbsh
+   6-10 c: cccdcxccncfxcgc
+   2-4 g: fggsgbgggggcggt
+   13-17 r: hspwrxrzbrvlmlwgrkxr
+   14-15 l: pllgllllllllrmv
+   12-15 g: hqgcgggsxgjxljgdz
+   3-4 d: dtxd
+   7-12 d: kddvbkkdldqbkn
+   3-13 v: vvvvvvvvvvvvtv
+   8-13 t: tttttttttfttdt
+   18-19 q: hprbdznbqlfnwzwpqckb
+   5-12 c: wwlqcgzqzvtczvcldg
+   3-5 z: xzzzv
+   2-11 c: xbblzgtwcjcfqqb
+   8-9 n: nnnvbnmvl
+   8-9 z: zzzszzzzt
+   2-3 l: chsrlrl
+   2-4 f: nffm
+   6-7 h: hhhhhhhh
+   10-16 x: xxxxxxxxxxxxxxxwxxxx
+   2-19 v: ztpvktjgjlmqfrrxfpv
+   2-5 g: gncgg
+   1-3 t: hjtttttvgtttttttttt
+   3-4 s: nbvs
+   5-10 n: nnnqnnnnbvnnn
+   7-15 q: qqqqpqqqqqqqqqzqqsqq
+   3-5 b: sjtwbr
+   2-4 t: sttxln
+   1-5 d: ddddd
+   12-13 v: zvdpfbkkvcpvdvb
+   3-6 j: cnnjhj
+   7-8 q: qqrqpbfqjvbtqlqjqkqh
+   2-4 v: wvvq
+   2-7 m: mpmrmmmmdnmmmmk
+   10-14 g: ggmcgggpggcngglm
+   3-5 g: fsbpglh
+   4-5 r: rdrtq
+   3-4 t: qttltttl
+   16-18 s: sssszpssbnsssssfss
+   6-9 b: lbxbwbbqn
+   2-3 m: dmwsg
+   4-12 p: lmppwmsplppx
+   3-15 c: lvjmlzwctxnckvclsj
+   13-14 t: tttttttftstttw
+   1-5 m: jmmmm
+   2-3 r: rsfr
+   1-4 d: xdns
+   2-3 k: qklrwnskqnx
+   1-2 r: rrrr
+   5-8 l: vlsbftlltc
+   3-12 n: nhjlchbwphmn
+   6-7 h: thhghhv
+   1-11 v: vvvvvvsvvvk
+   9-11 c: ckdqzdkbjczkkcpdj
+   7-12 b: bbbbbjbbbbbfzbbb
+   3-6 v: vvwxkv
+   6-8 t: twttttttt
+   12-17 g: gfggggggggggggggg
+   2-3 g: gqgggggggggggggg
+   8-9 h: fmjhhbjhvv
+   4-7 q: qqqqqqjsq
+   4-5 p: hpkjp
+   2-10 h: bhsgwpwnhh
+   15-18 p: nwpqxrcxgjxbbxczxb
+   2-3 k: mtkszk
+   9-11 c: zccccpccrrc
+   5-6 c: qnzjgh
+   7-11 t: ttttttmtttct
+   1-5 p: pppppprplmpq
+   3-4 x: sxlc
+   12-14 q: xsqzxsrrmxvdxq
+   1-3 k: kklkjkvkkkkkk
+   11-12 k: ffflkkkkkkqkkks
+   2-3 z: zlzzz
+   10-13 k: kkxkkbkkfkckn
+   11-15 p: wkppvppxqxpnpbpkpppp
+   2-11 r: krqxlrvhwhlj
+   3-4 l: llllllrrbll
+   12-14 n: nthpvpzmwnsnnn
+   15-18 w: jwsnzwwwwwvwfdwggcw
+   15-16 k: gtxkxjvtkktkkhkr
+   1-3 m: kmzmmm
+   9-10 j: jjjjjjjjvwj
+   5-8 p: sppkrxzpbppppphpwv
+   5-7 w: wwwwgwhwwhppmqw
+   5-6 h: hchhhplrhphqq
+   4-5 g: bggbg
+   3-4 h: sbhmtvhhrbd
+   1-4 l: lqfl
+   5-7 j: jjjpjljjjj
+   3-5 q: qqqqdqqqjqqqqqqqqqqq
+   1-13 k: kkkkkkkkxkkknkk
+   12-14 z: jzzzzzzzzzzzzvz
+   1-4 q: bqqq
+   8-9 w: wkwftfmfx
+   7-9 s: kssjlslpmqssx
+   1-2 n: dxzmtsvnfhjnqsfln
+   15-17 q: bqmqnrcjsmgghgqjr
+   8-11 z: zzzzzzzdzzfz
+   6-7 z: znznzzz
+   8-11 l: jvlntmjwwrrqlkzrhg
+   1-5 r: rrvrjtrrjzr
+   4-20 d: fbvprndxpfqplmtkntdd
+   7-9 l: llllllqlclllll
+   3-6 n: xrnjzmlbnjwwzdzmdj
+   17-19 d: ddddddddddddddddxddd
+   9-10 w: wwwwwckbwhww
+   2-5 h: gchshhhn
+   1-4 l: gtlq
+   15-16 z: zzzzlzzzzzzzzzzhzdzz
+   5-6 l: lllfllld
+   14-16 j: jjjjgjjjjjjjjjjjc
+   6-8 d: dddddrddd
+   4-5 h: zhshc
+   8-9 g: gmgxgbfqg
+   1-8 r: lrrrrrrzrrgrrrrr
+   4-13 c: mccqccdccccwccccccc
+   3-4 z: zhzz
+   10-11 c: crmmvznptct
+   2-4 l: slblllt
+   1-6 q: wqqdqqtqqqgdqqq
+   2-13 l: nlllpwllpjdbxvbp
+   6-8 l: mxsflqrlhkqhsrmhtwxq
+   4-9 t: tpwbtdttt
+   2-7 q: fzqdrbg
+   7-8 d: ddpldttdddsd
+   14-17 b: bbbbbbbbbbbbbmbbbb
+   4-11 x: wfrxkjtpxlcbgc
+   6-7 n: nnnnnjn
+   13-16 z: zmqczdggpqzpcrlz
+   1-8 j: jjjjjjzdmjjtjj
+   5-6 v: vjsnvmb
+   5-7 q: nzqqwbqmbjwllj
+   2-3 j: mtjg
+   12-15 d: ddxdddddddddddcddd
+   4-15 g: hssvxrqgngtkcmh
+   1-4 m: mmmmmmm
+   11-13 j: jqjjjjjjjjmjj
+   3-4 z: zznzz
+   2-6 c: cccmcs
+   6-10 x: xxxxxgxxlxxpxxxx
+   1-2 b: bbrbbbbb
+   2-5 f: xfmkcf
+   4-5 r: rrrkxr
+   3-4 z: zslz
+   3-4 w: kwwh
+   15-17 x: rfxxcxwxsxsdgnxlxz
+   17-18 w: rwqlwwgwwwwjwbcjtw
+   2-4 p: ppjrpp
+   16-17 b: bbbbbbbbbbbbbbbtb
+   5-6 b: fbwbqt
+   3-5 b: bbjvxg
+   4-5 j: jbhljfjz
+   4-5 k: fmkkckpj
+   18-19 w: wpqtwhngztqkvgqrcjf
+   5-6 t: wttthhtt
+   12-15 v: kvgvvvcfglsvnsp
+   12-14 n: nnnnnnnnnnnknnn
+   5-8 k: xxzhdkmmkkkbwv
+   8-9 f: fdffdgvwpfffff
+   12-14 k: kdbsqwkjhvbxrkh
+   4-7 f: fvhkstfdrwfkvv
+   7-17 x: cvkbcvbfxxgxhbxxxpbx
+   11-14 m: jjnmmmsvhzcmcm
+   3-9 w: qwxsnsxnwzsnmk
+   1-5 k: tkkkkkkkkkkkk
+   5-7 h: hhhhhhdh
+   3-13 c: cclccccccccwccccc
+   1-4 w: wwwnw
+   3-7 z: wzzblltdglmfkl
+   9-12 k: kkkwqjnqskkdhckhvkk
+   2-5 r: xjtrrsxrrdzlbjvflqxr
+   9-13 g: gggbzggggjgxkgg
+   1-8 m: zmmmmmmhmmmmmhmmmmm
+   16-18 h: hzhhhhhhhhhhhhhhhh
+   2-7 w: wwwwwwvw
+   3-4 d: ddhd
+   3-5 x: jxvzx
+   15-18 k: kkkkhkckkkkkkkkkkkxk
+   11-12 m: mmmmmmmmsmwkm
+   7-8 k: khfkkktj
+   2-7 f: ffffffff
+   2-6 q: hqqdhbfvc
+   3-5 f: rlpffgf
+   3-4 t: wtltht
+   4-5 f: fscfx
+   2-16 t: nmtppmqttqztvdstc
+   1-15 j: jwgcbkdjlmjjxzwvpvd
+   10-12 v: vvhvfvvqvvvv
+   5-6 l: llllbwlll
+   1-2 z: xmszvzrwpm
+   6-11 d: dddjndddddq
+   4-9 r: xwkfwcztcq
+   9-10 k: ckskkkktkr
+   2-4 x: txpxfq
+   1-3 j: sjzj
+   7-11 x: bbhcswxtnhx
+   9-10 q: jlqnqmhjqhqq
+   4-19 d: qddkdmptbvjpbrjdzddl
+   7-9 d: sqdpdhhdx
+   7-8 j: gjzmzjgd
+   10-15 s: gkgsssssssqssssrpc
+   5-6 v: vvvvhbvh
+   1-3 c: cccc
+   1-3 c: ccwcccczgccpccz
+   2-4 t: tgtmqtl
+   11-13 w: wwwcwwwwwwlhw
+   4-5 z: nzgzrz
+   4-11 s: lhzxmwclxss
+   15-18 s: hmszwkscbdzsrgssjj
+   4-5 m: wkvgzjmhxmwlmlmvsjv
+   11-12 t: lndqtmsfwpjp
+   2-10 w: wkwwwwwwwww
+   10-11 t: ttgpwkjltgn
+   3-9 b: bbvbbbbbtb
+   5-7 h: rqlbntrhhkjhhhrdhq
+   1-2 n: rnnrbnn
+   8-11 n: nnnnnnnpnnnnnn
+   4-5 s: vhsnsjc
+   5-7 b: tbbbbbcbb
+   1-3 q: frbq
+   3-4 s: xsssmfsgs
+   13-17 k: kkkkkbfkkkkkvkkkkkkk
+   1-13 v: zvvvvvvvvvvvvv
+   11-14 c: cbcmcccccccmccc
+   15-17 r: skkrrvsrlmrrrrrjdrrr
+   1-7 m: jmmqmmmmkmmmrkmmr
+   9-14 f: kstfsxflhffxsffkb
+   7-9 g: ggggggggvggggg
+   13-16 t: tttttttgtttttttvtt
+   9-10 p: ppppppppphp
+   3-4 w: wwxw
+   9-13 g: ggggggggrgggvg
+   3-4 f: ffkffq
+   8-11 h: hbhhzhhhhhfh
+   2-4 d: dcnss
+   6-7 r: rtrrrbr
+   5-6 r: rrrrxq
+   1-11 g: fgggggggmkglk
+   14-15 h: vlqkqhhhfwhxfvs
+   3-4 w: wlrsgfsw
+   1-2 v: dxkwzvvxv
+   2-4 r: rvrcrtrrl
+   4-6 t: ttktttt
+   10-15 j: jjjjbtjjtjnjjjk
+   5-6 s: ssssssss
+   5-7 s: sfnkzss
+   4-5 b: shbtb
+   2-5 j: hjktjm
+   1-5 h: hhhhdhhhhh
+   5-17 m: mmmmgmmmmmmmmmmmmrmn
+   2-6 b: cxgxbbskzgdhr
+   10-12 k: kkkkkkkkkbkkkkknkmks
+   13-16 g: ggggggqggggghggggggg
+   1-2 w: wwwl
+   6-9 b: bkbbmbbbzb
+   6-7 m: qrfhmmndrkmc
+   5-11 p: ggzmjkxpnrpf
+   2-3 r: rhrr
+   6-7 f: vppvpwf
+   8-10 w: wrwwwdvwwjwwww
+   6-11 c: wxrbztwpcccj
+   14-17 x: xxxxxxxxxxxxxrxxxxxx
+   5-8 c: cccccczqccc
+   2-6 j: jgqjjfjzjjjjjjmjjj
+   4-7 t: zphkzttgtjdxdtd
+   4-7 t: wsrtdqgthqjvznbj
+   15-19 h: hmhhhhzhhhchhmhhhtxh
+   1-3 z: zzzz
+   2-3 j: jcvl
+   1-7 w: wcpwswwgjfb
+   3-6 c: crsvmcckc
+   9-10 f: fffffffffjff
+   3-6 v: hfvpwvgg
+   2-5 r: dkhrrd
+   1-5 f: cflmflfdvbz
+   3-13 k: sfkgcgktfkhrh
+   3-9 v: mmrprsvzv
+   3-4 q: qqqbcrkq
+   11-13 r: rrrwrrrrrrrgrr
+   6-11 j: tjjjzpsjrjdj
+   14-18 t: dtbhmtltcwpnzwqtgt
+   2-5 c: rsccchcc
+   11-14 m: kmmmmmlvmmtmmm
+   7-10 x: xhxxxxxbxbhxxxx
+   10-13 n: nnntnnnnnpnnn
+   3-10 w: wwwjwgwwwgwmww
+   17-18 p: phpppnpqppjsrpppzj
+   8-12 r: rsrbwrrrrrrzr
+   9-15 q: bqlrdqqxrdqqnxq
+   5-11 d: sldcndtlpzdb
+   1-3 w: zwww
+   11-12 k: tkbkwkkvsblpt
+   13-14 c: ccccccccccccqc
+   1-5 c: ccccrc
+   4-5 f: fffnf
+   3-4 w: wwwvw
+   2-4 k: kzkk
+   16-18 j: jjjjjjjjjjjjjjvqjj
+   2-8 v: wvqlrnrtgbzrp
+   6-10 c: cccccdcccccc
+   1-4 q: bqqqq
+   5-6 n: nnnnnnn
+   2-16 f: cjrffhfpfflxljjfp
+   3-8 g: ggfggggggg
+   7-8 z: zmzkzzzczwzzzz
+   7-8 m: mmmmmmmmmm
+   7-9 f: vzlffftfw
+   4-10 w: kckwgbmtws
+   4-5 g: ggghgp
+   6-17 w: wwwwwwwwwwwwwwwwkw
+   3-16 f: fffbfffffffffffcff
+   9-14 l: lllllllwmllmblllhlml
+   1-4 s: sssdssss
+   3-4 m: lmnm
+   10-11 v: vvvvkvsvvvmvhv
+   3-4 p: pprb
+   3-4 k: pkqk
+   3-4 d: ddxd
+   7-8 b: bbbbbbfb
+   5-7 w: qbmhsmt
+   11-12 b: bbbbbbbbbbbgb
+   3-5 x: xpxbljxt
+   2-9 z: kzmpqtbvzrqzh
+   3-16 v: qwvfvltjrpdxmvqv
+   2-6 n: pdjxzkn
+   7-8 j: jmzvjkjk
+   2-5 r: rrfjqqft
+   2-5 h: pwhfh
+   6-7 m: mmgvjmm
+   11-12 r: rrrrrrrrrrxqrr
+   1-4 n: nnnw
+   1-5 z: szzzzzdtzz
+   7-13 j: jjjjjjnjjjjjbj
+   10-15 w: rwwwwtmwswwwwwwwnmbk
+   11-13 t: twxhrldqtttmnt
+   1-2 r: bkbbrwr
+   11-17 h: hhdhhhhhhshqpbhhn
+   4-7 c: crgchccbnr
+   9-11 r: bdhgrzkmrrl
+   6-8 g: gggggggzz
+   3-9 g: ggggggggqg
+   9-11 z: zrfcqtrxxqzcx
+   3-9 s: zstjqhnvgjjfxknt
+   12-13 p: pppppwpgcppjppppptp
+   6-7 k: kkwrkckb
+   8-9 k: kkkkqzjkn
+   8-9 l: lrxlkbflrl
+   1-3 n: nndn
+   8-9 d: ddhddddddd
+   4-12 g: zdclfqvdgnzfv
+   3-5 d: ddddkddddddd
+   9-11 x: xxxxxxxxqxxx
+   4-7 t: ttttfftt
+   2-4 n: wfmnnddqxfm
+   16-19 r: zhjsgxjkjpqmpvkrjgr
+   3-7 v: vvfvvvvv
+   1-2 d: qdwdfj
+   6-10 h: hhhhhhhhhrhh
+   4-16 x: xxxpxxxxxxxxxxxxx
+   18-19 q: qqqqqqqqqqqqqlqqqqf
+   6-10 g: gkcntgbgbggklsx
+   8-9 n: nnnnxnnnpnn
+   7-9 m: msmmmtdvm
+   2-15 d: twjdrfzntqhnwkd
+   1-4 z: kzzz
+   16-18 b: tbbbtbjbtbtflzckhb
+   4-12 k: kkbhkgkrkgfk
+   8-10 q: lrqrjqvwmrb
+   1-3 f: vfhf
+   7-14 v: vvvvvvrtvvvvvvvv
+   4-5 n: xnntnwntrfnbqqdk
+   3-5 r: rhkrzwrhrrr
+   2-4 b: bspbjb
+   5-6 s: sfscsc
+   6-7 x: xxxxxhx
+   8-10 w: wwwwbzlmqw
+   7-10 v: fkvdvjbfvd
+   2-5 q: qtqspqqq
+   8-9 k: kmhkkhpsk
+   5-8 h: xhdhjfph
+   3-6 b: dlbkbb
+   1-3 w: wwbswwww
+   2-4 x: mxtx
+   2-4 l: llrll
+   3-7 j: kclqzgc
+   2-3 r: rxrrrgrrrrr
+   2-4 q: nzwxlmcqqqm
+   15-16 h: hhhhvmhbhdtbblbh
+   13-19 l: ltkftclmlllflzltlnb
+   4-5 p: zmwtpjrltqdmfppz
+   6-10 t: tjdxqtsbzhvprspljmv
+   14-17 q: qcqqqqqcqghqqqqqjq
+   1-5 j: flxrjspwlrdqsnjcs
+   14-15 m: mmmlmmmmmmmmmwm
+   3-5 d: dddvkwksdcrktlpd
+   8-11 l: llcllllxllml
+   2-4 v: vvvbv
+   1-3 g: llggz
+   3-5 q: znqqmt
+   15-17 f: ffffffffffffffjfff
+   17-18 q: zwnkmcqdqlqgkwfmqc
+   8-11 f: fffsrffbfffffvfxf
+   1-7 b: bbbbbbbb
+   3-4 l: llzh
+   8-9 n: nhnnnnqknnbnncncnnl
+   9-11 v: wvvvvvvbhjc
+   15-16 q: qcjqvfdcsqwdrqqt
+   9-10 j: jcckdzkzjjb
+   1-2 s: hssmsssms
+   1-3 w: xwww
+   2-4 l: lllll
+   2-4 q: qnmq
+   16-18 t: tttttttgtftttttttt
+   5-6 t: kttttj
+   16-17 t: twlqttttttttttmct
+   8-15 x: xxwpxsqkxgkxgxxbdgx
+   17-18 h: hhhhhhhhhhblhhhhrq
+   12-17 m: fmkmmmmqkmmdrbvthm
+   2-4 b: fbcb
+   1-14 t: tttttttttttttqtt
+   17-18 v: vvvvvvvvvvvvvvvvvnv
+   7-10 x: vxxtxlxxlk
+   3-5 n: nnmnqnnb
+   2-8 s: vssjqsssssb
+   9-11 l: wlllllllllllll
+   4-14 r: zrlcrxrrrzrrrrr
+   3-14 n: wrnjpnkndsshqk
+   12-16 p: ppppzpppppphppppp
+   9-12 r: rrrrrcbrrfprrrrr
+   2-3 b: bbrb
+   14-16 d: tzdjdndddgsddlnddgd
+   16-18 c: cccccccccccccccwcc
+   5-6 v: rvvqvt
+   11-17 s: ssssssssssssssssps
+   8-9 v: vpvxqvvdvnvhgnvvlvs
+   7-8 d: ddddqlrt
+   7-13 d: bfzrkddtdwqld
+   4-6 c: cccccq
+   6-8 d: hkdndlqq
+   11-13 l: ngmllbdklvlmqlz
+   8-17 m: mmmmfmmmmmmmmmmmlmm
+   12-15 b: bbsbbcblbsnbzbbfcfzz
+   12-13 k: gbwkkkkkkkksk
+   12-14 x: xxxxwxxxxxxdxxxxxxx
+   3-4 m: mwsmp
+   5-6 k: kkkkzk
+   4-5 h: pqslhh
+   7-13 l: gmpxpvwqrnlfp
+   3-6 t: sttxtmtn
+   11-13 r: rrbmbrwrrrrrkhrr
+   14-16 s: ssssssssssssstsss
+   7-10 v: vvvvvvhvdvvvkv
+   5-6 z: sxpzzx
+   2-4 d: rmxd
+   16-17 z: zzzzzzzzzzzzzzzzzz
+   1-3 k: kjkkkkcckkzk
+   1-11 k: xzkkkkzkppk
+   8-9 f: bfvfdffzb
+   4-14 r: rfzcrrlmxqlrrrqr
+   7-19 t: gtnxjqtnjbkrwpzshqqn
+   2-5 j: kjjgpddjpjjjffzjjp
+   2-3 f: cfffh
+   1-2 x: xxxxx
+   3-13 j: jjjjjjjjjjjjzfjjj
+   7-8 m: sgmmpmjmwmmmtfs
+   4-12 z: zfzqzzszvtml
+   6-9 b: jsfbpkzwb
+   13-16 x: zsxxjxxsxxqxpxxx
+   8-12 b: rlzdlplbgbdgd
+   3-14 h: hmrhhhhhhhhhrthhhh
+   15-19 g: mgggggcgggggqgghggg
+   2-9 p: ppppptppzcf
+   6-7 b: bbbbbbbbb
+   4-20 q: skqqvxptdswwnrflkvxq
+   4-5 t: lqttq
+   1-10 l: lqkqllvllj
+   11-15 m: qmmmmmrmqmmmsmf
+   6-15 s: ssssstssssssssss
+   2-4 x: xtxxx
+   9-11 q: qqqqqqqqhqgqq
+   1-4 n: gpnnfnn
+   1-3 l: lltl
+   11-15 k: kkfkkfkmmkrkkkk
+   11-12 f: fkcvfvtqfcfffffffffj
+   1-4 c: ccjc
+   14-15 n: bvbvfvzcbfnzqlsvh
+   4-5 x: xxlmxx
+   3-6 n: nnrnnnwlnncnn
+   6-9 j: jjjjjjjjq
+   7-10 d: pdplmxdczddbd
+   12-13 c: ccccbctccccccccc
+   12-13 j: jfjdjjjjjjjjjj
+   6-7 h: mrnphwh
+   2-9 n: njnnnnnnnnnnnn
+   3-6 g: rgxgggggnjghgggntg
+   9-12 b: bbbbbbbbbbbcbb
+   3-5 p: ppppvpp
+   16-20 t: ctkgpgzrwwngltvxcqct
+   4-5 s: sssdsh
+   12-14 v: vvvvvsvvvvvvvsv
+   8-13 w: zwwwwwwvwwrwgv
+   12-17 r: wrcrrrrrrrbrwrrrxr
+   12-13 x: xxxxxxxxxjsvrnxx
+   7-9 n: nqnnqnvnn
+   14-19 n: nnnnnnnnnnnnnnnnnnnn
+   4-5 c: vscjrl
+   1-3 l: llrl
+   11-12 w: wwwwwwwwwwzww
+   6-7 t: wlcktht
+   2-10 r: rrrrrrrrrwrrrmrr
+   2-6 x: lhqvpx
+   10-16 h: kqrhxclktcqhxchg
+   6-10 m: mmsmkmmjmlmhfmmnmm
+   5-7 h: hchhhhph
+   5-7 z: vtzzzwl
+   3-12 z: zzfzzzzzzzzzz
+   7-9 z: zzzzzzszzzzzzzzjz
+   8-9 g: ggggggggg
+   13-16 f: ptvzfmfkxfdkfhjff
+   1-10 w: cvhnfgnwpw
+   5-8 d: fvvmdlfqgjc
+   6-9 s: rzlrwzngshvt
+   2-4 v: vgql
+   1-3 r: rrmrr
+   5-7 j: jkjgwjj
+   4-7 b: bbbzdzbbcbbb
+   4-10 k: kkkkrkckkgkkk
+   10-12 m: mmmmmmddmjmn
+   4-10 k: mskmvkcpqkk
+   5-10 m: wbtdmxnvrmwqbqkwmtq
+   7-14 z: cfzftzzqnxffzh
+   12-13 z: zzzzkzzzzdzzz
+   4-5 l: lllslllvl
+   5-8 k: kkkkkkkkkk
+   10-11 l: llllllllllwl
+   3-5 v: hvzpxfvmvcv
+   8-10 t: tbtnrtbqzwtkqtf
+   6-10 j: njjjpjjjjkjsj
+   8-16 f: cvpxnsxfdnpdfswdhbb
+   6-12 n: nnndnnnnnnnz
+   2-3 d: dzdd
+   1-4 s: jshkscssssssssssssss
+   5-7 k: kkkqckwkcl
+   3-4 f: ffdf
+   9-11 c: cpccccncccqccc
+   1-8 x: gxxxxgxx
+   5-15 p: ppvkmmpcvzmmczpz
+   12-13 p: xppppppppvpnpppp
+   7-12 n: nwnnnnhcbnjnc
+   1-4 f: fnzjf
+   2-5 s: tltqss
+   3-10 r: rrqkrzvkrtbqcrp
+   3-14 h: hhhhthhhlrwhhhthp
+   2-4 b: bkbhbq
+   15-16 v: vvvvvvvvvvvvvvvsvvv
+   1-17 h: vtjjhtxrchshpxhsh
+   4-7 n: jnpnpnn
+   3-4 h: jvhz
+   4-5 w: wcpzw
+   9-10 q: tvxbsfmqqblhq
+   3-5 s: jssstxfbsssshssgkss
+   3-9 r: fnrhqkrmtstqjgc
+   12-15 n: xqwnnnnnnnnmnnn
+   13-15 q: qqqqqqqqqqqqqqtq
+   3-4 d: dcdl
+   4-12 d: vrldnmpndmlgdzrv
+   2-4 h: mhhh
+   3-4 f: fcvfc
+   1-2 w: whwwwz
+   7-8 m: mpmlmmmmhdbh
+   2-4 q: qxbqqdsjrdpxf
+   6-14 r: wbmlhrcgrgrkzqfj
+   2-7 c: ghcvcdcmcztckct
+   2-9 n: nnnnnnnnpnnn
+   3-5 f: zlgffv
+   1-6 m: ntmmmm
+   2-4 w: jgqwv
+   5-12 f: gscfzhmrtxfw
+   5-7 r: rwzklcrnrrg
+   8-10 h: hhhzhhhpxhhh
+   9-11 x: xxxxxxxxfxbx
+   7-8 q: qdnqnzbq
+   2-10 s: sssmssslbb
+   8-9 n: wgfnghnlnkf
+   4-10 d: dddsdddlds
+   1-5 k: bfkkkn
+   2-5 w: wwwwww
+   14-16 s: bjszbzmcnsvplsrh
+   8-9 b: bbjbbbbbbvvbbx
+   2-10 m: dmnrsmtqkf
+   7-12 f: fbtwftvffsgfwlnw
+   9-10 h: shhhpshfxhbrdhshh
+   4-9 t: tgpdtwrmt
+   2-6 t: vhtwntl
+   3-5 j: ljjjd
+   2-3 w: hxwvbxwwbwsvc
+   7-8 r: rrrzrrnr
+   3-4 x: jxjh
+   7-12 w: mjmbtgntdwjwnqztv
+   5-6 l: vlvllt
+   7-8 n: nnnnnnpnnnn
+   3-10 c: wcgcxzcdwmcn
+   16-18 h: hchhhhhhhhhhhhhcmh
+   5-11 f: fflffffffflfff
+   3-13 z: zzzzzzzzzzzzpzz
+   6-9 k: kkkkkskkkk
+   6-15 c: ccccccccbccccctccc
+   9-18 p: klcpzpdwzvpqppspfpp
+   10-13 b: pbbbbmbbdbwtmd
+   10-11 v: xvvvvvvvvnnvv
+   2-4 m: msmmm
+   1-4 w: rwwlwrwrwwrfngc
+   8-9 r: rjjlddjrnbr
+   13-16 d: pzdfzqbwclbjddxtvddf
+   14-15 q: qqqqqqqqqqqqqbq
+   12-14 k: kkkjgrkkqkkkkl
+   3-4 d: gsdnkdfnf
+   8-17 h: glhfvrshlrqwdrfrh
+   2-12 l: mflqfvxfgzkmd
+   5-8 f: ckllfnfbflqgrsd
+   1-17 m: kckvffhnlmjvdtgpm
+   16-17 p: pplppppcppppppppppp
+   5-8 h: hhjbmplh
+   7-10 s: jsjlwgsssbsvfsvk
+   2-8 x: xpfxbqxxqxhdrxhqm
+   12-16 n: nnnnnznnnnnnnnnmnvn
+   6-12 v: vvvvvvvvvvvgv
+   8-9 j: pjjjjmjnj
+   16-17 h: hhhbhjhrhhhhxhhgt
+   3-11 d: ldpmvddhdrdjdj
+   6-7 n: nnnnnnnn
+   5-8 f: tglffvhgnfxzfhf
+   13-18 r: rrrrrrrrrrbrhrrrrrrr
+   19-20 n: nnnnnnnnnnnnnnnnnnnj
+   7-8 w: tpmmxqsw
+   5-7 c: ccccccr
+   9-10 l: qltnnlnfllqlw
+   6-7 g: xggbggz
+   7-10 s: sssssfcssss
+   5-7 j: jsjkxwqhjcvjtwjzl
+   10-14 t: qdtttzttcvtttnn
+   12-13 b: bbbbbbrbbbbqb
+   1-15 d: dshhrjkwcjjhlthdts
+   7-12 p: hrxkphmqpvpptpqbw
+   13-14 d: ddndddxdtdrkvldd
+   3-4 h: htht
+   7-8 c: xtsvzccfckccx
+   4-5 r: gstrwshptzrdtjj
+   7-8 b: wbbnbbbm
+   15-17 c: cgpqxbccqcjpzlcctmx
+   2-7 k: kvtqqmsx
+   8-11 s: ssxssssqsssssssss
+   3-9 d: ddddddddld
+   13-16 p: pppppppppppppppwpj
+   6-8 v: sxkghpckvb
+   17-18 s: ssssssssbsssssssksss
+   1-2 w: wlwxdsw
+   8-9 q: qqqqqqqqnq
+   9-16 f: fjdsfvkfqffffjcfpff
+   12-13 h: bhhhhhhfwhphhhhhh
+   7-8 k: kkkkkknkkkkkkk
+   4-7 w: wwwfpsw
+   8-11 d: rsndldddddxddmf
+   2-10 c: cjcdcccccc
+   6-7 v: zvnrhth
+   3-8 z: zzxzzzzzdzjzzzzz
+   11-12 t: tctdttttwtrtttttjth
+   8-9 c: ccccccccrccc
+   17-18 p: pppppppppppppppppvp
+   3-8 l: svlmlkspljr
+   1-2 n: nwnkq
+   1-11 j: jjjjjjjjjjjj
+   18-19 g: ggggggggggggggggggr
+   10-11 j: jjjjjcdjgjv
+   3-7 p: ptttppppppj
+   2-5 d: cdndsd
+   6-10 s: sssssmssssss
+   15-16 k: vxwxxhhkkhklqksd
+   3-4 x: rpxn
+   1-6 g: vmgckg
+   3-4 j: jjbs
+   5-10 d: qrnmbddndvcmdsjjbdhd
+   7-9 v: vvmgvvvpvm
+   1-7 z: zzzzzzwzzzz
+   4-7 n: nnnnnnqn
+   8-9 k: kwkknknkrkgkbklmpb
+   1-5 z: zzmzfzz
+   6-10 m: mmmmmfmmmm
+   9-11 s: sssssstsssgss
+   2-6 n: nnfnpgnnnmnnn
+   15-17 w: wwwwrswthgwhkwwrw
+   5-9 h: lbhdhplmbnwh
+   5-6 d: jdddqqt
+   #+end_example
+
+** day2-common (test)
+   #+name: test_set_day2
+   #+begin_src python :results value :cache yes
+   #
+   data="""1-3 a: abcde
+1-3 b: cdefg
+2-9 c: ccccccccc"""
+   return data
+   #+end_src
+
+   #+RESULTS[4f77a0bedfa01f673ec90922d157bb11f2663b8b]: test_set_day2
+   : 1-3 a: abcde
+   : 1-3 b: cdefg
+   : 2-9 c: ccccccccc
+
+   #+name: day2-com
+   #+begin_src python :results output :var data=test_set_day2 
+     class d2_solver():
+         def __init__(self, passlist):
+             passlist_fixed = [passlist.splitlines()]
+             self.vals = []
+             for entry in passlist.splitlines():
+                 r, l, p = entry.split()
+                 rep_min, rep_max = r.split('-')
+                 l = l[0]
+                 self.vals.append((int(rep_min), int(rep_max), l, p))
+
+         def parta(self):
+             count = 0
+             for val in self.vals:
+                 num = val[3].count(val[2])
+                 if num >= val[0] and num <= val[1]:
+                     count += 1
+             return count
+         def partb(self):
+             count = 0
+             for val in self.vals:
+                 if bool(val[2] == val[3][val[0]-1]) ^ bool(val[2] == val[3][val[1]-1]):
+                         count += 1
+             return count
+
+     d2 = d2_solver(data)
+     res = d2.partb()
+     print(res)
+   #+end_src
+
+   #+RESULTS: day2-com
+   : 1
+
+** day2a
+   #+name: day2a
+   #+begin_src python :results output :var data=init_day2 :noweb yes :session
+     <<day2-com>>
+     import pyperclip
+     res = d2.parta()
+     print(res)
+     pyperclip.copy(res)
+   #+end_src
+
+   #+RESULTS: day2a
+   : 416
+
+** day2b
+   #+name: day2b
+   #+begin_src python :results output :var data=init_day2 :noweb yes :session
+     <<day2-com>>
+     import pyperclip
+     res = d2.partb()
+     print(res)
+     pyperclip.copy(res)
+   #+end_src
+
+   #+RESULTS: day2b
+   : 688
+* day3
+** init_day3
+   #+name: init_day3
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/3/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[31e9b2f4dbcdd7f40a3c9de63cdc5cc061139b47]: init_day3
+   #+begin_example
+   ....#...#####..##.#..##..#....#
+   ..##.#.#.........#.#......##...
+   #.#.#.##.##...#.......#...#..#.
+   ..##.............#.#.##.....#..
+   ##......#.............#....#...
+   .....##..#.....##.#.......##..#
+   .##.....#........##...##.#....#
+   .##......#.#......#.....#..##.#
+   ##....#..#...#...#...##.#...##.
+   ##........##.#...##......#.#.#.
+   ..#.#........#...##.....#.....#
+   ..#.......####.#....#..#####...
+   .##..#..#..##.#.....###.#..#...
+   ......###..##.....#.#.#..###.#.
+   ..#.#...#..##.....#....#.#.....
+   .....#.#...#.###.#..#..........
+   ##.....#...#.#....#..#.#.......
+   ..#...#...#.........##......#..
+   ......#.#...#...#..#...##.#...#
+   ....#.................##.##....
+   ...#......#.............#....##
+   ##..#..#..........#...##.#.#...
+   ....#...##....#..#.#...........
+   ##.#.#.#...#....#........#..#.#
+   ...###..........#...#...#..##.#
+   ..##.......###.#......##.##....
+   ...........#.#....#.....#.#...#
+   ..#......##.#...##.#.#......#.#
+   ..........#.#....#.#..#....#...
+   ##..##...##.......#.#....#.#.##
+   .##..#.#..#...........#.#...#.#
+   #......##......#....####.#....#
+   ..###......##...#...#.#.......#
+   .#.##.##....##..#..##...#......
+   .#....#..#........#..#.##.#.#..
+   ..#.........#.#.###....###.#...
+   ..#..#.#.#..#..#.##.##...####..
+   #..#..#......#..#.#....#.#.#.##
+   ..#.........#...#..#.#.#..#...#
+   #..#......###.....##....##.....
+   #..#.....#.#.#.##.....##...#.#.
+   ##..#.#...#.........#.#........
+   #....#.......#.....#..#..#.#...
+   ...###.##.###.###.#####..#...#.
+   .....#..#.#..##...............#
+   ..#.....###.###.#.....#.#....##
+   ###.#.........#..#.#.#..#.#..#.
+   .##.........#..#..##....#.#...#
+   .#...#........#...#.....#....#.
+   ####..........###....#.#.#....#
+   ....##..###....#....#.#...#....
+   ..............##......##..#.###
+   .#...........###.#.#....#......
+   ###.#..#..#...#.........##.....
+   ..#.....##...#.#.....##...#.##.
+   .###.#........#..#.#...#.#..##.
+   .......##....##.........##.#..#
+   #....#...#...##...#.#..#..#..##
+   ...#...##..#...#...#.#....#.#.#
+   #.#......#.#...##......#.#...##
+   .#.###..#.###.#.....#.##.##.#.#
+   #...#............#...#.##..##..
+   ....#..###.......#.....##....#.
+   .#####..#.....#.....#...#.....#
+   ..##..#..###.......##.#........
+   .#...##.##.....#.##...##...#..#
+   ......###...#....#....#........
+   ....#...#.#....#...#.#.#......#
+   ....#..##...##.#..#....###.....
+   ...#...#..#.#...#....#.#..#####
+   ####....#.....#.........#.#....
+   ...###.#.#..#.#..##............
+   .##..#####..#...#..#..#.......#
+   .###......#.#.#..#....#.....#..
+   #....##.##..#.#...............#
+   ...#.#..#........#......#....#.
+   #.....#....###....#..#.#.#.....
+   .#..#....#...#.#.....##....#...
+   ..#.##.#.##.#..#.##.#.....#.#..
+   .......#.......###..###..#...#.
+   .#.......#..#........#.#.......
+   .#.#...#.....#.##..##.....#....
+   #.......##....#......#.....##..
+   .#.....#...##...#..##.....#....
+   ....#..#.#.......#.#.#.........
+   ..#....#....##.##..#..##.##.#..
+   .#...#....##...#........#....#.
+   #.#......#...#....#...........#
+   .#....#..#..###.#.....#..#.....
+   ..#..................#.....#...
+   ..#...###..#..####.#..#.#.#.#..
+   ...#........##...##..##..#....#
+   ...#.....#........##..#.....#.#
+   #....#.....##.##......#...##...
+   ...#####....#..##..##...#.#....
+   ###.........#.#..#..#..##.#...#
+   ##...#..##...#.##.#........#...
+   .#....#.#...#..#...#..#.#......
+   .#......##.#...#...#..#....#...
+   #..#.#.#......##.##.####..#....
+   .#...#.#.##...##.#...#...#.....
+   ####.#.........#...##..##....##
+   .....###........###.##...#.#...
+   .##.....#.....#....##.....##...
+   .#.#...#####....##...##.....#..
+   ....###..........#......##..#.#
+   ..#.....#....#..#...#.....##..#
+   ...##.##.#.######....#.#....##.
+   ...#.#.#...#..#....##.........#
+   .#.#...##...#....#.#....##.....
+   ...#..#.....#.....#.##.....#...
+   .#.#.#.....#.##.#....#.#....##.
+   #...#......###...#..###...#....
+   ...##.#.#..#........##.......#.
+   .####.####......#........#.....
+   ....#..#####....#......####....
+   #...##.#..#..#####.#...#......#
+   #.#....#..#.........###........
+   .##.........#....#......#.#....
+   ...###.........####.#........##
+   ..#..#........#.#..##......#..#
+   .##..#....#...##.####.#...#....
+   ......#.......#..#..#.#.##.#...
+   .###....#.#...#.#.......##..#.#
+   #...#....#............#####....
+   ...#.##......#####..#........#.
+   ..#...##.....#...#..#.#........
+   ...#.#...#...##...#..#....#....
+   ..#..##.....#....#.#.###.......
+   .......##..#...#.............##
+   .....#.....#..##.##.....#......
+   .....##...#......#..##....#.###
+   .#...#.#.#.#.##.....##..###..#.
+   ....##..........#.....###......
+   ....#...#.#.#..#.......#....#..
+   ..###...#...........##..###....
+   ...#.##.......#....#....#.#....
+   ##...#..##..#.##..........##..#
+   .##.....#..#......##..####.#.##
+   ....##..#.#.###......#..#...#..
+   ####..#.#....#...#....###.#.#..
+   ###......#...##.##..#.##..#..#.
+   ..#.#..#.#.#.....#...#..#.####.
+   .###.#...##...##....##......#.#
+   ..#............#.##..#....#..#.
+   ###.......#......###..#........
+   ....##......###.....#.#..###...
+   ..#...##...#......#..#.........
+   #..####.#....#.....###....#.#..
+   .#.#.#.......##....###.........
+   .......#.##.#####....#.#...####
+   .#...#....#....#.###..#.....#..
+   .###.#.#.###.###.#..####.##.#..
+   ....#.........#.#.......##.....
+   #..#..#.#...........#.#.##..#.#
+   .#.....#..#...#.....#.##......#
+   ..###.#............#.....####..
+   #.....##..##...#....####....#..
+   ...#.....#..................#..
+   ....#.###.#..#..#..##..#..##...
+   ...##.#........#......#...##...
+   #................##....#...#...
+   ..##......##.#.##..#....#.....#
+   .#..#.....#..........##.#.#....
+   .....#...####....#..#......#...
+   ..#......###.#.#.#.#.......#..#
+   .##......#.......#....###.#....
+   #..#.#.#..#...#.#.##..##..#....
+   ....#...##..#.#......#.##...#..
+   ...###...#.##..#...#....#......
+   ##......#.#...#.#.#.........#..
+   ..#..........#...###.#.##....#.
+   ...##.....#.....#...###..#.....
+   ..####.#.....#.#.....#..#.#....
+   .#.....##...##.##.#.....#.####.
+   .......#.....#...##..........#.
+   .#...#.#....#####....###.#..#.#
+   .##.##....##...##.#.....#......
+   #......#.##..#..##.#.#.......#.
+   .#..#....###..#........##...#..
+   ..#......##.......###..##...#..
+   .#..........#.#.......##.....#.
+   ....##.....##.#.#.##........##.
+   ..#.#..###..#..##...#.##...#...
+   .......#.....#..#...#...#.....#
+   ##.#...#.#.#.##........#......#
+   ..###.....##..#....#.......##..
+   #####..####...#.#..##.#...#..#.
+   #...####....#........#....#....
+   .#.#.#..#...##....#.......#.#..
+   ...#....##..##..#..#..#####.###
+   ...#......#.#..#......#...####.
+   .##.....##.##.#.####.#..##...#.
+   ....#..#..##..##....#....#...##
+   ##.###........#...##....#.....#
+   ..#.#.#.......#....#..#....#...
+   ......##.....##....#...#.....#.
+   #.#..#.#.......#....#.#.#......
+   .....###..#...#.....#..##..#...
+   ......###.....#.#.#...#...##..#
+   .#..#.#....##...#...#........#.
+   #..###.#...####.#...#..........
+   .#.##.#..#..##..#..###..##...#.
+   .......#.#..........#.........#
+   #......###..##..#....###.......
+   ..#............#.#........#...#
+   ..##.#.............#......#..##
+   .#....#..#.#..#....###..#...#..
+   ....##....#..##...###....#....#
+   .#....###.............#........
+   #..#...#..#....#.##.#.....##...
+   ...........#.....#....#....#...
+   .##.##.#...#....##......##..##.
+   ......#.#.##.#..##........#...#
+   ....##...##...#...#...#.#......
+   .#...#....#...#......#.#...#..#
+   ........##.....#.#..#...##..##.
+   ##...#.....#.....####...#..#...
+   .#.#..##.##......#...#.#...#...
+   ##...##.#......#....#.######.#.
+   ##.....####.###......#.##.#....
+   .#.##....##........#...#..####.
+   .......#..#....##...#.#...#..#.
+   ...##..........#..#........#..#
+   .##.....#...#...#.##.###.......
+   .##....#...#.#..#.....#...#....
+   ..#...#.....#.####.#.........#.
+   #...#.##...#.#..#.#..#.###.#..#
+   .##..#.#.##.........####....###
+   .#..##........#..#.......#.....
+   ......#.#####.#.........#.#...#
+   ......#....#.#####...........#.
+   ..##....##..#.#..#....#......##
+   #.#......#.##.#.##....#....#.#.
+   ..#..##.#...#.......##.........
+   .....##.#...#..........#.......
+   ...#........#..#...#.....##.###
+   ....##.........#...#.#.....#...
+   .......#.#....#...#.......#...#
+   .#..#...##....#..#...........#.
+   .#....##.##.#..#..####.#.#.....
+   .##........#.....#..#......##..
+   .#..##......#......#..##..#....
+   ###.....##.......#..##.#.......
+   .....##......#.#...##...##.....
+   .##....##..#..#####...#...#.##.
+   ##...##.#....##.#.#.#....##....
+   .#.....#...#......#......##....
+   ##.#............#...#....#.....
+   #..#.....#.....##.##.##..#..##.
+   ......#..............#..#...#.#
+   ....#.#....##......#..#...#....
+   .#...#..#...#......#..##....#.#
+   .....#......#..##...#.#....#...
+   #...............#.##..#......#.
+   .....#..##.#..#.#...###.....#..
+   ...#..#..#...#....#..#..##.#...
+   .#...#...#..#......##...#......
+   ....###............#.#.#....#..
+   #.#...#..#..#.#....#........#..
+   ....#.#.#..#..#....#..#...##.#.
+   .#....#.#...#....#......#.#...#
+   ##..#.#.#..#.....#...###....#.#
+   .##.....#.#...#..........#..#.#
+   #....#......#....#.#.#...#.....
+   #.#.....#.###.......#..#..#.#..
+   #.....##..#.###...#...##...#.##
+   .#.##....#.#.....##......###...
+   .#.......##................#...
+   .........#........####......#..
+   ...##.###..#.....#.#.....##.#..
+   ..#....#.#.#.##..........#.....
+   #..##.....#.............##.....
+   .##...#..#.......#.......#..#..
+   ...#.................#......##.
+   ....#....#.....#..###.#....###.
+   ..#.#..#...#..#.....###....#.#.
+   .....###...#....#....#.#.##..##
+   ...#...#.........####........#.
+   .......#..##.........#.........
+   .#......##.....#.#####...##....
+   ....#.###...#.#....##..#......#
+   .##..#....#.#....#..#.###.....#
+   ..#...#.#...#.##.....#.#....##.
+   #.#.#.#.....##...#.#..##..#....
+   .#............#.#.#..#...#...#.
+   ...##.#..#..####.#.###..##.....
+   .##.....#.......#..##.#...##.#.
+   #.#...#..#.##...##...####..#..#
+   ...##.......#.#.#.#.#.#...#..##
+   ...#.#.##..##..............###.
+   .....#...#........#...#......#.
+   ..#..#..##....#..##.#.....#....
+   #.....##........#.........##.#.
+   ###..#....#.##..##.............
+   .#..#...#.#......#..#..##.....#
+   ...#.#.#............##........#
+   ..#.#....#..#....##....#...##.#
+   ...##...#...#..........##.#####
+   ....#..#.#.......##....#.#.###.
+   ##..#..#..#...###.#.....#......
+   ....###.#.#.#.##..##.#...#.....
+   .....####..#.#..#.#......#.#.#.
+   #.....#...#..#.#.........#..#..
+   .##....#.#.####......##..#..##.
+   ......#.##.#.#..#..#....#.#....
+   .#..#...#...#...#..#.....#.....
+   ..##.#..............#......#...
+   .....###.##.......#.....#..#...
+   ..#.#..#..#.......#...##.##..#.
+   ##.###......#......#.#..#..##..
+   ..##.....#..#..#......#..#.....
+   ...##.......#.#..#.........#.#.
+   ......##.##.#.......#..#.#.....
+   #......#........##..#.......#.#
+   ###....#...#...#.#...#..#..#...
+   #..###....#....####..#...#.....
+   ....##..#.##.#....#..##...#.#..
+   #.##..#....##..#...#..#.#.#..#.
+   #.........#.....#...#.......#..
+   ...#.....#.#.....#........##...
+   ..#.##..#......#...#.....##.#..
+   ...###....#.....#...#..#.##..#.
+   #+end_example
+
+** day3-common (test)
+   #+name: test_set_day3
+   #+begin_src python :results value :cache yes
+   #
+   data="""..##.......
+#...#...#..
+.#....#..#.
+..#.#...#.#
+.#...##..#.
+..#.##.....
+.#.#.#....#
+.#........#
+#.##...#...
+#...##....#
+.#..#...#.#
+"""
+   return data
+   #+end_src
+
+   #+RESULTS[5841aef18f031cf10a3e15b3fee5fbde419e0ae2]: test_set_day3
+   #+begin_example
+   ..##.......
+   #...#...#..
+   .#....#..#.
+   ..#.#...#.#
+   .#...##..#.
+   ..#.##.....
+   .#.#.#....#
+   .#........#
+   #.##...#...
+   #...##....#
+   .#..#...#.#
+   #+end_example
+
+   #+name: day3-com
+   #+begin_src python :results output :var data=test_set_day3
+     import numpy as np
+     class mountain():
+         def __init__(self, inp):
+             one_grid = inp.splitlines()
+             self.w = len(one_grid[0])
+             self.l = len(one_grid)
+             self.field = np.zeros((self.w,self.l))
+             for y, line in enumerate(one_grid):
+                 for x, cord in enumerate(line):
+                     if cord == '#':
+                         self.field[x][y] = 1
+         def check(self, pos):
+             if self.field[pos[0]][pos[1]] == 1:
+                 return False
+             return True
+         def get_finish(self):
+             return self.l, self.w
+
+
+     class skier():
+         def __init__(self, slope, motn):
+             self.slope = slope
+             self.cur_pos = np.array((0,0))
+             self.motn = motn
+             self.l, self.w = motn.get_finish()
+         def ski(self):
+             self.cur_pos += self.slope
+             self.cur_pos[0] %= self.w
+
+         def check_spot(self):
+             return self.motn.check(self.cur_pos)
+         def full_ski(self):
+             count = 0
+             while self.cur_pos[1] < self.l:
+                 if not self.check_spot():
+                     count += 1
+                 self.ski()
+             return count
+
+
+     m = mountain(data)
+     s = skier((3,1), m)
+     print(s.full_ski())
+   #+end_src
+
+   #+RESULTS: day3-com
+   : 7
+
+** day3a
+   #+name: day3a
+   #+begin_src python :results output :var data=init_day3 :noweb yes
+   <<day3-com>>
+   #+end_src
+
+   #+RESULTS: day3a
+   : 244
+
+** day3b
+   #+name: day3b
+   #+begin_src python :results output :var data=init_day3 :noweb yes
+     <<day3-com>>
+
+     ski_vals = [(1,1),(3,1),(5,1),(7,1),(1,2)]
+     score = 1
+     for val in ski_vals:
+         s = skier(val, m)
+         score *= s.full_ski()
+     print(score)
+   #+end_src
+
+   #+RESULTS: day3b
+   : 244
+   : 9406609920
+
+* day4
+** init_day4
+   #+name: init_day4
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/4/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[1c7d0252a0444e002712658dac92b23fa1b6e337]: init_day4
+   #+begin_example
+   byr:1937
+   eyr:2030 pid:154364481
+   hgt:158cm iyr:2015 ecl:brn hcl:#c0946f cid:155
+
+   cid:279
+   eyr:2029
+   pid:675014709 ecl:amb
+   byr:1985 hgt:179in hcl:z iyr:2025
+
+   iyr:2011 hgt:181cm hcl:#341e13 pid:282499883 byr:1953
+   eyr:2023
+   ecl:brn
+
+   eyr:2040 iyr:1984 pid:2371396209 byr:1951 cid:283 hgt:164cm
+   hcl:#623a2f
+
+   iyr:2014 byr:1966 hgt:153cm pid:900693718 eyr:2020 ecl:gry hcl:#866857
+
+   eyr:2020 hgt:162cm
+   byr:1939 pid:900852891 iyr:2020
+   ecl:oth hcl:#b6652a
+
+   iyr:1956
+   hcl:2385ac
+   hgt:167in
+   ecl:#9b82e8
+   eyr:2003
+   cid:214 byr:2012 pid:483285062
+
+   cid:146 byr:1938 hcl:#c0946f pid:136823471
+   hgt:180cm iyr:2011
+   eyr:2020 ecl:gry
+
+   cid:100 hgt:187cm
+   byr:1973 ecl:blu
+   iyr:2020
+   hcl:#888785 eyr:2030
+   pid:386799181
+
+   ecl:#dbba4f
+   hcl:z iyr:2028 pid:193cm
+   byr:2029
+   eyr:1962 hgt:113
+
+   cid:269 byr:1928 pid:604152679
+   iyr:2017 eyr:2027
+   hcl:#c0946f
+   hgt:189cm
+   ecl:blu
+
+   pid:653548437 hcl:z cid:166 iyr:2011 eyr:1967
+   hgt:162 ecl:xry byr:2019
+
+   byr:1979 ecl:hzl iyr:2018 hcl:#7d3b0c
+   eyr:2026
+   pid:981366150 hgt:151cm
+
+   pid:055334062 cid:272 eyr:2025 ecl:grn iyr:2016 hgt:159cm hcl:#a97842 byr:1989
+
+   eyr:2033
+   hgt:170cm ecl:brn pid:#299cf2 hcl:#602927 byr:2004 iyr:2023
+
+   iyr:2020 cid:273
+   pid:038972962
+   hcl:#c0946f hgt:152cm
+   eyr:2021 ecl:blu byr:1986
+
+   pid:015622106 hgt:154cm iyr:2012 byr:1922
+   eyr:2028 hcl:#9dc667 ecl:blu
+
+   iyr:2017 eyr:2025 hgt:179cm cid:324
+   pid:579870519 byr:1934
+
+   hcl:#6b5442 eyr:2021
+   pid:104071480 ecl:brn
+   hgt:162cm cid:89 byr:1949
+   iyr:2017
+
+   pid:388871409 cid:163 hgt:190cm ecl:amb eyr:2022 iyr:2019 byr:1963 hcl:#fffffd
+
+   cid:190 byr:1968 iyr:2018
+   hgt:155cm hcl:#6b5442 ecl:grn
+   pid:891458997 eyr:2030
+
+   hcl:z
+   cid:103 iyr:2026 hgt:171 byr:1979
+   pid:076174078
+   eyr:2031 ecl:#fc4638
+
+   hcl:#f8063e pid:684921958 ecl:gry eyr:2020 iyr:2011
+   byr:1958 hgt:189cm
+   cid:131
+
+   ecl:gry cid:90 iyr:2010 hgt:165cm
+   pid:683095019 byr:1953
+   hcl:#341e13
+   eyr:2030
+
+   pid:000303662
+   ecl:amb iyr:2014 hcl:#733820 byr:1964 hgt:184cm cid:149
+   eyr:2027
+
+   hcl:#341e13 hgt:150cm byr:1999 eyr:2022 pid:950260967 cid:72
+   ecl:grn iyr:2012
+
+   cid:159 byr:1987
+   hcl:#623a2f pid:144877169 eyr:2021 ecl:brn hgt:164cm
+
+   pid:759578668
+   cid:235 ecl:amb hgt:154cm
+   eyr:2023 byr:1941 hcl:#fffffd
+   iyr:2023
+
+   pid:18101245 hcl:z hgt:172in iyr:1947 byr:1956 ecl:grn eyr:1964
+
+   eyr:1980 pid:#8d62b1 ecl:#3e8868 cid:235
+   iyr:1978 hcl:#efcc98
+   byr:2025 hgt:181in
+
+   hgt:64cm hcl:3bc533 iyr:2019 byr:2015 pid:158cm eyr:2027 ecl:#1abbd7
+
+   eyr:2020 iyr:2011
+   pid:739854643 byr:1941 hgt:179cm hcl:#602927 ecl:gry cid:330
+
+   hcl:#a97842 iyr:2011 hgt:167cm pid:527353688 byr:1927 cid:256 eyr:2026 ecl:grn
+
+   iyr:2011 pid:350783151 hgt:168cm
+   byr:1961 ecl:amb hcl:#341e13
+   cid:181
+
+   eyr:2025 hgt:160cm
+   ecl:brn hcl:#cfa07d pid:136929481
+   iyr:2017
+
+   ecl:oth byr:1994 iyr:2020 hgt:162cm pid:578918570 eyr:2027 hcl:#fffffd
+   cid:325
+
+   hgt:63in byr:1925
+   ecl:amb iyr:2014 cid:224
+   hcl:#341e13 pid:208286938
+
+   ecl:#76434f hgt:97
+   hcl:z eyr:1968 pid:#871dc8 iyr:1955
+   byr:2007
+
+   byr:2011
+   eyr:1962 hcl:9ac7b8 pid:6836105558
+   ecl:#d7084f
+   iyr:2023 hgt:76cm
+
+   eyr:2016 iyr:2030 hgt:107 pid:948192703 byr:2013
+   hcl:b80af7 ecl:#d47439
+
+   eyr:2027 iyr:2017
+   pid:#27d2a6 byr:1921 ecl:brn hcl:#c0946f hgt:59in
+
+   byr:1982 hcl:#ceb3a1 ecl:brn eyr:2020 hgt:63in
+   iyr:2017
+
+   ecl:brn hgt:152cm byr:1962
+   iyr:2013
+   pid:381950515 hcl:#2afabd eyr:2020
+
+   hgt:158cm ecl:gry pid:252068098
+   cid:281 eyr:2023 byr:1950 iyr:2016
+   hcl:#ceb3a1
+
+   byr:1922
+   hgt:187cm cid:74
+   hcl:#a97842
+   ecl:amb
+   pid:045338811
+   eyr:2025 iyr:2019
+
+   hgt:176cm eyr:2022 iyr:2019 byr:1938 ecl:blu pid:610286298
+   hcl:#a97842
+
+   iyr:2028 byr:2025
+   eyr:2039 pid:72530856 ecl:#a819ad hgt:69 hcl:z
+
+   iyr:2018 eyr:2030
+   hcl:#8b1e1f ecl:hzl byr:1971
+   pid:189005628
+
+   pid:531154383 eyr:2020 hcl:#733820 ecl:oth
+   hgt:72in
+   iyr:2016
+   byr:1983
+
+   hgt:178cm hcl:#623a2f pid:562756202
+   eyr:2020
+   byr:1929 ecl:oth
+   iyr:2013
+
+   iyr:2013 byr:1983 pid:510998389 ecl:gry
+   cid:99 hcl:#a97842
+
+   ecl:gry eyr:2026
+   cid:202 hgt:191cm byr:1981
+   pid:414853225
+   hcl:#7d3b0c
+
+   hcl:#866857 byr:1951 eyr:2020 hgt:169cm pid:844496997
+   iyr:2016 ecl:brn
+
+   pid:083641628 iyr:2019 eyr:2030
+   byr:1938 ecl:hzl hcl:#b6652a hgt:68in
+
+   hcl:#18171d
+   byr:1981
+   pid:425911593 cid:309 eyr:2026 ecl:brn hgt:168cm
+
+   hcl:c84fda pid:#80d5e6 byr:1925 hgt:162cm iyr:2026
+   eyr:2036 ecl:#62c166
+
+   pid:461660733 eyr:2028
+   hgt:167cm ecl:hzl hcl:#cfa07d iyr:2010
+   cid:183
+
+   eyr:1930 byr:2021 iyr:2016 pid:163cm
+   hcl:79428f cid:136
+   ecl:amb
+
+   hcl:#efcc98 hgt:176cm eyr:2022 ecl:brn iyr:2013 pid:541033681 byr:1952
+
+   hgt:59cm
+   ecl:#d9b0bc pid:#3ab4b4 hcl:7aa29f
+   eyr:2034
+   byr:2011 cid:266 iyr:2004
+
+   byr:1991 hcl:#cfa07d cid:259 hgt:67cm eyr:2024 pid:631601343 ecl:brn iyr:2011
+
+   byr:2020
+   ecl:gry iyr:1944
+   pid:421649652 hgt:107
+   hcl:6d8593 eyr:2026
+
+   ecl:blu
+   byr:1953 hgt:66in hcl:#888785 eyr:2021 pid:174284708
+
+   ecl:#8f2c20
+   pid:27713962 iyr:2010 cid:149 byr:1952 hcl:#866857 eyr:2030
+   hgt:186cm
+
+   eyr:2023 byr:1989 ecl:blu
+   hcl:#18171d pid:480641 iyr:2020
+   hgt:74in
+
+   hcl:#efcc98
+   eyr:2023 hgt:157cm byr:1968
+   iyr:2013
+   ecl:amb pid:436599087
+
+   eyr:2021
+   hgt:175cm hcl:#efcc98 ecl:hzl pid:701245439
+   byr:1943 iyr:2015
+
+   hgt:164cm pid:310546869
+   eyr:2021 hcl:#b6652a ecl:oth iyr:2011 cid:181
+   byr:2001
+
+   byr:2016 hcl:94f4b9 eyr:1922 hgt:155cm ecl:hzl iyr:2009 pid:83440078
+
+   iyr:2014 hgt:60in
+   eyr:2031
+   hcl:#c0946f
+   byr:1948 ecl:grt pid:117909137
+
+   byr:1965 hgt:186cm iyr:2010 cid:117 hcl:#602927 pid:806868279
+   eyr:2029
+   ecl:grn
+
+   ecl:amb hgt:187cm hcl:#c0946f byr:1935
+   cid:139 iyr:2019 eyr:2023
+
+   pid:925865182
+   byr:1952 hgt:158cm hcl:#619e03 ecl:gry eyr:2026
+   iyr:2016
+
+   iyr:2012 hgt:73in
+   cid:199
+   byr:1959
+   ecl:hzl hcl:#fcd2f7 pid:268810283
+
+   eyr:2025
+   pid:317239854 ecl:brn byr:1955 hcl:#fffffd cid:220 hgt:175cm
+   iyr:2015
+
+   ecl:blu
+   byr:1939 hcl:#3332c0
+   iyr:2019 pid:832588457 eyr:2030 hgt:192cm
+
+   hgt:64cm cid:326 ecl:oth byr:2025 eyr:2025 hcl:z iyr:2012 pid:0394683801
+
+   ecl:amb byr:1966
+   pid:734257450 hgt:65in hcl:#fffffd iyr:2018 eyr:2025
+   cid:287
+
+   cid:249
+   eyr:2034 ecl:#7b7bf5 byr:2009 pid:171cm hcl:709fe4
+
+   hcl:d7c488 ecl:#b9bbb2
+   pid:55277333
+   cid:90 byr:2022 iyr:1978
+   hgt:69cm eyr:1981
+
+   hcl:z
+   byr:1949 pid:057966198 eyr:1941
+   iyr:2025
+
+   hgt:168cm ecl:hzl hcl:#866857 iyr:2011 pid:052204052 eyr:2030
+   byr:1970
+
+   pid:318707043 eyr:2029 ecl:hzl hcl:#888785
+   byr:1932 iyr:2010
+   hgt:166cm
+
+   hcl:z iyr:2010 ecl:oth byr:2006 cid:120 pid:#15d5ef eyr:2039 hgt:73cm
+
+   hcl:96c534 hgt:193in eyr:2036 byr:2008 ecl:#090691 cid:109 pid:603339169 iyr:2027
+
+   iyr:2029
+   ecl:utc
+   pid:5845500732 hcl:2a32b8
+   byr:2009 eyr:2040
+   cid:305 hgt:71cm
+
+   byr:1994 iyr:2015
+   eyr:2026
+   hcl:#623a2f pid:678627790
+   hgt:176cm ecl:blu
+
+   byr:2005 hcl:z
+   ecl:zzz pid:#47729a eyr:2039 hgt:62cm iyr:1983
+
+   hcl:#cfa07d ecl:blu
+   iyr:2014 eyr:2025 pid:824483836 hgt:174cm byr:1933
+
+   hgt:70in
+   iyr:2010 cid:53 eyr:2023 pid:093704222 ecl:amb hcl:#a97842 byr:1945
+
+   ecl:brn hcl:#602927 byr:1986 eyr:2029
+   pid:422160398
+   cid:134
+   hgt:156cm
+   iyr:2020
+
+   iyr:2014 hgt:187cm byr:1921 eyr:2022 ecl:amb
+
+   pid:765750572 eyr:2021
+   ecl:hzl
+   iyr:1997 hgt:66
+
+   iyr:2016
+   ecl:blu
+   cid:335
+   hgt:175cm pid:297297703 hcl:#b6652a
+   eyr:2030
+
+   hgt:64in hcl:#866857 pid:159cm byr:1972
+   cid:321 eyr:2021 ecl:brn
+   iyr:2017
+
+   pid:884038003
+   iyr:2016 hgt:188cm ecl:grn
+   byr:1928 eyr:2027 hcl:#341e13
+
+   pid:020315021 hgt:60in ecl:amb iyr:2018
+   hcl:#602927
+   eyr:2028
+   byr:1935
+
+   byr:1946 eyr:2021 hcl:#efcc98 iyr:2015
+   cid:52
+   hgt:177cm
+   pid:841348804
+
+   ecl:gry eyr:2027
+   byr:1959 pid:482204272
+   hcl:#888785
+   iyr:2013
+
+   hcl:#623a2f
+   eyr:2027 iyr:2011 hgt:189cm pid:767923916 ecl:hzl
+   byr:1987
+
+   hgt:152in hcl:#efcc98 ecl:hzl eyr:2030 byr:1971 iyr:1978 pid:499148724
+   cid:194
+
+   pid:#87513f hcl:e2a5de byr:2015 iyr:2016 hgt:155cm eyr:2024
+   ecl:gry cid:123
+
+   byr:1977
+   iyr:2028
+   hcl:#888785 pid:69801913 eyr:2026 hgt:165in ecl:brn
+
+   byr:1938 hcl:#efcc98 hgt:154cm pid:621714851 eyr:1972 ecl:gry iyr:2014 cid:161
+
+   hcl:#a97842
+   hgt:184cm ecl:oth pid:009682326
+   cid:233 eyr:2023 iyr:2019 byr:1982
+
+   hcl:#ceb3a1 pid:700761574 eyr:2020 byr:1940 iyr:2017
+   ecl:gry hgt:76in
+
+   iyr:2017 cid:73
+   ecl:hzl
+   hcl:#efcc98 pid:363441284
+   hgt:177cm byr:1924 eyr:2028
+
+   hcl:#a97842 eyr:2023 byr:1989 pid:589573553
+   ecl:oth
+   iyr:2017 hgt:162cm
+
+   ecl:oth
+   byr:2001 hgt:167cm hcl:#18171d eyr:2028 iyr:2015 pid:253666913
+
+   byr:1943 ecl:amb
+   hcl:#888785 pid:163cm iyr:2025 hgt:76 eyr:2026
+
+   byr:1963 eyr:2030
+   hgt:158in iyr:2023 pid:399153486 hcl:#733820
+
+   pid:43290252 hgt:167cm cid:302 iyr:2016 hcl:f81436
+   byr:1992 ecl:gry
+   eyr:1922
+
+   pid:487300118 hgt:167cm hcl:#888785
+   iyr:2018 ecl:oth cid:286 byr:1971 eyr:2021
+
+   eyr:2036
+   hgt:94
+   byr:2013
+   cid:162 hcl:37408d pid:527721797 ecl:dne
+   iyr:2022
+
+   hcl:5e67df byr:1973 pid:48217944 hgt:65in eyr:2023
+   iyr:2001 ecl:gry
+
+   hcl:717ef8 eyr:1996 pid:154cm ecl:#e2c90e
+   iyr:2028
+   byr:2009 hgt:184cm
+
+   iyr:2015 pid:549968053 hcl:#efcc98
+   hgt:151cm eyr:2025
+   byr:1993
+   ecl:gry
+
+   hgt:165cm ecl:gry
+   iyr:2020
+   byr:1927 hcl:#602927 pid:278946330
+   eyr:2027
+
+   eyr:2031
+   ecl:#b01aae pid:151cm
+   cid:188 iyr:2025
+   hgt:60cm byr:2015
+
+   eyr:2028 pid:928740840
+   byr:1931
+   hgt:191cm iyr:2014 cid:305
+   hcl:#6b5442
+   ecl:oth
+
+   hcl:#7d3b0c cid:283 byr:1923 ecl:amb
+   pid:781290431 iyr:2019
+   eyr:2021
+   hgt:191cm
+
+   byr:2027
+   pid:51702036
+   iyr:2028 hgt:165in ecl:gry hcl:z
+   eyr:2036
+
+   byr:1971
+   ecl:blu iyr:2012 pid:986042111
+   eyr:2021 hcl:#888785
+   hgt:68in
+
+   hgt:183cm byr:2030
+   iyr:2013
+   cid:209 pid:989002507
+   ecl:hzl eyr:2028 hcl:59c2ce
+
+   ecl:gry iyr:2020 pid:895856989 hcl:#888785
+   hgt:185cm byr:1964 eyr:2025
+
+   ecl:gry
+   hgt:183cm cid:97 hcl:#93be9b eyr:2021
+   byr:1995 pid:668647173
+
+   hcl:#733820 eyr:2027
+   byr:1977 pid:242773849 hgt:184cm iyr:2017
+   cid:76 ecl:brn
+
+   hgt:167 hcl:z byr:2012 eyr:2027
+   pid:590438786 ecl:hzl
+   cid:101 iyr:1994
+
+   iyr:2015
+   hcl:#888785 eyr:2024
+   ecl:blu pid:279218875 cid:178 byr:1944 hgt:74in
+
+   ecl:oth cid:334 pid:169599381
+   hcl:#7d3b0c eyr:2028 hgt:172cm iyr:2010
+
+   eyr:2033 byr:1973 cid:333 iyr:2019 hcl:z ecl:utc
+   hgt:178cm pid:#e7abc0
+
+   eyr:2026 ecl:blu cid:264 byr:1998 hgt:177cm hcl:#602927
+   pid:770052780
+   iyr:2019
+
+   ecl:blu
+   iyr:2016 cid:232 eyr:2023
+   pid:643597545 hgt:167cm byr:1986 hcl:#cfa07d
+
+   pid:017818204
+   iyr:2017 eyr:2028 hgt:168cm hcl:#602927 byr:1931 ecl:oth
+
+   byr:1984 ecl:grn hgt:191cm hcl:#efcc98 pid:408382086
+   iyr:2010 eyr:2025
+
+   hgt:158cm ecl:#25e195 byr:1929 pid:0367744553 eyr:1957 iyr:2017
+   hcl:z
+
+   hgt:168cm byr:1977 pid:006609828
+   eyr:2024
+   iyr:2015
+   ecl:amb hcl:#b6652a
+
+   pid:635167847 iyr:2010 hcl:#18171d hgt:163cm ecl:grn
+   eyr:2026
+
+   pid:423029177 byr:1995
+   iyr:2014 ecl:hzl
+   hgt:185cm hcl:#c0946f eyr:2024 cid:230
+
+   pid:#3e3109 ecl:#a8a0aa iyr:2020 hcl:#733820 eyr:2021 byr:2010 hgt:179in
+
+   iyr:2017 byr:1938 eyr:2022 hcl:#733820 ecl:amb hgt:157cm pid:162425330
+
+   hgt:160cm
+   cid:339 byr:1938
+   hcl:#341e13
+   eyr:2025 iyr:2015
+   pid:562755634
+
+   cid:283 byr:1954 ecl:blu hcl:#ceb3a1 hgt:169cm iyr:2013 pid:616439723
+
+   pid:830940520 eyr:2022
+   byr:1981 hgt:193cm hcl:#18171d iyr:2013
+   cid:117
+
+   hcl:#866857 iyr:2019 ecl:hzl byr:1962 hgt:72in eyr:2020
+
+   byr:2015 pid:4530685490 ecl:#c7604e hcl:z
+   hgt:151 eyr:1972 iyr:1948
+
+   pid:0800674852 hcl:z
+   ecl:#2a275e hgt:61cm
+   iyr:1950 eyr:1938
+
+   iyr:2028
+   eyr:1998
+   pid:#c604ca
+   hgt:122 hcl:z
+   ecl:dne cid:160 byr:2018
+
+   hcl:z
+   cid:67 iyr:2029
+   byr:1973
+   ecl:amb eyr:2030
+   hgt:66
+
+   ecl:hzl
+   pid:483557353 eyr:2021
+   hgt:172cm iyr:2011
+   hcl:#888785
+   byr:1963
+
+   eyr:2030 ecl:brn hcl:#fffffd byr:1969
+   hgt:161cm pid:632930895
+   iyr:2017
+
+   iyr:2015 byr:2000
+   pid:525557240 hgt:156cm eyr:2029
+   ecl:brn hcl:#64bf85
+
+   byr:2007
+   iyr:2012 eyr:2029 ecl:#7c1d6f pid:612320497 hgt:165in
+
+   eyr:2026 ecl:grn cid:93
+   hcl:#888785 hgt:134 pid:745552484 iyr:2019 byr:1999
+
+   byr:2001 pid:984678649 hgt:173cm ecl:oth iyr:2012 cid:345 hcl:#fffffd
+   eyr:2028
+
+   hcl:#341e13 pid:308853935
+   byr:1972 hgt:160cm iyr:2012 eyr:2026
+   ecl:amb cid:97
+
+   hcl:z hgt:151
+   ecl:grn pid:132866718
+   iyr:2021 byr:1932
+   eyr:2024
+
+   eyr:2027 byr:1923
+   ecl:oth hgt:174cm hcl:#733820
+   pid:099185839
+   iyr:2017
+
+   iyr:2017 ecl:gry byr:1941
+   hgt:74in
+   pid:540930352
+   hcl:#888785 eyr:2023
+
+   hgt:161cm cid:277
+   hcl:#866857
+   byr:1928
+   eyr:2030 ecl:blu
+   iyr:2020 pid:358953579
+
+   hgt:155cm eyr:1930
+   iyr:2015 ecl:utc
+   pid:163cm
+   byr:2008 hcl:#733820 cid:156
+
+   byr:1946 hgt:164cm
+   cid:234 iyr:2015
+   pid:168804387 eyr:2025
+   ecl:hzl hcl:#a97842
+
+   hgt:184cm
+   hcl:#7d3b0c byr:1996 cid:193 iyr:2011 ecl:amb eyr:2030 pid:940497049
+
+   hcl:#733820 iyr:2016 hgt:168
+   eyr:2020
+   cid:118 pid:9871436 ecl:gry
+
+   pid:416683862
+   hgt:162in
+   hcl:#602927 byr:2027
+   eyr:2027 ecl:gmt
+
+   ecl:#771e11
+   iyr:2024
+   cid:81 pid:741843390
+   hcl:#866857 byr:2012 eyr:1964
+   hgt:157in
+
+   pid:720946735
+   byr:2002 hcl:#18171d iyr:2026 hgt:70cm
+   ecl:brn eyr:2025
+
+   byr:1987 hcl:#623a2f
+   hgt:165cm pid:087526326 ecl:grn
+   iyr:2017 eyr:2021
+
+   byr:2014 hgt:193cm
+   iyr:2018 hcl:z
+   eyr:2027 pid:792398819
+
+   cid:233
+   hcl:z ecl:#18002d hgt:174cm iyr:2027 eyr:1944
+
+   pid:142615460 ecl:blu eyr:2021
+   hcl:#c88693 iyr:2017 cid:182 hgt:152cm byr:1966
+
+   hcl:z hgt:65cm
+   eyr:1944 ecl:dne byr:2029 pid:1066768764
+   iyr:2015
+   cid:149
+
+   hcl:z pid:25144284 hgt:152in
+   byr:2009
+   cid:276 eyr:2037
+   iyr:2010 ecl:gmt
+
+   cid:88 hcl:ed6b8a ecl:xry hgt:178in pid:36832491 byr:2020 iyr:2012 eyr:1993
+
+   byr:1972 iyr:2009 pid:324213657 hgt:160 hcl:z cid:259 eyr:2021 ecl:grn
+
+   hcl:#7d3b0c pid:164496070 eyr:2024 ecl:brn hgt:165cm
+
+   pid:955035528
+   byr:1967 eyr:2021 iyr:2015 hcl:#fffffd hgt:156cm
+   cid:237
+   ecl:blu
+
+   hcl:z
+   eyr:2038 iyr:1973 ecl:grt hgt:193in
+   pid:41385449 byr:2011
+   cid:119
+
+   byr:1934 pid:713339056 hgt:157cm cid:250 iyr:2016 ecl:blu hcl:#866857 eyr:2026
+
+   hgt:186cm byr:2012
+   eyr:2022
+   iyr:2013 hcl:#733820 pid:226693031 ecl:hzl
+
+   cid:118 pid:56750275 hcl:#cfa07d iyr:2028 eyr:2033 byr:1933 hgt:166cm
+
+   byr:1973
+   ecl:hzl hgt:167 hcl:z
+   iyr:2015 pid:70648423
+
+   byr:1929
+   iyr:2012 pid:083005744 ecl:brn hgt:162cm
+   eyr:2024
+   hcl:#cfa07d
+
+   hcl:#623a2f hgt:174cm
+   eyr:2026 iyr:2020
+   ecl:grn
+   byr:1981
+
+   cid:236 byr:1979 iyr:2013 ecl:amb eyr:2030 hcl:#6b5442 pid:768869830
+
+   hcl:#341e13 byr:1998 iyr:2020
+   pid:857980686
+   ecl:hzl hgt:175cm eyr:2028
+
+   hgt:169in
+   cid:305 eyr:2023
+   ecl:gry pid:833031763 hcl:#ceb3a1 iyr:2015 byr:1974
+
+   pid:370671195 hgt:162cm
+   iyr:2018 ecl:oth byr:2001 hcl:#7d3b0c
+   eyr:2021
+
+   eyr:2026
+   ecl:brn
+   cid:288
+   hcl:#866857 iyr:2010 byr:1922
+   pid:309109383
+
+   byr:1949 iyr:2015 pid:832774982 eyr:2029
+   hgt:182cm
+   hcl:#b7144c ecl:amb
+
+   eyr:2029 iyr:2020
+   hcl:#c0946f
+   pid:953788134
+   byr:1954 hgt:167cm
+
+   pid:981508704 eyr:2023 iyr:2013 hgt:66in cid:68 hcl:#fffffd byr:1996 ecl:oth
+
+   iyr:2011 byr:1932 cid:232 eyr:2030
+   hcl:#c0946f
+   hgt:169cm pid:994763987
+   ecl:hzl
+
+   ecl:gmt eyr:2031 hcl:z
+   byr:2006 cid:86 hgt:59cm iyr:1998 pid:#349a7f
+
+   hcl:#7d3b0c iyr:2013 pid:549500594 eyr:2024 byr:1971 ecl:oth
+   hgt:153cm
+
+   iyr:2015
+   byr:1940 pid:798926275 eyr:2027
+   hcl:#cfa07d
+   hgt:158cm ecl:amb
+
+   ecl:brn pid:077141823
+   eyr:1945 iyr:2023 hcl:#602927 byr:1956
+   hgt:152
+
+   iyr:2022
+   byr:2007
+   hcl:f87f81 pid:8404831740 eyr:2033 hgt:170cm
+   ecl:gmt
+
+   iyr:1958
+   ecl:dne hcl:840fbe
+   cid:55 eyr:2032 pid:19403738 hgt:170cm
+   byr:2029
+
+   ecl:brn pid:864743117
+   eyr:2025
+   hgt:188cm byr:1934 hcl:#623a2f
+   iyr:2011
+
+   iyr:2010 pid:877675472 hcl:#7d3b0c eyr:2027 byr:1954 hgt:182cm
+   ecl:oth
+
+   iyr:2015 hcl:#a97842 pid:719192774 ecl:brn
+   byr:1993
+   hgt:186cm
+
+   eyr:2021 hgt:176cm pid:395161956 hcl:#602927
+   ecl:grn iyr:2020 byr:1972
+
+   hcl:#fffffd hgt:167cm byr:1945 ecl:grn iyr:2017 eyr:2026
+
+   hcl:#6b5442 ecl:gry cid:208 hgt:155cm iyr:2010 byr:1933 pid:040244553
+   eyr:2029
+
+   iyr:1960 cid:281 ecl:#8f7c45 hcl:z pid:11609858 eyr:1955 hgt:150in
+   byr:1985
+
+   hgt:150cm byr:2002 hcl:#fffffd
+   pid:337375886 iyr:2011 ecl:amb
+   eyr:2037
+
+   iyr:2014 ecl:oth hgt:155cm hcl:#866857 eyr:2025 pid:614859979 cid:338
+   byr:1952
+
+   hcl:#623a2f hgt:156cm
+   iyr:2010 ecl:amb byr:1997
+   cid:285
+   pid:225568504 eyr:2020
+
+   iyr:2021 hcl:#ceb3a1 ecl:#d6db5a pid:185cm eyr:2020 cid:130 byr:2009
+
+   byr:1956
+   cid:245 iyr:1954 ecl:dne hcl:#341e13 eyr:2040 hgt:71cm pid:838134394
+
+   eyr:2027
+   byr:1994 ecl:amb iyr:2014 hgt:168cm
+   cid:278
+   hcl:#602927 pid:758176176
+
+   hcl:#941519 ecl:gry eyr:2030 byr:1921
+   pid:9477831046
+   iyr:2018 hgt:189cm
+
+   cid:339 hcl:#6b5442
+   byr:1972
+   ecl:oth
+   iyr:2014 hgt:183cm eyr:2020
+
+   cid:165
+   eyr:1926 hcl:#6b5442 iyr:1956 hgt:65cm byr:2029
+   pid:9240052093 ecl:xry
+
+   ecl:grn
+   eyr:2027
+   hcl:#fffffd byr:1975 iyr:2011 hgt:177cm pid:825090410 cid:121
+
+   byr:1934
+   hcl:#733820 pid:133141914 eyr:2027
+   hgt:66in
+   ecl:amb
+   iyr:2010 cid:262
+
+   iyr:1951
+   ecl:#bb9733 hcl:89fcbf
+   byr:2018 pid:#13265f hgt:85
+   eyr:1977
+
+   hcl:#324bed ecl:hzl hgt:155cm
+   iyr:2013 byr:1942 eyr:2021
+   pid:758516520
+
+   ecl:gry
+   pid:#567782 iyr:2015 hcl:276a6d eyr:2028
+   hgt:60cm
+   byr:2005
+
+   hcl:#18171d hgt:191cm eyr:2030
+   ecl:grn pid:748729106 byr:1922 iyr:2017
+
+   byr:1984 hcl:#733820 eyr:2020 iyr:2013 hgt:64in pid:444446114
+   ecl:hzl
+
+   byr:2006 ecl:dne iyr:2029 hcl:z
+   eyr:2023 hgt:68cm
+   pid:131910019
+
+   iyr:1976 hcl:45191a eyr:2017 hgt:68cm
+   ecl:oth pid:153cm byr:1968
+
+   ecl:gry byr:1959 eyr:2023 pid:781945569
+   iyr:2015 hcl:#ceb3a1 hgt:167cm
+
+   hgt:151cm
+   byr:1959 hcl:#7d3b0c
+   cid:76 pid:069205247 ecl:gry eyr:2029
+   iyr:2013
+
+   pid:055193304
+   hcl:#fffffd
+   hgt:67in ecl:grn iyr:2011
+
+   eyr:2026
+   byr:1975
+   pid:681437369
+   hgt:173cm hcl:#a97842
+   iyr:2017 ecl:brn
+
+   pid:298214774 hgt:158cm ecl:hzl
+   hcl:#866857 byr:1993 iyr:2013
+   eyr:2028
+
+   hcl:#b6652a eyr:2023 pid:879418046 hgt:193cm
+   iyr:2014
+   ecl:brn
+
+   hgt:164cm
+   eyr:2028 hcl:fbd462 ecl:gry
+   iyr:2011 byr:1938 pid:029003659
+
+   byr:1999 hgt:171cm eyr:2024 cid:195 pid:041799326 ecl:gry iyr:2012 hcl:#a97842
+
+   byr:1963 pid:7471206322 iyr:2015 ecl:brn hcl:#623a2f hgt:72cm
+   cid:63
+
+   byr:1961
+   ecl:hzl hcl:#efcc98
+   pid:617022365
+   eyr:2020 hgt:155cm iyr:2018
+
+   pid:385763432 byr:1977 cid:228 hcl:#733820 eyr:2020
+   hgt:163cm ecl:grt
+   iyr:2015
+
+   byr:1979 hgt:186in eyr:2037
+   ecl:dne
+   iyr:2025 hcl:d93e3e
+   pid:187cm
+
+   iyr:2018
+   cid:158 eyr:2020
+   byr:1929
+   pid:334374178 hgt:181cm hcl:z ecl:grn
+
+   cid:135 ecl:oth hcl:#623a2f
+   iyr:2017
+   eyr:2024 byr:1940
+   hgt:66in
+
+   cid:92 eyr:2026 hcl:#888785 pid:827526879 byr:1990
+   hgt:186cm ecl:amb iyr:2014
+
+   pid:575519103
+   iyr:2016 byr:1964 hcl:#7d3b0c cid:252 hgt:172cm
+
+   hcl:#c0946f
+   ecl:grn hgt:75in
+   eyr:2021 pid:426544544
+
+   cid:171 byr:2004
+   hcl:z
+   hgt:191cm eyr:2028 pid:#292b3b ecl:brn
+
+   iyr:2016 ecl:hzl
+   byr:2007
+   hgt:167cm hcl:#653b4c cid:124 eyr:2022
+   pid:#27024c
+
+   hgt:177cm byr:2025
+   hcl:z cid:303 iyr:2016 eyr:2000 ecl:dne
+   pid:345555418
+
+   eyr:2040
+   hcl:70fbf6 cid:318
+   byr:2027 iyr:2022
+   ecl:#3a037c pid:644624005
+   hgt:62cm
+
+   ecl:brn iyr:2016 hgt:150cm pid:680594195 cid:324 hcl:#602927
+   byr:1944
+
+   hcl:z eyr:2022 byr:2020 cid:112 ecl:dne iyr:2029
+   pid:#3a3560 hgt:153in
+
+   cid:86
+   ecl:gry byr:1972 hcl:#866857 pid:758976621 hgt:188cm
+
+   pid:#850e8b eyr:2025 hgt:163in
+   ecl:#71e9e2
+   hcl:#623a2f
+
+   ecl:amb byr:1958 hgt:193cm
+   pid:343803154 iyr:2010 eyr:2029 cid:86 hcl:#602927
+
+   hgt:178cm byr:1987 ecl:blu hcl:#866857 iyr:2017
+   pid:222443921 eyr:2027
+
+   byr:1964 iyr:2001
+   hgt:180cm eyr:1945
+   hcl:#fffffd pid:305189916 ecl:#ac3c49
+   cid:142
+
+   byr:1979 hgt:166cm ecl:brn
+   cid:202 hcl:#5311ca eyr:2028 pid:874418818 iyr:2014
+
+   hgt:161cm byr:1987 ecl:grn hcl:#6b5442 pid:986096798
+   cid:74
+   eyr:2027 iyr:2019
+
+   byr:1964 iyr:1979 eyr:2022 ecl:#77ada3
+   hcl:#733820
+   cid:56
+
+   hgt:185cm iyr:2010 pid:214991920 eyr:2023 cid:236 hcl:#866857 ecl:brn byr:1965
+
+   pid:885169578 iyr:2010 byr:1948 ecl:hzl hcl:#18171d
+   eyr:2025 hgt:175cm
+
+   ecl:oth pid:34655368
+   hgt:186
+   byr:1968
+   hcl:2653c9
+   eyr:2030 iyr:2024
+
+   eyr:2022 iyr:2015 ecl:gry hgt:65in byr:1994
+   pid:766704860
+
+   hcl:#c0946f cid:104 iyr:2015
+   pid:739274357
+   ecl:#ef45c8
+   byr:1960 hgt:61in eyr:2026
+
+   pid:849044092 eyr:2020 hgt:186cm iyr:2014
+   byr:1991 hcl:#866857
+
+   hgt:159cm iyr:1950
+   eyr:2021 pid:325442644 hcl:#888785
+   ecl:gry byr:1986
+
+   eyr:2023 hgt:188cm
+   iyr:2014
+   pid:945115479 byr:1979 ecl:blu hcl:#b6652a
+
+   eyr:2024
+   cid:274 pid:390115952 byr:1934 hgt:161cm iyr:2017 hcl:#b95b0d
+
+   ecl:#a16ec8 pid:187cm hcl:z iyr:2029 hgt:170
+   byr:2008
+   #+end_example
+
+** day4-common (test)
+   #+name: test_set_day4
+   #+begin_src python :results value :cache yes
+   #
+   data="""ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+byr:1937 iyr:2017 cid:147 hgt:183cm
+
+iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+hcl:#cfa07d byr:1929
+
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:brn pid:760753108 byr:1931
+hgt:179cm
+
+hcl:#cfa07d eyr:2025 pid:166559648
+iyr:2011 ecl:brn hgt:59in
+
+eyr:1972 cid:100
+hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+
+iyr:2019
+hcl:#602927 eyr:1967 hgt:170cm
+ecl:grn pid:012533040 byr:1946
+
+hcl:dab227 iyr:2012
+ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
+
+hgt:59cm ecl:zzz
+eyr:2038 hcl:74454a iyr:2023
+pid:3556412378 byr:2007
+
+pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+hcl:#623a2f
+
+eyr:2029 ecl:blu cid:129 byr:1989
+iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm
+
+hcl:#888785
+hgt:164cm byr:2001 iyr:2015 cid:88
+pid:545766238 ecl:hzl
+eyr:2022
+
+iyr:2010 hgt:158cm hcl:#b665ya ecl:blu byr:1944 eyr:2021 pid:093154719"""
+   return data
+   #+end_src
+
+   #+RESULTS[8b7429697901054da30309434f9b2ca22cc361af]: test_set_day4
+   #+begin_example
+   ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+   byr:1937 iyr:2017 cid:147 hgt:183cm
+
+   iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+   hcl:#cfa07d byr:1929
+
+   hcl:#ae17e1 iyr:2013
+   eyr:2024
+   ecl:brn pid:760753108 byr:1931
+   hgt:179cm
+
+   hcl:#cfa07d eyr:2025 pid:166559648
+   iyr:2011 ecl:brn hgt:59in
+
+   eyr:1972 cid:100
+   hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+
+   iyr:2019
+   hcl:#602927 eyr:1967 hgt:170cm
+   ecl:grn pid:012533040 byr:1946
+
+   hcl:dab227 iyr:2012
+   ecl:brn hgt:182cm pid:021572410 eyr:2020 byr:1992 cid:277
+
+   hgt:59cm ecl:zzz
+   eyr:2038 hcl:74454a iyr:2023
+   pid:3556412378 byr:2007
+
+   pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
+   hcl:#623a2f
+
+   eyr:2029 ecl:blu cid:129 byr:1989
+   iyr:2014 pid:896056539 hcl:#a97842 hgt:165cm
+
+   hcl:#888785
+   hgt:164cm byr:2001 iyr:2015 cid:88
+   pid:545766238 ecl:hzl
+   eyr:2022
+
+   iyr:2010 hgt:158cm hcl:#b665ya ecl:blu byr:1944 eyr:2021 pid:093154719
+   #+end_example
+
+   #+name: day4-com
+   #+begin_src python :results output :var data=test_set_day4
+     import string
+     class passport():
+         def __init__(self):
+             self.pdict = dict()
+         def add(self, key, val):
+             self.pdict[key] = val
+         def check_field(self, key):
+             v_dict = {
+                 "byr" : {"len": 4, },
+                 "iyr" : {"len": 4, },
+                 "eyr" : {"len": 4, },
+                 "hcl" : {"len": 7, },
+                 "hgt" : { "", },
+                 "ecl" : {"len": 3, },
+                 "pid" : {"len": 9, }
+                 }
+         def check_fields(self):
+             reqs = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+             for r in reqs:
+                 if r not in self.pdict:
+                     return False
+             # check number lengths
+             if len(self.pdict["byr"]) != 4 or len(self.pdict["iyr"]) != 4 \
+                or len(self.pdict["eyr"]) != 4:
+                return False
+             if len(self.pdict["pid"]) != 9 or len(self.pdict["hcl"]) != 7:
+                 return False
+
+             # seems to work
+             # birth year betwen 1920 and 2002
+             byr = int(self.pdict["byr"])
+             if byr < 1920 or byr > 2002:
+                 return False
+
+             # Issue year between 2010 and 2020
+             iyr = int(self.pdict["iyr"])
+             if iyr < 2010 or iyr > 2020:
+                 return False
+
+             # expire year between 2020 and 2030
+             eyr = int(self.pdict["eyr"])
+             if eyr < 2020 or eyr > 2030:
+                 return False
+
+             # height in cm or in
+             # cm: between 150 and 193
+             # in: between 59 and 76
+             hgt = self.pdict["hgt"]
+             # works
+             if hgt[-2:] not in ["in", "cm"]:
+                 return False
+             hgtn = hgt[:-2]
+             if not hgtn.isnumeric():
+                 print("height non numeric")
+                 return False
+             hgtn = int(hgtn)
+             # hgt in inches works
+             if hgt[-2:] == 'in':
+                 if hgtn < 59 or hgtn > 76:
+                     return False
+             if hgt[-2] == 'cm':
+                 if hgtn < 150 or hgtn > 193:
+                     print("height cm oob")
+                     return False
+
+             # hair color, start with # 6 hex digits
+             hcl = self.pdict['hcl']
+             if hcl[0] != '#':
+                 print("no #")
+                 return False
+             for c in hcl[1:]:
+                 if c not in string.hexdigits:
+                     print("hcl non hex")
+                     return False
+
+             # Appears to Work Correctly
+             # eye color, must be in amb, blu, brn, gry, grn, hzl, oth
+             veyes = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+             if self.pdict["ecl"] not in veyes:
+                 return False
+
+
+             # pid 9 digit number, can have leading zeros
+             if not self.pdict["pid"].isdigit():
+                 print("pid bad")
+                 return False
+
+             print(self.pdict["pid"])
+             return True
+
+     class bfile():
+         def __init__(self, b):
+             ii = 0
+             self.ps = [passport()]
+             for line in b.splitlines():
+                 if line == '':
+                     ii += 1
+                     self.ps.append(passport())
+                     continue
+                 for pair in line.split():
+                     key, val = pair.split(":")
+                     self.ps[ii].add(key, val)
+         def check_valid(self):
+             count = 0
+             for p in self.ps:
+                 if p.check_fields():
+                     count += 1
+             return count
+
+     b = bfile(data)
+     print(b.check_valid())
+
+
+   #+end_src
+
+   #+RESULTS: day4-com
+   : bad eyr
+   : hcl non hex
+   : 5
+
+** day4a
+   #+name: day4a
+   #+begin_src python :results output :var data=init_day4 :noweb yes
+   <<day4-com>>
+   #+end_src
+
+   #+RESULTS: day4a
+   #+begin_example
+   154364481
+   282499883
+   900693718
+   900852891
+   136823471
+   386799181
+   604152679
+   981366150
+   055334062
+   038972962
+   015622106
+   104071480
+   388871409
+   891458997
+   684921958
+   683095019
+   000303662
+   950260967
+   739854643
+   527353688
+   578918570
+   381950515
+   252068098
+   045338811
+   610286298
+   531154383
+   562756202
+   844496997
+   083641628
+   541033681
+   631601343
+   436599087
+   701245439
+   310546869
+   806868279
+   925865182
+   317239854
+   832588457
+   734257450
+   052204052
+   318707043
+   678627790
+   824483836
+   093704222
+   422160398
+   884038003
+   020315021
+   767923916
+   009682326
+   700761574
+   363441284
+   589573553
+   253666913
+   487300118
+   549968053
+   278946330
+   928740840
+   781290431
+   986042111
+   895856989
+   242773849
+   279218875
+   770052780
+   643597545
+   017818204
+   408382086
+   006609828
+   423029177
+   162425330
+   483557353
+   632930895
+   525557240
+   984678649
+   308853935
+   099185839
+   540930352
+   358953579
+   168804387
+   940497049
+   087526326
+   142615460
+   955035528
+   713339056
+   083005744
+   857980686
+   370671195
+   832774982
+   981508704
+   994763987
+   549500594
+   798926275
+   864743117
+   877675472
+   395161956
+   040244553
+   614859979
+   225568504
+   758176176
+   825090410
+   133141914
+   758516520
+   748729106
+   444446114
+   781945569
+   069205247
+   681437369
+   298214774
+   041799326
+   617022365
+   827526879
+   343803154
+   222443921
+   874418818
+   986096798
+   214991920
+   885169578
+   945115479
+   117
+   #+end_example
+   
+** day4b
+   #+name: day4b
+   #+begin_src python :results output :var data=init_day4 :noweb yes
+   <<day4-com>>
+   #+end_src
+* day5 
+** init_day5
+   #+name: init_day5
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/5/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[797b09ea3d7673442c63d27650382699d0185bd2]: init_day5
+   #+begin_example
+   FFBBFFBRRR
+   FBFBBBBLRR
+   BFBBBBBLRR
+   FBBFFFBLLR
+   FFBBFBBLLR
+   FBFFFBBLRL
+   FBFFFFBRRL
+   FBBBBBFLLR
+   BFFFBBFLRR
+   FFBBFBFRLL
+   BFFFBFBLRL
+   BFBBBFBLLL
+   FFFBFBBLLR
+   FFBBBFBRLR
+   FFFBBBBLRR
+   BFFFFBFRRL
+   FBFFBBBRLR
+   BFFFFBFRLR
+   BFBFBFBRLR
+   FFBFBFFLLR
+   BBFBBFFRLL
+   BFFBBFFRRR
+   BBFBBFFRLR
+   FFBBBBFLRR
+   FFFFBBBLLR
+   FBBBBBBRRR
+   FBFFFBBRLL
+   FFBFBFFLLL
+   FFFBBFFRRL
+   BBFFBBFLRL
+   BFFFBBBLRR
+   FFBFFBFLLR
+   FFBFBFBRRR
+   FBBFBBFRLL
+   FFFBBFFLLR
+   FBFFBFBLLR
+   FBFFBBFLRL
+   BBFFFFFLRL
+   FBBBFFFLRR
+   BBFFBBBLRR
+   BFFFFFFRLL
+   BFFBFFFLRL
+   FFBFBBBLRR
+   BFBBBBBLRL
+   FFBBBFFRRR
+   BFBBFBBLLL
+   FFFBFBBLRL
+   BFFFFBBLLL
+   BBFFFBFRRL
+   BFFBFBBLRR
+   BFBFFFBLLL
+   FBFBBFBLRR
+   BBFFBBFRLR
+   FFBFFFBLLL
+   FBBBFBBRLL
+   FBFBFFBRLL
+   BBFBFFBLRR
+   BBFFBFBRLR
+   BBFFFFFRRR
+   FFFFBBFLRL
+   FFFBFFFRRL
+   BFFFBBFLRL
+   FFFBBBBRRR
+   FBBBBFBRRR
+   FBFBBBFLLR
+   BFBBBFFRRL
+   FFBFBFFLRL
+   FBBBFBFLLR
+   BFFBBFFRLL
+   BFBFFBFRRL
+   FBFFBFFLRR
+   FFBFFFFLLL
+   FFBBBBBRLR
+   FBBFBFBRRL
+   FFBFBBFRRL
+   FBFFFFFLLL
+   BFFBBBBRLR
+   FFBFBFBLLL
+   FBBFFBFLRR
+   FBBBFFFLLR
+   BFFFFFFLRL
+   FFFBBBFLRR
+   BBFFFBBLRR
+   FBFBFBBLRR
+   BFBFBFFRLL
+   FFBBFFBLLL
+   BBFFBFFLLL
+   FFBFFBBRLL
+   BFBBFFBLLR
+   BFFBBFBLLL
+   FFFBBBFRRL
+   FFBFFBBRRL
+   FFFBFBFLRL
+   FBFFBBBLRL
+   BFBBBBFLRR
+   BFFFBFBRLR
+   BFFBBBBLLL
+   FFBBBBFRLR
+   FFFBFFFLRR
+   BBFFBFFRLL
+   FBBFBBFRLR
+   FBFFBBBLRR
+   FBFBFFFLRR
+   BBFBFFBRLR
+   FBFFBFBRLR
+   FBBBBBFRLR
+   FBBBBFBLRL
+   FBBFBBBLLR
+   BBFFFFBLLR
+   FFFBFFBLRL
+   BFBBFBFLLR
+   FBFBBBBRRR
+   FBBFFBBRRR
+   FBFBFBBRLL
+   BFFFFBFLRL
+   FBBBFBBLLL
+   FBBFBFFRRL
+   BFFBBBBLRL
+   BBFFBFFRRL
+   BFFBBFFLLL
+   BFBBBFFRLL
+   FFFBBBFLRL
+   FFBFFBFRLR
+   BFFBBBFRRR
+   FBFBFBBLLL
+   BBFBFFBRRR
+   FFFBFBFLLR
+   FFBBFFFRLL
+   BFFFBFBRRL
+   BFFFBFBRLL
+   BFBFFBBRLR
+   BFFBFBBLRL
+   BFBFFFFRLL
+   FBFFBFFRRL
+   BBFFFBFLLR
+   FBBFBFBRLR
+   BFBFBBBLLL
+   BFBFBBBLRL
+   BBFFBBBLLL
+   BBFBFBFLRL
+   BFBFBBFRLR
+   FBFBBFBRRR
+   FBBBFBBLRL
+   FFFBBBFRRR
+   FBFFFBFRRR
+   BFBBBBFRLR
+   FFFBFBFRLL
+   BFFBFFBRRL
+   FBBFBBFLLL
+   BBFBFBBRLR
+   FFFBBFBLLL
+   FBFBBBFLRR
+   BFBBBBFLLL
+   BBFBFFBLRL
+   BFBFFBFRLR
+   FBFFBBBRLL
+   BFFFFBBLRR
+   BFFFFFFRRR
+   BBFFBBBRRR
+   BBFBFBFLLR
+   BFFBFFFRRR
+   FBBBFFFLLL
+   BFFBFFFLLL
+   FFBFBBFLRR
+   FFBBFFFLRR
+   BFFBBFFLLR
+   FFBBBBFRLL
+   BFFBBBFRRL
+   FBBFFFFLRR
+   FBBFFFBLRL
+   BFFBBBFLLR
+   FFBFBFFRRL
+   BFBBFFBRRL
+   BFFFFFFLLL
+   FFFBBFFLLL
+   FBBBFBFLRR
+   FBBFFBFLRL
+   BFBBFFBRLR
+   BBFBFBFLRR
+   FFBBBBFRRR
+   BBFFBBBLLR
+   FFBBBFFLRR
+   BBFFFBBRRL
+   BBFBFFFLRR
+   BFBFBBFRRR
+   BFFFFBBRLR
+   FFFBFFBLLL
+   FBFBFBBRRR
+   FFBFBBBRRL
+   BFBFBFFRRL
+   FBBBBFBLRR
+   BFFFFFBRRR
+   FBBBFFBRLR
+   BFBFFBBLLL
+   FFBBFFFRLR
+   FBFBBFBRRL
+   FFFBFBBRRL
+   BFBFFFBRRR
+   FBFBFFFRRR
+   BFBFFFBLRR
+   BFBBFBFRRL
+   FFFBBBFRLR
+   FFFBBFBLRL
+   FBBBFFBLLR
+   BFFFBFBLLR
+   BFBFBFBLLR
+   BFBBBFFRRR
+   FBBBBFBLLL
+   BBFFFBBLRL
+   FBBBBBBRRL
+   FBBBFBBRRR
+   FFBFFBFLLL
+   FBFFFFBLRL
+   FBBFFBFLLR
+   FFFFBBFRRL
+   BFFFFFBLLR
+   BFFFBBBLLL
+   FBBBBBFRRR
+   FFBFFBBLRL
+   FBFFFBBLLR
+   FBBBBBBLLR
+   FBFFBFBRLL
+   FBBBBFFRLR
+   FFBBFBFLRL
+   BFBBBBBRLL
+   BBFBFFBRRL
+   FFBFBFFRLR
+   FFFBFBFLRR
+   FFBBBBBLRL
+   BBFBBFFLRL
+   BFBBFFFLLR
+   BFBFFBFLRL
+   FBFBBFFRLR
+   FBFFFFFLRR
+   BFBFBBFLLL
+   BFBBBBFRRL
+   FFFFBBBRLL
+   FFBBFFBRLR
+   FBBBFBFLRL
+   FBFFBBFLLL
+   BFBFBFBRRR
+   BFFBFBBLLL
+   BBFBFFBLLR
+   FFFBBBBLRL
+   FBBBFBBLRR
+   FBFFBFFRRR
+   BBFBFBBRLL
+   FFFBBFBLRR
+   FFBFFBFRRL
+   FBBFFFFRRR
+   FBFBBFBLRL
+   BFFFBFFLRL
+   FFBFFFFRLR
+   BFBFBFFLRL
+   FFBFFFFRRR
+   BFFBBBFLLL
+   FBBFBFBRRR
+   FFBBBBBLLL
+   FBBFFBBLLL
+   FFFBBBBLLL
+   BBFBFBBLLL
+   BBFFBFFRLR
+   BFFFBFFLRR
+   BFFFBBBRLL
+   FFBBFBFLLL
+   BFBFFFBRLL
+   FFFFBBBRRL
+   FFBBFBBRRL
+   FBBFFBBLRL
+   FFBFBBBRLR
+   FBFBFFBRLR
+   FFBBFFBLLR
+   BFFBFBBRRL
+   BBFFFBFRLR
+   FBBFFFBRLL
+   BFFFBBBRRR
+   FFBFFFBRLL
+   BFBBFFFLLL
+   BFFBBFFRRL
+   BFBBFFBRLL
+   FBBBBFFLLL
+   FBBBFBBRRL
+   FFFFBBFLRR
+   BBFBBFFRRL
+   BFFBFFFLRR
+   FFFBFFBLRR
+   BFFBBFBRRR
+   BFBFBBBRLR
+   BFFBBBBLLR
+   BFFFFBBRRL
+   FFFBBBBRRL
+   FFBBBFFRRL
+   FBBBBBFLRR
+   BFFBFBFLLR
+   BFBFBBBRLL
+   FFBFBFFRRR
+   BFBBBFBLLR
+   FBFFBFFLLL
+   BFBBBBBLLL
+   BFBFBBFRLL
+   BFFBBBFLRL
+   BFBBFBFRLR
+   BBFFBBBRLR
+   BFFFBBFRLL
+   FFBBFBBRRR
+   FBFBFBFRLL
+   FBBFFBFRLR
+   FBFFBBBLLL
+   BFBFFFFRRL
+   BFBBBBFLRL
+   BFBFFBFRLL
+   BFBFBFBRLL
+   FBBFFFFLLR
+   BFBBBFBLRL
+   FFBBFFBRLL
+   BFBBFBFLLL
+   BBFFFBFLRR
+   FFBBFFFLLL
+   BBFBBFFRRR
+   FBBBBBFRRL
+   FBBFBFBLRL
+   BFFFFFBRLR
+   BFBBBBBRRR
+   FBFFFBBLRR
+   FBFBBFFLRL
+   FFBBBBFRRL
+   BFFFBBFLLR
+   BFFBFBFRRL
+   FBFFFFBRLL
+   FBFFFBFRLR
+   FFFFBBFRLR
+   BFFBBFFLRL
+   FBFBFFFRRL
+   BFFFBFFRRR
+   FFBFFFBRRL
+   FBFFBBFRLL
+   BFFBFBFRLL
+   FBBBBBFLRL
+   FFBBBFBRLL
+   FFFBBFFLRL
+   BFFBFBFLLL
+   FBBBFFFRLR
+   FBFBBFFLRR
+   FBBBBFBRLL
+   FBBFFBFLLL
+   BBFFFFFLRR
+   FFFBBFBRRL
+   FBFBBFBLLR
+   FFBFBBFRRR
+   FBFBBFBLLL
+   FBBFBFFRLR
+   BBFFBFBLLR
+   BBFFFFBRRR
+   FFBFBBFLRL
+   BFBBFBBLLR
+   FFBBBFFLRL
+   FFFBFBBLLL
+   BBFFBBFLRR
+   FFBBBFBRRR
+   FFBFBBFRLR
+   BBFFBFFLRR
+   FFBBBBFLLL
+   FFFBBBFRLL
+   FBBBBBBLRR
+   FBBBBBFRLL
+   FBFBBBBRRL
+   FBBBFFFRLL
+   BFBFBFFLRR
+   FFBFBBBLLL
+   FFBFBBFLLL
+   FFBBFBFRLR
+   BBFFFBFRLL
+   FBFBFBFLLR
+   FFBBBFFLLL
+   FFBFFFFLLR
+   FFBBBBBRLL
+   FFBBFFFLLR
+   BBFFFBFLLL
+   BFFFBBFRRR
+   FBBBBFBRRL
+   BFBBFFFRRL
+   BFFFFBBLRL
+   FFBBBBBLLR
+   BFBBFFFRLL
+   FBFBFBBLLR
+   FBBFBBBRRL
+   BFBBFFBLRR
+   FBFBBBFLRL
+   FBFBBFFRLL
+   BFBBBBBLLR
+   FBBFFFBRLR
+   BBFFFBBRRR
+   FBFBFFBRRR
+   FFFBBBBRLL
+   FFBFFFBLRL
+   FFBFFBFLRR
+   BFFFBBBLLR
+   FBFFBBBLLR
+   FFFBFFFRLL
+   FBBBFBBLLR
+   BBFBBFFLLL
+   FBBFBFBLLR
+   FBFFBBFLRR
+   BFBFFBBRLL
+   BBFFBFFRRR
+   FBBFFBBRRL
+   BFFBFFBLRL
+   FFBFFFBLRR
+   FBFBFFBLLL
+   FBBFBFBLLL
+   BBFBFBFRRL
+   BFBFFBBLRR
+   FFBFFBBLRR
+   FBBBBFFLRR
+   BFBBFBFLRR
+   FFBFBFFRLL
+   BBFFBFFLRL
+   BFBBBFBRLR
+   FBBFBBFLRR
+   FBBBBBBLLL
+   FFFBFFBRRR
+   FFBBBFFRLR
+   BFFBFBBLLR
+   FBFBFFFLLL
+   FBBFFBFRRL
+   FBBFBBBRLL
+   FBFBBBFRLR
+   BFFBBFBLRR
+   BBFFFFFLLL
+   BFFBBBFRLR
+   BFFFBFFRLL
+   FFFBBBFLLR
+   BFFFFFFRRL
+   FBBBBFFLRL
+   FBFFFFFLLR
+   FFBFBFBLLR
+   FFBBFFFLRL
+   FFFBFFBRLL
+   FFBBFBFLLR
+   FFFBFFBRRL
+   FFFBBFBLLR
+   BBFFFBBRLR
+   BFFFFBFRLL
+   FFBFFBBLLL
+   FBFBBBFLLL
+   FBBBFFFRRR
+   BFBFBFFRRR
+   FFFBFFBLLR
+   BFFBFFBLRR
+   BBFBFBFRLR
+   FFFFBBBLRL
+   FFFBFBFLLL
+   BFFFFBBRRR
+   BBFBFFBLLL
+   BFBFBBFRRL
+   FFBFFBBRLR
+   FFBBFFFRRL
+   BBFFBFBRRL
+   BBFFFFFRLR
+   BFFBBFBRLL
+   BBFFFFBRRL
+   FFBBBFBLLL
+   FBBFBBBRRR
+   BFFBBBBRRL
+   BFFFFFFRLR
+   FBBFFFBLRR
+   FBBBBFFRRR
+   FBFBFFFLRL
+   FBFBBFFLLL
+   BFBFBBBLLR
+   FBBBFFBLLL
+   FBFFBFBLLL
+   BBFBFFFRLR
+   FBFFFBBLLL
+   BFFFFFBRRL
+   FBBFBBFLRL
+   FBFFFBBRRL
+   BFFFBFBLLL
+   FFFFBBFRRR
+   FBFBBFFRRR
+   BBFBBFBLRL
+   BBFBFFFRRL
+   BFBFFFFRLR
+   FFFBBFBRRR
+   FFBFFBFLRL
+   FFFBBFFRLL
+   BFFBBBFRLL
+   FFFBFBBRLR
+   BFBBBBFRLL
+   BFBFFFBRLR
+   BBFFBBFLLR
+   FFFFBBFRLL
+   FBBBFFBLRL
+   BBFBFFBRLL
+   FBFFBFBLRL
+   BBFFFBFLRL
+   FFFFBBBLLL
+   FBFFFFBLRR
+   FBFBBFFLLR
+   FFBBFFFRRR
+   BFBBFFBLLL
+   BFBBBFFLLL
+   FBBBBBBLRL
+   FFBFFFFLRR
+   FBFFBFBLRR
+   BFFBBBBRLL
+   BFFBFFBLLR
+   BBFFFFFLLR
+   BFBFFBFLRR
+   BBFFBBFRLL
+   BFFFBBFRRL
+   FFBFFBBLLR
+   BFBBFBBRLR
+   BFFBFFFRLL
+   FFBBBFFLLR
+   BBFBBFFLLR
+   BBFBFBBLLR
+   FFBFBFBRRL
+   BFBFFBFLLR
+   BFFBFBFRRR
+   FBBBFBFRLL
+   FFBFBFBLRR
+   FBFFFFFRRL
+   BFBBBBFLLR
+   FBFBFFFRLL
+   BBFFFFBLRL
+   FFBFBFFLRR
+   FBFBBBBLLL
+   FBFBFBFLRL
+   BFBBBFBRLL
+   FBFBFBBRLR
+   FBBBBBBRLL
+   BFBBBFBRRR
+   FBBBFBFRLR
+   FBFFFFFRRR
+   BFFFFFFLLR
+   BFBBFBBRRR
+   BBFBFBBRRR
+   BFBFBFBLRR
+   BFBBFBFLRL
+   BFFFBBBRRL
+   BFFBFBBRLL
+   FBFFFBBRLR
+   FFBBBFBRRL
+   BFBFFFBLRL
+   FFFFBBBRLR
+   BFBFFBBRRR
+   FBFFBBFRLR
+   FBFFFBFLLR
+   FBFBFFBLLR
+   BFFFFBFLRR
+   BFBFBFFLLR
+   FBFFBFFLRL
+   BFBBFFBRRR
+   BBFFBBFLLL
+   FFFBFBFRLR
+   FBBBBBFLLL
+   FBFFFFBRLR
+   BFFBBBBRRR
+   BFBBBBBRRL
+   FFFBBFFLRR
+   FBBBFBFRRR
+   BBFBFBBRRL
+   FFBBFFBLRL
+   FFFBBBBLLR
+   BFFFFFBRLL
+   FFBFFFBLLR
+   BFFBFBBRRR
+   FFBFBFBLRL
+   FBFBBFBRLR
+   BFFBFBBRLR
+   BFBFFFFLRR
+   FFBFBBBRLL
+   BFBBBFBLRR
+   BBFFBFBRLL
+   FFFBBFBRLL
+   BBFFBFBLRR
+   BFBBFFFLRL
+   BFBBFBBRLL
+   BFFFBBBLRL
+   BBFBFBFLLL
+   BFBFFBBRRL
+   BFBFFFFLLL
+   BBFFFBFRRR
+   FBFBBBFRRL
+   BFFBBBBLRR
+   BFBBBBFRRR
+   FFFFBBFLLL
+   FFFBFBBRLL
+   FBBFBBFLLR
+   FBFBFBFLRR
+   BFFFFFFLRR
+   FBFFFFFRLR
+   BFBFFFFLLR
+   BBFBFBFRLL
+   FBFFFFBLLL
+   BBFBFBFRRR
+   FBBBBBBRLR
+   BBFFBBFRRR
+   BFFBFBFLRR
+   FBBFBFFRLL
+   BBFFFBBRLL
+   BBFFBBBRRL
+   BFFBBBFLRR
+   FFFBBFFRLR
+   FBFFBBBRRR
+   FFFBFFFLRL
+   BBFBBFBLLL
+   FBBFBBFRRL
+   FBBFBFBRLL
+   FBFFBBFRRR
+   FBFFFBFRLL
+   FFBFBBFLLR
+   FBFBBBBRLR
+   BFFBBFBLRL
+   FFFBBBBRLR
+   BFFFFBFLLR
+   FFBBFBFLRR
+   FFFFBBBRRR
+   FBFBFBFRRR
+   FFBBFBBLRL
+   BFBFBFBRRL
+   BBFBFBBLRR
+   FBFFFFFLRL
+   FBFBFBFLLL
+   FBFBBBFRLL
+   FFBBBBBRRL
+   FFFBBFFRRR
+   BFBBFFFRLR
+   FFBFFFFRRL
+   BFBBBFFLRL
+   FBBFBBFRRR
+   FBBBFBBRLR
+   BFBBFBBLRR
+   FBBFFFBRRL
+   FBFFBBFLLR
+   FBBFFBBRLR
+   FFFBFBFRRR
+   FBBFBFFRRR
+   BFBBFBBLRL
+   FFBFFBFRRR
+   BFFBBFFLRR
+   FBFFBFBRRL
+   FFBFFBFRLL
+   FFBBBFBLLR
+   FBFFBBBRRL
+   FFBFBBBLRL
+   BFFFBFFLLR
+   FBFBBBFRRR
+   FFFBBFBRLR
+   BFFBFFBLLL
+   FBFFBFFRLR
+   BBFBBFBLLR
+   BFFFFBBLLR
+   BFBBFBFRLL
+   FBFBBBBLRL
+   FBBFBBBRLR
+   BFBFBBBLRR
+   BBFBFFFLRL
+   FFBBBBBLRR
+   FBBFBBBLLL
+   BFFFFBFLLL
+   FBBFFFBRRR
+   FBBBFBFLLL
+   FFFBFFBRLR
+   FFFBFFFLLL
+   FFFBFFFRRR
+   FBFFFBFRRL
+   BBFBFFFLLR
+   FFBBBBFLRL
+   FBFBFFBLRR
+   FBBBFFFLRL
+   FBFFFFFRLL
+   BFFBBFBRLR
+   BBFFBBBLRL
+   BFBBBFBRRL
+   BFBFFFFRRR
+   FBBFFFBLLL
+   FFBFBBBRRR
+   FFBBFBFRRR
+   FFBBFBBRLR
+   BFBBBBBRLR
+   FBFFBFBRRR
+   FBFBFBBRRL
+   BBFFFFBLLL
+   FBFBFFBRRL
+   FFBFBBBLLR
+   FFBBFFBLRR
+   FBBFFFFLRL
+   BFFBFFBRLR
+   FFBBFBBLLL
+   FBBFBBBLRL
+   BFFFFBFRRR
+   BBFFFBBLLL
+   BBFFBFBLRL
+   BFBFBFBLLL
+   FBFFBBFRRL
+   FFFBFBFRRL
+   BFBFFBBLRL
+   FFFFBBFLLR
+   FBFBBFFRRL
+   BFBFBBBRRR
+   FFBBBBFLLR
+   FFBFBBFRLL
+   FBBFBFFLLL
+   FBFBBFBRLL
+   BFBBBFFLRR
+   FBBBFFBLRR
+   BFFBBFBLLR
+   FFFFBBBLRR
+   BBFFFFFRLL
+   BFBFFBFLLL
+   BFBFFFBLLR
+   BFBFFBFRRR
+   BFFFFFBLRL
+   BBFFBBBRLL
+   BFFFBBBRLR
+   FBBFBFFLLR
+   FBFFFBFLRR
+   FBBBFFBRRL
+   BFBBFFBLRL
+   BFFFBBFRLR
+   BFFFBFBLRR
+   FBFBFBFRLR
+   FBBBFFBRRR
+   FFBBBFFRLL
+   FBFFFFBRRR
+   FFBBFBBRLL
+   FBBFFBFRLL
+   FFFBFBBRRR
+   FBBFFFFLLL
+   FBFFFFBLLR
+   BFBBFFFRRR
+   FBBBBFBRLR
+   FFBBFBFRRL
+   FFFBBBFLLL
+   BFFBBFBRRL
+   FBFFFBFLRL
+   BBFBFFFLLL
+   BFFFBFFRRL
+   BFBFBBBRRL
+   BFFBFFFLLR
+   FBBFBFFLRL
+   FBFBFFFLLR
+   BFBFBBFLRL
+   FBBBFFBRLL
+   BFBBBFFRLR
+   FFFBFFFRLR
+   FBFBBBBLLR
+   FBFFBFFLLR
+   BFFFBFFRLR
+   FFBBBFBLRR
+   FFBFFFBRRR
+   FFBFBFBRLR
+   FFBBFFBRRL
+   BFFFFFBLLL
+   FBBFFBBRLL
+   BFFFBFBRRR
+   BBFFBBFRRL
+   FBBFBFFLRR
+   FBBBBFFLLR
+   BBFFFFBRLL
+   FFBFFFFLRL
+   FBBFFFFRLL
+   FBBFFFFRRL
+   BFFFBBFLLL
+   FBBFFFFRLR
+   BFBBBFFLLR
+   BFBBFBBRRL
+   BBFFFFBRLR
+   FBBBFBFRRL
+   FBBFFBBLRR
+   FBBFFBFRRR
+   BBFBFFFRRR
+   BBFFFFBLRR
+   BFFFBFFLLL
+   FFFBFFFLLR
+   FBBBFFFRRL
+   BBFFFFFRRL
+   BFBFBFFLLL
+   BFBFBBFLLR
+   FBBBBFFRLL
+   BFBBFBFRRR
+   BFFFFFBLRR
+   FFBBBBBRRR
+   FFBFFBBRRR
+   FFBBBFBLRL
+   FFBFFFBRLR
+   FBBFFBBLLR
+   BFFBBFFRLR
+   BFFBFFBRRR
+   FBFBFBFRRL
+   BBFBFFFRLL
+   BFFBFFFRRL
+   BFBFFFBRRL
+   BBFFFBBLLR
+   BBFFBFFLLR
+   BBFBFBBLRL
+   FBFBBBBRLL
+   BBFFBFBRRR
+   BFFBFFFRLR
+   BFFFFBBRLL
+   BBFBBFFLRR
+   FBBBBFBLLR
+   FBBFBBBLRR
+   FBFFFBFLLL
+   FBBFBFBLRR
+   FBFBFFBLRL
+   BFBBFFFLRR
+   FBFBFFFRLR
+   FBFFBFFRLL
+   FFFBFBBLRR
+   FBBBBFFRRL
+   BBFFBFBLLL
+   FBFBFBBLRL
+   BFBFBBFLRR
+   BFFBFBFRLR
+   BFBFFFFLRL
+   BFBFFBBLLR
+   BFFBFFBRLL
+   BFBFBFFRLR
+   FBFFFBBRRR
+   BFBFBFBLRL
+   FFBFFFFRLL
+   FFBBFBBLRR
+   FFBFBFBRLL
+   #+end_example
+
+** day5-common (test)
+   #+name: test_set_day5
+   #+begin_src python :results value :cache yes
+   #
+   data="""FBFBBFFRLR
+BFFFBBFRRR
+FFFBBBFRRR
+BBFFBBFRLL"""
+   return data
+   #+end_src
+
+   #+name: day5-com
+   #+begin_src python :results output :var data=test_set_day5
+     import math
+     class b_pass():
+         def __init__(self):
+             self.row_range = (0, 127)
+             self.col_range = (0, 7)
+         def get_mid(self):
+             # returns exact middle, float .5 halfway between end of front range and start of back range
+             rm = self.row_range[0] + ((self.row_range[1] - self.row_range[0]) / 2)
+             cm = self.col_range[0] + ((self.col_range[1] - self.col_range[0]) / 2)
+             return rm, cm
+         def front(self):
+             rm, _ = self.get_mid()
+             self.row_range = (self.row_range[0], math.floor(rm))
+         def back(self):
+             rm, _ = self.get_mid()
+             self.row_range = (math.ceil(rm), self.row_range[1])
+
+         def left(self):
+             _, cm = self.get_mid()
+             self.col_range = (self.col_range[0], math.floor(cm))
+         def right(self):
+             _, cm = self.get_mid()
+             self.col_range = (math.ceil(cm), self.col_range[1])
+
+         def __radd__(self, ostr):
+             return self.__add__(ostr)
+         def __add__(self, ostr):
+             if not isinstance(ostr, str):
+                 return NotImplemented
+             decode_dict = {
+                 "F" : self.front,
+                 "B" : self.back,
+                 "L" : self.left,
+                 "R" : self.right
+             }
+             for c in ostr:
+                 if c not in decode_dict:
+                     return NotImplemented
+                 decode_dict[c]()
+             return self
+         def __abs__(self):
+             if self.col_range[0] != self.col_range[1]:
+                 return NotImplemented
+             if self.row_range[0] != self.row_range[1]:
+                 return NotImplemented
+             return self.row_range[0] * 8 + self.col_range[0]
+         def __str__(self):
+             return f"r:{self.row_range[0]} , c:{self.col_range[0]}"
+         def __getitem__(self, key):
+             if key == 0:
+                 return self.row_range[0]
+             if key == 1:
+                 return self.col_range[0]
+
+     hi_id = 0
+     for line in data.splitlines():
+         bp = b_pass() + line
+         cur_id = abs(bp)
+         if cur_id > hi_id:
+             hi_id = cur_id
+     print(bp[0], bp[1], abs(bp))
+
+   #+end_src
+
+   #+RESULTS: day5-com
+   : 102 4 820
+
+** day5a
+   #+name: day5a
+   #+begin_src python :results output :var data=init_day5 :noweb yes
+   <<day5-com>>
+   #+end_src
+
+   #+RESULTS: day5a
+   : 874
+
+** day5b
+   #+name: day5b
+   #+begin_src python :results output :var data=init_day5 :noweb yes
+     <<day5-com>>
+     max_id = 8 * 128 
+
+     seat_dict = {}
+     for line in data.splitlines():
+         bp = b_pass() + line
+         seat_dict[abs(bp)] = bp[0], bp[1]
+    
+     id_list = sorted(seat_dict.keys())
+     for ii, seat_id in enumerate(id_list[2:]):
+         if seat_id - id_list[ii] > 2:
+             print(id_list[ii:ii+3])
+
+
+   #+end_src
+
+   #+RESULTS: day5b
+   : 874
+   : [592, 593, 595]
+   : [593, 595, 596]
+* day5
+** init_day5
+   #+name: init_day5
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2020/day/5/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+** day5-common (test)
+   #+name: test_set_day5
+   #+begin_src python :results value :cache yes
+   #
+   data=""" """
+   return data
+   #+end_src
+
+   #+name: day5-com
+   #+begin_src python :results output :var data=test_set_day5
+
+   #+end_src
+
+** day5a
+   #+name: day5a
+   #+begin_src python :results output :var data=init_day5 :noweb yes
+   <<day5-com>>
+   #+end_src
+
+** day5b
+   #+name: day5b
+   #+begin_src python :results output :var data=init_day5 :noweb yes
+   <<day5-com>>
+   #+end_src
+* END
+  # Local Variables:
+  # eval: (progn (org-babel-goto-named-src-block "startup") (org-babel-execute-src-block) (outline-hide-sublevels 1))
+  # End:
