@@ -1,0 +1,1901 @@
+* Startup
+#+NAME: startup
+#+begin_src emacs-lisp :results silent
+  (setq org-babel-python-command "~/anaconda3/envs/aoc/bin/python" org-src-tab-acts-natively nil)
+#+END_SRC
+
+* Day 1
+** initialize
+#+name: init_day1a
+#+begin_src python :results value :cache yes
+  from lib.autoloader import Autoloader
+  puz_data_url = 'https://adventofcode.com/2017/day/1/input'
+  al = Autoloader(puz_data_url)
+  al.connect()
+  data = al.fetch()
+  return data
+#+end_src
+
+#+RESULTS[b52476bde47d61e23fa00c484029d4235264d29c]: init_day1a
+: 9513446799636685297929646689682997114316733445451534532351778534251427172168183621874641711534917291674333857423799375512628489423332297538215855176592633692631974822259161766238385922277893623911332569448978771948316155868781496698895492971356383996932885518732997624253678694279666572149831616312497994856288871586777793459926952491318336997159553714584541897294117487641872629796825583725975692264125865827534677223541484795877371955124463989228886498682421539667224963783616245646832154384756663251487668681425754536722827563651327524674183443696227523828832466473538347472991998913211857749878157579176457395375632995576569388455888156465451723693767887681392547189273391948632726499868313747261828186732986628365773728583387184112323696592536446536231376615949825166773536471531487969852535699774113163667286537193767515119362865141925612849443983484245268194842563154567638354645735331855896155142741664246715666899824364722914296492444672653852387389477634257768229772399416521198625393426443499223611843766134883441223328256883497423324753229392393974622181429913535973327323952241674979677481518733692544535323219895684629719868384266425386835539719237716339198485163916562434854579365958111931354576991558771236977242668756782139961638347251644828724786827751748399123668854393894787851872256667336215726674348886747128237416273154988619267824361227888751562445622387695218161341884756795223464751862965655559143779425283154533252573949165492138175581615176611845489857169132936848668646319955661492488428427435269169173654812114842568381636982389224236455633316898178163297452453296667661849622174541778669494388167451186352488555379581934999276412919598411422973399319799937518713422398874326665375216437246445791623283898584648278989674418242112957668397484671119761553847275799873495363759266296477844157237423239163559391553961176475377151369399646747881452252547741718734949967752564774161341784833521492494243662658471121369649641815562327698395293573991648351369767162642763475561544795982183714447737149239846151871434656618825566387329765118727515699213962477996399781652131918996434125559698427945714572488376342126989157872118279163127742349
+
+** day1a
+#+name: day1a
+#+begin_src python :results output :var data=init_day1a
+  code = 0
+  sdata = str(data)
+  for ii, digit in enumerate(sdata):
+      if ii == len(sdata)-1:
+          ii = -1
+      if int(digit) == int(sdata[ii+1]):
+          code += int(digit)
+  print(f"Code is: {code}")
+
+#+end_src
+
+#+RESULTS: day1a
+: Code is: 1343
+
+** day1b
+   #+name: day1b
+   #+begin_src python :results output :var data=init_day1a
+     sdata = str(data)
+     true_shift = int(len(sdata)/2)
+     code = 0
+     for ii, digit in enumerate(sdata):
+         shifted = (ii + true_shift)%len(sdata)
+         if int(digit) == int(sdata[shifted]):
+             code += int(digit)
+     print(code)
+   #+end_src
+
+   #+RESULTS: day1b
+   : 1274
+
+
+
+
+* Day 2
+** Initialize Day2
+#+name: init_day2a
+#+begin_src python :results value :cache yes
+  from lib.autoloader import Autoloader
+  puz_data_url = 'https://adventofcode.com/2017/day/2/input'
+  al = Autoloader(puz_data_url)
+  al.connect()
+  data = al.fetch()
+  return data
+#+end_src
+
+#+RESULTS[dfe17c10ca90472f0f0a5873c1581bba08fee8e1]: init_day2a
+#+begin_example
+414	382	1515	319	83	1327	116	391	101	749	1388	1046	1427	105	1341	1590
+960	930	192	147	932	621	1139	198	865	820	597	165	232	417	19	183
+3379	987	190	3844	1245	1503	3151	3349	2844	4033	175	3625	3565	179	3938	184
+116	51	32	155	102	92	65	42	48	91	74	69	52	89	20	143
+221	781	819	121	821	839	95	117	626	127	559	803	779	543	44	369
+199	2556	93	1101	122	124	2714	625	2432	1839	2700	2636	118	2306	1616	2799
+56	804	52	881	1409	47	246	1368	1371	583	49	1352	976	400	1276	1240
+1189	73	148	1089	93	76	3205	3440	3627	92	853	95	3314	3551	2929	3626
+702	169	492	167	712	488	357	414	187	278	87	150	19	818	178	686
+140	2220	1961	1014	2204	2173	1513	2225	443	123	148	580	833	1473	137	245
+662	213	1234	199	1353	1358	1408	235	917	1395	1347	194	565	179	768	650
+119	137	1908	1324	1085	661	1557	1661	1828	1865	432	110	658	821	1740	145
+1594	222	4140	963	209	2782	180	2591	4390	244	4328	3748	4535	192	157	3817
+334	275	395	128	347	118	353	281	430	156	312	386	160	194	63	141
+146	1116	153	815	2212	2070	599	3018	2640	47	125	2292	165	2348	2694	184
+1704	2194	1753	146	2063	1668	1280	615	163	190	2269	1856	150	158	2250	2459
+#+end_example
+
+** Day2a
+   #+name: day2a
+   #+begin_src python :results output :var data=init_day2a :session
+     tab_lines = data.splitlines()
+     chksum = 0
+     for line in tab_lines:
+         par_line = [int(s) for s in line.split()]
+         min_term = par_line[0]
+         max_term = min_term
+         for term in par_line:
+             if term < min_term:
+                 min_term = term
+             elif term > max_term:
+                 max_term = term
+         chksum += max_term - min_term
+     print(chksum)
+
+   #+end_src
+
+   #+RESULTS: day2a
+   : 30994
+** Day2b
+   #+name: day2b
+   #+begin_src python :results output :var data=init_day2a :session
+     tab_lines = data.splitlines()
+     chksum = 0
+     def find_pair(l):
+         sl = sorted([int(s) for s in l])
+         for ii, term in enumerate(sl, start=1):
+             for term2 in sl[ii:]:
+                 if term2 % term == 0:
+                     return term2 / term
+     for line in tab_lines:
+         par_line = line.split()
+         chksum += find_pair(par_line)
+
+     print(chksum)
+
+   #+end_src
+
+   #+RESULTS: day2b
+   : 233.0
+
+* day3
+** init_day3
+   #+name: init_day3
+   #+begin_src python :results value :cache yes
+   data = 277678
+   return data
+   #+end_src
+
+   #+RESULTS[975025c23bb13ce1f13ba7ec3ce11b2085c80365]: init_day3
+   : 277678
+
+   
+** day3a
+*** algorithm
+   l = length of side (ceil sqrt (p), + 1 if even)
+   lv = number of entries per group = l-1
+   p = puzzle input
+   n = l^2 - l-2^2 = number of entries in this ring
+   l1 = l^2 = last entry on this ring
+   l0 = l-2^2 = last entry previous ring
+
+   k0 = p - l1
+   k1 = k0 % lv
+   
+   m = lv / 2
+   ds = |m-k1|
+   d = ds+m
+   #+begin_src python :results output :var data=init_day3
+     import numpy as np
+     p = data
+     l = np.ceil(np.sqrt(p))
+     if l%2 == 0:
+         l += 1
+     lv = l-1
+     l0 = (l-2)**2
+     k0 = p - l0
+     k1 = k0 % lv
+     m = lv / 2
+     d = np.abs(m-k1) + m
+     print(d)
+   #+end_src
+
+   #+RESULTS:
+   : 475.0
+
+** day3b
+*** algo
+    f(10) = f(9) + f(2)
+    f(x) = f(x-1) + f(x-8)
+    f(11) = f(9) + f(3) + f(2) + f(10)
+    f(y = f(y-1) + f(y-2) + f(y-8) + f(y-9)
+    
+    f(x) = f(x-
+    f0(x) = f0(x - e) + g(x-1)
+2 3 4 4 4 4 2
+4 2 3 4 4 2 3
+4 4       3 4
+4 4       4 4
+4 3       2 4
+3 2 4 4 4 3 2
+2 4 4 4 4 4 3 2   
+hgfed
+i543c
+j612b
+k789ar
+lmnopq
+   #+begin_src python :results output :var data=init_day3 :session
+     import numpy as np
+     ii = 9
+     old_vals = [1, 1, 2, 4, 5, 10, 11, 23, 25]
+     # previous loop starting index, previous loop size, side mod, current loop size
+     old_sq = 1
+     k0 = 1
+     k1 = 2
+     k2 = 3
+     cur_val = 0
+     while cur_val <= data:
+         # current loop index
+         ik = ii - k0**2
+         quadr = np.ceil(ik / k1)
+         corner_i = int(old_sq + (k0-1)*quadr)-1
+         if np.sqrt(ii) == k2:
+             # first
+             old_sq = k0 ** 2
+             k0=k2
+             k1=k2+1
+             k2=k2+2
+             cur_val = old_vals[ii-1] + old_vals[old_sq]
+         elif np.sqrt(ii+1) == k2:
+             # last
+             cur_val = old_vals[ii-1]
+             cur_val += old_vals[b3+1] + old_vals[b3+2]
+         elif np.sqrt(ii-1) == k0:
+             # 1 after first
+             cur_val = old_vals[ii-1] + old_vals[ii-2]
+             cur_val += old_vals[old_sq] + old_vals[old_sq+1]
+             b3 = old_sq
+         elif np.sqrt(ii+2) == k2:
+             # 2nd to Last
+             cur_val = old_vals[ii-1]
+             cur_val += old_vals[b3] + old_vals[b3+1] + old_vals[b3+2]
+         elif (ik+1) % k1 == 0:
+             # CORNER
+             cur_val = old_vals[ii-1] + old_vals[corner_i]
+         elif (ik+2) % k1 == 0:
+             # 2nd to CORNER
+             cur_val = old_vals[ii-1] + old_vals[corner_i]
+             cur_val += old_vals[corner_i-1]
+         elif (ik) % k1 == 0:
+             # 1 after corner
+             cur_val = old_vals[ii-1] + old_vals[ii-2]
+             cur_val += old_vals[corner_i] + old_vals[corner_i + 1]
+             b3 = corner_i
+         else:
+             cur_val = old_vals[ii-1]
+             cur_val += old_vals[b3] + old_vals[b3+1] + old_vals[b3+2]
+             b3 += 1
+         old_vals.append(cur_val)
+         ii += 1
+     print(old_vals[ii-2])
+     b3 -= 1
+     print(old_vals[b3] + old_vals[b3+1] + old_vals[b3+2])
+     print(old_vals[b3], old_vals[b3+1], old_vals[b3+2])
+     print(f"index: {ii, ik}, k:({k0, k1, k2}), corner, old_sq: {corner_i, old_sq}")
+     print(cur_val)
+   #+end_src
+
+   #+RESULTS:
+   : 266330
+   : 12808
+   : 2450 5022 5336
+   : index: (59, 9), k:((7, 8, 9)), corner, old_sq: (36, 25)
+   : 279138
+
+* day4
+** init_day4
+   #+name: init_day4
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2017/day/4/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[d3fe146c55df8d980cd88307213fea10fabc6bdf]: init_day4
+   #+begin_example
+   nyot babgr babgr kqtu kqtu kzshonp ylyk psqk
+   iix ewj rojvbkk phrij iix zuajnk tadv givslju ewj bda
+   isjur jppvano vctnpjp ngwzdq pxqfrk mnxxes zqwgnd giqh
+   ojufqke gpd olzirc jfao cjfh rcivvw pqqpudp
+   ilgomox extiffg ylbd nqxhk lsi isl nrho yom
+   feauv scstmie qgbod enpltx jrhlxet qps lejrtxh
+   wlrxtdo tlwdxor ezg ztp uze xtmw neuga aojrixu zpt
+   wchrl pzibt nvcae wceb
+   rdwytj kxuyet bqnzlv nyntjan dyrpsn zhi kbxlj ivo
+   dab mwiz bapjpz jbzppa
+   hbcudl tsfvtc zlqgpuk xoxbuh whmo atsxt pzkivuo wsa gjoevr hbcudl
+   gxhqamx dradmqo gxhqamx gxhqamx
+   yvwykx uhto ten wkvxyy wdbw
+   kzc ndzatgb rlxrk hfgorm qwgdky ndzatgb rhvyene qaa wxibe qwmku nmxkjqo
+   qwx ubca dxudny oxagv wqrv lhzsl qmsgv dxs awbquc akelgma
+   rrdlfpk ohoszz qiznasf awchv qnvse
+   ggsyj czcrdn oolj sibjzp ibzjps asp
+   vbcs ypgzae xcvpsr ptvb leoxqlq zmpt fhawu yfi tvbp
+   ejkr qlmag nsz jwpurli nhsml asksnug mes
+   kkgkjml kklmgjk kjgpx iquytbj eccceb mfv iuyqjbt ovv
+   uoklkco zzey sdfhiyv ytdeg
+   azr mjv raz arz rdfb
+   pir dafgsah dafgsah kndjbml estcz yjeoijp kkcws ebq puwno
+   iqymwc tac vlqc bmnkz xustm leqi
+   gwdjed cfha axz xjuq
+   abfjsg pahat qlj zan qsfn iozfys jnvu bis jakggq
+   afwuejn zrbu zurb hrn lwvjb jnwixla aufejnw
+   vkqn cuzf humhriz webnf uzfc zfuc
+   eznxd kgbfy jqyc net vzfege tprzyc
+   mqnapzn vrgw ilzp vgw
+   aie zkkih fhpwu bbn fhpwu wvxxgmd
+   ksoasrn yll mvdjxdo wydymx dmodvjx drnjlm tcjpjhj xzakb wrsbuwl vaygdwf rsasonk
+   qahbh tfhkl apdqqpm tfhkl nsox
+   xkelwve mvdmesj xrto tgku gkb bpe
+   nni nyylpu cyusxe zydeyok yokzdye xiscesy
+   itwsfr eqwrx igqkvif whklwdb
+   lpa hwci suwqfln xis sfht lzek ajecd
+   svpf eulute eya gvmsd app claria tjtk zjt agdyemi bixewo
+   gmzglxi zlgouy bejg kte xlf giquj mjeq ivjkw ktbhaga hoffyrt
+   wwjy dtf ftd agei yde xhbfo fyridy
+   gexcy hetkz ufflrfi frifluf plb kqre etxo elg henqy fspm
+   khaemn buec ichau wxctsxg
+   cgmv ujyvcuu jta yux ccx skrafkn cmyc yidqhv ltb ycnajry zitq
+   ybsahqn pio veeze vdztjz iedou pio sue ijbz gvqncl vpa ijbz
+   hkfi xzrsyke hikf mxolx xlxmo ungfc tst xjzd
+   tpx ioprco qixlv ipocro
+   oahmwrv homvraw vws ntmbdvx
+   fxlg wnuz ogt bxgtul vmfh nwuz glfx tgxdq bxfv kajuh
+   vrhqn nrqvh tgogb vya ragbro ulrz uava kexoi yav vkfe
+   bxxy tyxgxd oabsud bauosd jlch bdmrqq wqhjwb ayblb hclj
+   sfzsgsc sfzsgsc jbrvh sfzsgsc bdhy
+   wixleal vhnqbfw qwfnhbv woco oowc
+   exkkwz wekxzk krxbua nshxqgh
+   gkn blxgui nkg gnk
+   otsa isqn otsa isqn
+   ude xedl ude xedl amkktp
+   teroe yuvbd inf mpytuvz xiq xqi ovqetn
+   zyq ybeifwx fvoqp vhoduy bcq wbxl
+   zymiid vafcqv vjbmekf lgxkma bjti qfavcv iqp fnbu lakmgx
+   rkaqvd vylkh jfdxh imxxg bbrt imxxg rkaqvd
+   yajg qnhhs bzmb eyk hijcg tkij iwr jvwp dipzd jvwp
+   btzhw zttheyo ravsbz bmbba majoe ykrs tbxqf tai cgsvpu srbavz
+   vsyczfs ymg vsyczfs wxlwaqb oouio owek wxlwaqb azvbqiq
+   ghrapd ghrapd wisq wisq
+   znmleu aztnkbs wxc gycxd vqenhh geqyo rpjg
+   kxbom gzz zzg zgz
+   dfsesc okwb dfsesc okwb
+   egpwqbe djlk xpkxa hoo eepbqwg
+   nxdfror yfhkhn zgea fkspva rjgg bnmq ddsf rjgg gkinm
+   vdrxfom wbdwu dhkt xtvzc zjobo aqvgrt
+   svddsgz mhcrbcp wmpd mhcrbcp klim ddlnxv wrdftrc ddow wrdftrc
+   obxr wscs new brxo wen epns cvjvxts ilnc
+   rwezl vmbut kgblt xfg vnhlebq nzqdzxm ynh wokrezy zub nzzqxdm
+   vephajp bzupele mltzglh sbgn vephajp lhve mltzglh
+   slajp kyaf vlnvy srfietn ayfk inaufex fanuexi
+   vazwg kjg qanzso ptuu vvlwq uupt kohhql jkg
+   xmmmpky rbqimi slvxsf tlcwm pbf pks iucx rbmiqi
+   irkup jvu tkeioz avdu suxamf
+   tmgih ldca jswka dblzzt rap rgqyy gyrqsk nnnn pok
+   pdbjhrl gsvxbqr nqfkhtc ngn okbgzd pdbjhrl oostjtm okbgzd
+   mzqfdat dujh aeplzqh acbguic vlzdt amyszu amyszu jqecky bhl hjqnimq xoy
+   dszafr bqampg epozj sfrlpe dszafr wfurku sotjpg wagtnxy
+   jbmo jbmo plbfkvw bkc jbmo
+   ehelldu vrid unnf vrid xqiu tbibjyi bmbpsmq tpqyefx xqiu
+   rpgm zzbj cjgfdyb bdjfgcy rzqecd miyvfbu aqlkagf hsuxwgl
+   gvywzp phvnd ypwypbm yfelxx egbr lcfyz hecdhkj xxfley
+   tsmebin tbsnmie mkijj ijjmk
+   cghxrqs vzxle wrfghv skighgt zviteab plcrgv
+   ezdirp rxkw horcek qcgny inx nikb tigzp
+   eidk sactjci sre vkapava owvf eyds eyds
+   vvjdm uye tjixj azklizl pnb
+   tcrimv xye twii xye twii tad
+   mtxcg lwjxdj zjudqu ekoujd ysf ajtfta dkj lwjxdj
+   aowhmvv kkic kjize fnohl ukx remfmii usbp
+   wkossu limxmhp xnoeocb wkossu lnrlqf kjozfg xeulstx sjncsw ekaimuv xnoeocb sxjegcg
+   lsfe zpewzlc yhjyiay lou ukhi lpwezzc slef zvtidgg kdeseq enka tfvgudr
+   ovfsa vuv tbtorv tbtorv gmxn opspw lli mfzvkv zlyhr oznalr
+   kugrpw sduq rdc ciaxwir ylnzwec kugrpw sduq
+   obevuau thu jpyfvof rpawwo obevuau gsvoutr quiaei
+   xpgua pbxa pxgau kdan
+   ohyzqk abxgg xozgai nib axozig bni fucgykm jpkswt
+   jrgu dmozts jrug ufpho
+   qojzue uzeojq txuhj eqjzou
+   wcvj qwlravl niyxf oiaptlk wlxnnzj jgdzap jgdzap lfgn bdt sfga adrypo
+   ylah eedu rvwdpmq eedu ylah
+   quages kmla yjqua dzxcfam srjag wujmcv qujya ssaol uzdwi
+   gdsppz yqxlish yfkjbbf ecnzu ejvtv cdjwre
+   slsls pcmrq zax btrc kliv ntho gymkk kkq pcrmq mvnw sjfegpx
+   ryz jfw eki wvibww qdzylg whbagp ffrfjg wdhnqpm hcrz
+   tcjqfh tmvzp mpztv vpmzt
+   xood xutgof teqov fqyyub oakm rzaheiq
+   axagoq jawbz sexucp sexucp atenr edekcwn edekcwn agl ecj gbje gipivfq
+   poqv qopv bos flhghs gshlfh
+   rxd dzphnb bwmna vxd rxd sbk kuor
+   kqeelq jqbyh xczqzqe jbkmx kelqeq xqcfqn
+   jdfy qzjyz xvqyo jdfy xvqyo
+   vyoqyd pwayqag eygmdt smakwc veftikz fzeikvt
+   aozgkne mpd mktgoew eepp zlwycr eepp hswbxcx nmi ddnfr eepp
+   dgpfp cfhhqdx vjrb uyimbm byx hfdhxqc
+   fxq jcouwfy uhuao zsab xjao
+   noudveu egxyuqw hmnnv vovt wmqkx syatiac whkd
+   gxyzk opgb kjxp delavq hsnvk kfn irkcfq lvc aadcwy opgb
+   exuiupk ddiiyvm nsggpj ddiiyvm nsggpj
+   hhjby rfejzp akxzs nconlt rynivtq voloj qwhhll ubvx yxuacz miuwxh ppe
+   uspqvx supvxq cekv niddfuw
+   optzcag sra ajs ozacptg yxkludq jjpvldz mxo mox
+   dko qyec iuxbrbj dlz jxribub
+   ywlyz vipfh amsfr fwiozi tahjov tap rsea zwlyy oqdyfbo
+   xeqml jwy eguc bvzvh
+   crp mxsihvo wwtg gsypx mxsihvo qpfw looca gewvy zjqki tdkuxo crp
+   mqlnzm yihsvrl hhtwcv kigymqu yswki hksk vbiujq xeqz irzcq cpnz
+   zxhfsw uuyhwid nzabem mmfk wszfhx shxzwf hqnrvsq
+   hfjajdl qwmk hjdalfj mwkq gqbku dsszk
+   fbiy pujq htgaqqq yro ztpe yiufb fnpi ggchdgz
+   sixq jsboan eoie msdrwzw sixq njsrc sixq yimqoi
+   pbxgv kqmi hjuk bbtrlta bqwm bgehofj ainqhm qoypsil manhiq ogebhfj lvmuo
+   wnax aen fthpcke tcz yadjmva mydavaj rcfkc krfcc
+   lkatiw zxliii usdj oopxl yylv bkjfy gtlyjv usdj muqazdb
+   yqonaxv wqnvoo hfpll oyxnlfs fgajc khhtzr hfpll gsvvipz wbjxsnp dcdikt hqw
+   vvuv kspmnz zvmryqd egvuz eazkhz kspmnz
+   xgq dziwiym gsl nbzmsta ccbzn yalof dbbugq aar ywmbvk yofla dcwb
+   qrtyhhw xeyo vlym ulzzbl hrxyb qeyu jqdkewk oxye evaxz kybc bssyt
+   eqrf cfyy kwhohw ozg jsc egz jsc
+   vct cet ixxvmz ibhvndq eks dpi jzfwdqv saeh jqzdfwv vwfdqjz
+   vus vus kitvvgq wpi alfncf gzj oxcy fith oxcy ecbsr
+   uacculk guwhwdp cankcv yswy bmby sve dvonm nran
+   ydftm wszgaex rgbw otd dbet lhsxndd jqfyx
+   vhawg hwagv uagy fveik nrsew zujw hawvg dzfmt agzgw
+   uqdj talb uqdj aizyuqm
+   pbbejee szdtohv tycfow xwne qzlqy dxcwejz pqdqrc wfyotc gdqt uxaeug wtldm
+   hmzmd oyp pyo opy
+   qwdh kwpll kwpll zsbez uxg klr uxg
+   myqr zza kqpcos adsql eumunrv qlaeumx
+   acyye xvdewe nwkhuz bzcmx asw ostiwk mfzu nwkhuz
+   memq uqadd kfj dses lrxb hxygp dsse bxbr hgpxy uavrar
+   mjmk lsdttuz qjkg yfthmkn pram
+   pctfq aly usim shihap uims xkfgp ksrbn ifvsyl
+   cdma nnnu hdm dhm
+   kpt upgsm ohvrrqf qwps wjcbve ohvrrqf
+   wowphgb nteme otizypb eumgvb puoctli opicult wbohwpg
+   fppz ftkql sbut lkqtf svif viqhlnn buts lljhbd
+   oqk uinby rqy vbjhf oul hzfo coca glpy brjy yglp qnvhvei
+   sbbwr dnyrux gpikv nsx aawyeq uhtucwq rhxzy jgx bdgdrl dnyrux lgfgi
+   agn mljz hgmglem popu jtapub agn
+   ehfpgr bnobvg bnobvg bnobvg
+   ozgzedn godezzn art atr
+   urz rzu xzyc rjhwi kgiodi doiigk layr dwbxu
+   rkcbav pnp bpsmm ifivfe csouqpw fyswzbd csouqpw bnjt rnnoxed
+   hpjgtcc ctcpgjh cchjtgp lxn
+   cinokbx uyaz uyaz uyaz
+   bphfwad bphfwad bphfwad yml izlhlb dvjvo jeropar
+   ocgftcl wshjk zbinw fcotlgc xdj nwibz
+   zbze hllno rmq invd gupoxr gwumc vnzj fcvvhjo dnn sfsxw
+   oqlhkz hgf yxiahks vhzvl ayshkxi irmwkmq
+   apeqic ahwu abxjrd tuwrd pynnil eohmlgo lafx ybpofe wbznxv swuafas
+   cpg jpsfo jposf rer ixeydpz
+   rhqrwvn wrhqnrv xptms jhc rnqvhwr
+   zfpl tukxzda lifkqtd ynfuno cttx ctxt tlqdkfi ueswv wbipfbe
+   eblw bwbjg fuu qqm qtv qtv isbl denfcb
+   ick yqwcffk pvcchd apkjyc ouu uyfe nplid ick caqscs sddkx
+   rtzh idn snnw xmlou idn kdhenl rtzh ujwttl pkynkhe
+   dnwha fpv dnwha iqi xggepo dnwha
+   yjvk saay enxqhw wigoah dzasyr nnt artl iqwia jpp xmfr hwigao
+   ryt heenuai ytr gqew hyb byh wdurx kmd adgjz
+   ypdqeji sfkkfhn stms cdmyh nqllx utiphia gxbx zflhtgo yurztx eni
+   pwlhlt lhlwpt rfkvlgr tucajej ckujc ntcyae xestygt eshmggk
+   gtfb codwc vjtli ffmjwx ruoekt cylrm ktroue dfaxzvs kkgejzi ewucgu jyatrum
+   ersbag cod xssha aqzbe kxu bzghhqk pbs bizvqk bhbbd bps
+   vhci ypxf bxzor unngl xilpzpk civh nykora vchi
+   cyb cceu negnld nbcfs pxsjgh xah nbcfs nbcfs jabpxg wtanv qhztvr
+   cljgzkn lrdeina hrjoz kdgpn vqkmpal nivk scvnu vzuausp
+   nif fin uxjbip xxztsn yyo opueh zxs qnso paedey hsd fttvqdn
+   gbnkmpr afo aof ryyudy gbmpnrk
+   uaa npb dkit npb buadan esv npb hwrj
+   hws dfgq fcyty qszhu chyxxl ytmpb azxl jrsn boqrx
+   hkzlnkd fkilvog xbubu fbgbp
+   fgi inmay uliytc vgkcw qsoe uliytc isjhix oyir ocaq
+   qrzkpm dpzetbr zommsxo cixg nwjyvp bet wyjpvn cgxi tsncd
+   uvlf lufv ulfv cigl
+   uwwf thr kdq fhjmty bvxue vcwwmk kdq nzajq bxkf
+   qcwduju idxaja qcwduju idxaja
+   fnarz pstzfne nco qzf kcevoo qwx csvsxga pstzfne
+   twug xrwy uoctfl bkh yxrw
+   unpdnbe apf cvm bpullu fyels tjpri jyw unpdnbe xfyekay vhk zpyb
+   rbv psirdv psirdv mnjrp qpwc vicismd qpwc
+   zjj zjj kesyhow eqcfqy vqy
+   zazpd gmea aobl dcs mage hqjdpwc bvxr srw
+   rhcdb nzsa jgcgc rhcdb wxs vsvvptn zvckqo wxs
+   unyet prchn fiwter wvgknes dvzbxfs ufet neuyt fczlrx bpocdci vdsfzbx
+   znfev fwrdarx knqkv ojiv ojiv fwrdarx
+   tbtlo hdashg kyspxm ypmkxs nmrk
+   fzr zqxaszt frz xzrre
+   shueb iraetk uhsv duvah uhsv zstysc nrfllbc emrknka
+   vzkrmp mgtkjnw njr bwjgp jdwyyhv yudha wbvmx ewu urhiioq
+   yjq xxr swvm aipdj apjid tfsq gfqg izrvhev
+   iljuqt fpo fxadit iljuqt iljuqt
+   zrj poewso vsje bsprbmc vsje yfwf ybu dmkqib ybu hlrpdi ymh
+   apxaeq bgdm mqty whyay mnuzfgk awm bgdm mwwi ekw bgdm
+   dpdbfkm crrg mkph kphm grcr ukbk
+   ilqm wroz mqil qlim
+   pnlx nwadw uabelu rueamxr wjer uwge jwer ywagrx
+   akuil nkh oitq werli werli
+   fkmhcr ieoj xfsa xfacoeb tcg poomcme vck zmpc djcqgkf kft
+   csyk qni hqfrye zyyxz ggynzad pjpokmu bigqa qie
+   lkpenw zyllii qtbvdq zqnu ichftg xazped agl irhlbiy snlwfe twliar
+   acsrba dzz ivylbl rfcdd rfcdd qcg
+   zbui fomvpx zjhmgl sivtffu xuhswzt fzeid tgj mzok mozk afbhuje tzswxuh
+   nupjiat fdxkbn tuatp jhdfnub yitdk yghqw nupjiat ibi edfv tuixw auwjm
+   focht mnprh tljj ayp
+   pjdnl uaoworh iqm gic dqlu spn heuymio
+   kvg ferrvhp unvzsd qdcpd rji zpch
+   nhvay chuzg pyhdd hnmrnq zeidhf pyhdd ohy hnmrnq
+   boa sau gxh grx
+   gwo utwpd zcsrx gow bnm
+   xoqniyd hmithl xoqniyd hmithl
+   yqqsbzo stca zcsjnqf skbueeu tlbkef mvqbg igzr wujuz yqqsbzo kkfe
+   wgzuepu wge fkrxuag csenx tkngoz wge azueyxs
+   get xiryxs xiryxs xiryxs
+   wammvx edy hahetl xmvawm dye
+   lscxxgi anmax quo cqprwn imocarq gnbfhe rcnqpw
+   znpmid yaluvzn ydm ckh uhso rrk wbby lwxsu
+   atppk byf dzz uift nqejgm njgeqm
+   dtqmy iog ahub habu
+   hkthdwt pfxlwsu hkthdwt hkthdwt
+   tsuiue tsuiue yais tsuiue
+   swooqmp rqrcs ngr vujrq inuu rqrcs
+   dhu zxdfiyv xuz xuz mgaty mgaty
+   kiiiz zco qdv vfgkj rders zco
+   trszp havbm redpeqk gktp ifvzvwl yfoxnm tzg avzd otiouso eks lqlutwb
+   cfiru lpdy kpeas mdc lxnjjqz nqyyb xkjsug rcifu dln
+   jga ijgkjo qhbnupb ofzqn iokjjg gaj lrh pkynrcr jgatk
+   bexwc tat tat otsngaa
+   feh mjxbs ehf cyfhlv vvdgdu hef
+   njlvq ojwaes awsejo ktyvxd qeyeze bpoaj ulgngn zyeqee kqc bsdzzvq
+   hbfp vnhs vnhs pko pxnxgm
+   bmy bzpn bzpn bcfep
+   cju nqjy yjqn bbrj esgzw swgl bjrb
+   cxvrshm rbglkyv kqwzcyd azqr ckwbbew fhgqv nfk lactzh ssqpwbr wbewbck
+   ptcb gqkb apcc okl jbbgk qni bqu slydyo qhh dqd osv
+   zbisefn bmxcljk bmxcljk arkamus vpq uxuwvb
+   ksik xbzk lahh ctfur sxh rduokr xqou zwbgqsp skik
+   hwhmfk hwhmfk bjpxzg qqftmu ijyv igvayf bjpxzg
+   askxqew tibx pqaczy fhzyec echzfy cezfhy
+   omzyy mbzfvsn kkoff qgqn crnnkn krx oqp jhn anb qte qxt
+   jypnwn vjbnbsl axf pldxbq pdoy rmxcvig cpad yhah rzqewkg nmzkkr erjo
+   visidzp bujlfn xuomjj mjnqn wgflg skb
+   oer oer lfi zyqnem lfi guljz
+   fannhwu wafma gcje cvcia qwyh ugtbpa geufqg
+   kwtjib pqwai tdmjj kuxr euzl rxuk
+   ovi splc hflutgw hflutgw
+   gvel gelv aeiygth elvg twwr kivxrrj jkmqa
+   bas ylxbdgn yliv pytkhq haujsyf fggrnbc wsgree rfnppcx key gvdzgfy evdtrrz
+   oblab wpgm bpyy xuroy qhb adqko
+   hneb law uzms fhhk yjymdx wjla ixfh yblh
+   qlvsd bxsq hjaq fuwspzu hyshq idbabc rqcih ilixp wft rglf lmqm
+   qdskj two ckd qdt hzjvd woo fmmuw
+   kumc zywzq srafcbb ihfu kfvav
+   qlkkrq qlkkrq qlkkrq qsc
+   hob bpecik zqtrfz iqizeu plrer epm zqtrfz xrekeql xrekeql
+   warszd sxyyorh sxyyorh eztjf warszd kszp
+   hjbrax liumjue liumjue liumjue
+   rfnqd folmiu dlicln pdyk uqd rfnqd
+   mjdu lytfvya xomdujn leaqiyc lgemz lihfnhv zgeml koukz luqda
+   yqsz zedjmwn aep qwbhd yqsz
+   etg rmovps abizj yqr kib
+   yznxec sfqkd ofkzep njr hmeym nsh xdq
+   ryoyq heoo zuo udvfev ehoo axcnbpu oeho mfenmd shrebzy
+   uaeh jwllsjp frkhqsy uaeh
+   giofw hwceb euikqp ldmb kqpkxwv namazcg hqyyzgs cglsqux
+   qledbd qledbd kbwo wgfmgp
+   olbsca muxw nxs locsba
+   gbxxgj xlzm gws pkpwy ofkxb sykhdo nbhrv
+   najr bfk tbqkm hxabe nvr mdi dmuujr bfil nyripr zcydzy
+   kiczhcn dfgylw yzkwk nytijj pceu yukj ekaol xpb uep
+   acyyxn rwczsud acyyxn payiek inusyb rwczsud
+   mzssokx bshs bshs ocrvlug nzsgvch riejkrd jkj mpmdgsp kvixdfq msmmx
+   uaxy wpvhf uaaq ranp vfhwp iik kii nvh
+   shecxef nqpx jly dzm qvmpu kxg hdg
+   xembm yzevult ljrllc yrlskyk zas wstnz yrlskyk vasra
+   yoaxppi kzax hvxfezf mek teo cbtlrfa ncxac yee
+   dzfpbi cynov dje vxypba wcwww cwnu cqtp cnuw wwwcw rkzas
+   xzwdt jcwv anb xzwdt
+   fodgjem fmmrsfl eovsneo etzutda paw fmmrsfl jcqql
+   yfztt alcw nwdmd afgknu njxkj zykz cvv jbnl han iatmruu trqls
+   yas hpulrmf dzts sltg qsbw fjj rjymnnx dkkv
+   hwjtgd abmb cfw xoumxn xnoumx cxo xnxmuo alb
+   hnl zgdiip lrddhl fyw mporhtp waedf dltdfmc lyipoth ubmg hnl
+   wxard wxard cibp nzquvb muuslvw igvewfh mika wxard
+   cjqjhva rrhzy qpdc nqnyd enbdee ewrhp cqdp xekgjai
+   axtmxb axtmxb phl urdqaar urdqaar
+   umce jult bkart dgdvdwc kqzlzn nqkzlz umlxx cmue xvehqag wxifal
+   lwsuc ski ubo ksi sik qwcudv
+   husdv tssr gfp bfzbrp jtmk svvdpb uvshd zbnpdmj svpdvb
+   nnbvf xbb dobqk xwloqca uxvqti blcwxpu kubwu nognin goywn
+   xhe dhddftc ggltd dhddftc wspf
+   jodq cgvnk lpl wkwwlqd prfby bpyfr tbgyqm
+   bdebxj cuvow jdwdxw kuzh dvxmsyb dyvcxo psf kjnoe odfwgfa
+   xpfb knzgfsi thmsnbi ymjxn bevohy xpfb
+   hphcu fjodpdt mfsp jkvvp jvypar nlud lfv uftupcr nul dunl
+   olz ihyhw qntr lwcbohv qntr wzralwl
+   kfz pkjhidy msnmwz exox xexo uakipj mmznws zbbji ozispqb
+   gfi kwdhx qqo kdxwh fig
+   ehh rfozwr caoisw qntlk pkv zulc kpv hrqz
+   exmlrj aacc rzb qie rzb
+   mxyqe cuqz feyd meqyx gdvpu rqyjtvw dmoo vugdp emem
+   advj xmnad uvh ufnbi xmnad xmnad zzwjksx chbrjas hrbp ruvyg
+   nasrghk pmol ryko ofgakhd korf vpy nakrsgh
+   mylyqg aeizp rnk krlwchk aaqg
+   edxursp sosyv zesgnpx zlo sly alurdc ypmez qib aqtt lmxd
+   ihm hwzhd jhiw raocjk nlxce yzuzu nhudri tvygl tmclg mdkz
+   psubdis qrmxebg kdac xvl raxwfx vlx sxme
+   tci tphdy tggam vqqiyjz sgfvdri sxhztz fhsmxx yaj ncxcxq tic
+   xkljs cuhrm fdjqwd fuzyzh dzuzgjd lzpye lzpey
+   jriwl ypkcxd fxrg eit okzzzsc yaykarm qzuv jurgek dzfbbfl
+   workf rrw absfl gxluw qprdsz absfl qwqbmi amepvz oiqmy workf
+   dxyyb brnerbx lykd oqmz ursl zqom
+   cqtuzva aih uhaswd auhwds ktyvc hufogcg
+   jre fhlgrse svedc prfspaj ghm qcjzfc nsd
+   fow xyo vlvg sgg jgzvff rjxh eovre xtupnz
+   pekj pgiecc igxd zbiqoob ovv
+   xofxmz rdzdiq yruoqkh arfunx yruoqkh ucm bxov
+   ctogwj lpv ivtoxkf faj ctogwj xfzluad ctogwj vvw
+   rmc vjxj strgo tykifpp
+   ulivozu bczond ywnmt shakc yknr psr
+   bfx alwedh jfomlf pzj tely alwedh vccsoer rgwftcl vccsoer
+   frkwbv uudwt qsfg onuhiml jrd usu
+   bgdx deybefo gdj dgbx luu cbuwawd wqqtq dqmwy gin mhtfgy
+   ohjp ykemg nrs leayrh brtipx jhop phoj
+   utaep ywsy utaep ywsy
+   qow dxagjwb qbki bqik
+   larkpq bdgw mly vvwgv
+   juar zaerof qekpe hhgd eygru epekq dhgh
+   xpblz xksc lzue xksc yid nnve trlndn gjczngs cifqoaf
+   fpv ekz eknldf uqjgeu awwnwxu eknldf eknldf txhxv
+   mzvk wqtbda ovdbh vnes uiuuc uicuu bpwwtm aaat cygej nio gnl
+   rkdkzp bjaxqif xuwx bjaxqif hgtz slkqw rkdkzp ztp xfvgk ycvg
+   zpwr wvxzfcd opgcrfc ytxeboe rcqa ehrga lmgm
+   brsdnk nqgkjab nbjkaqg gho zqe
+   szbysu oqrtbp wjpuv oqrtbp oqrtbp gjmqq
+   uoyi ctscw uoyi ggn ija
+   fop lxa cgwpw lyvrxbe tit fop fop kfigqnu
+   ldqmk rxo ajhrbc ahrcjb xqdk kdxq
+   ith vdrl kvaxktm grkzmon ith ywbz kmnoiz
+   zdoo omjo fbz dveiipw fbz
+   ivj mcnu tkijlq xkq lrkyit cumn sfkrk numc ezxeeoi
+   lcwzdi sbsdgdy olvc olvc bimubzf bimubzf
+   cdjd umhwh djdc cddj oxheq veazlm
+   gxszn zsgxn azy yaz
+   byvmj mjybv jvxkuy akas uxyjvk
+   whmkttq whgzm gwmzh pkvtljw zgmhw jasudeq
+   yyjri fxsj xffmna vbal ftff rwq uszym bznil rfuctp ejndv wqr
+   gnwzjbw dezfvq gzkhzkl ivrdvxx wfah xvivrxd qzdvfe
+   xnfo zqzn iaod zlcclsd onxf lpskrfk nzqz kqzr kffpwak eky
+   muc tafbzp nra gvzc xiu gvzc
+   gfnbnyj nyjbfgn eoosw yjzf
+   qwwls sqwwl mxph swwql
+   twor uzjftq twro orwt
+   qomjuob bqaim zvfqww cvqzm wwipc zsywb bsqkp aoj fus
+   nlyd gtbgox tajlzgs bgtgxo pqt
+   pjtmgz ulblj ussh gngagba hhtexq bjbj obe xctciay osriw obe shxri
+   agc ejjdtak jgq moj agc iua syhxih znavmrc iih qubj
+   zxwzwhm lipkqhz bbv birxsj gzg iefrjh mprsfs ofpltbl gbo srpmsf hirm
+   rbpgqoe kymrf uzsut gkbtd xctpg qul hirtfl
+   wfvg pnqhuv jayjm ftqt mbrotl aydmoc lfwlxk vpvcsi svbn bnsv
+   jxjxza ysl kls vmt fvgunx hketl oshgie
+   dfeyxv akx qagwayp qrs lnulrle rqs gbvd bvdg
+   aac ndptml oke edwrg aac xechxz
+   mpx yrb oervzb ydvkw avlt oervzb bxdqbo hzwls
+   dsynfk dsynfk epexzjd epexzjd zofb
+   vhe zxfolqk lkh fxt flzkxqo lztwkmo khl
+   izlthi wtokkuz ousbpxp pvr uuxueq lvbeff mfk syjq fwgnfmg yytqesm gdd
+   kjcg slt khz atzw twpspdx kgyk wgq hjat ntf xvhxol msvdjs
+   ymm arrggw mmmbvrs ist arrggw nbvvc cwyacp
+   kuzglex iemp iemp jsko iemp oqs dheqypr
+   tzztq dsxqbow qgaeo kqn dsxqbow qqzpv
+   ysr fctpiyn psgb gatavv zsfxoxq nynfoh qaimoj zotjk nxug syr
+   xvm qvr hdxyhpf cbo xmv lfv wltyjlx
+   hjq pohc xgqit tducggu zdqmnc xqgit tqxgi srfyzu vdikqx
+   msiqte ewvp bzrv cmuy gse qqayvb bzrv qehy
+   watdvu ametrc etlduhh vcc luehdth udavtw
+   jktj mkq jktj mkq
+   uekth ufjkmdi qzhge wzwcwk nvrodcc vrcdocn bhcvd
+   xumywk zwofh kuxmyw acgzsjj hfowz njnz bnklyi
+   hmm fexu fexu hmm
+   zeuoarc yoa ggff jazzd mjein yhj qwo qwo
+   rolkwf fcyat lwm wqqm juwkt wqqm udj tex xgps nyy pdbkkhb
+   gld ksl gld bnsuhqc gld rwmybj
+   tvyxk xgmk cri pef epf unsl yktxv
+   muiql ejq taetjkf ejq xzmo wmv qbtmrh hkfbch taetjkf sut
+   pqg icvv gpq tufd iixd duft
+   zekx ybbb gzml vrbwcl opfb fkrv tto cbipr
+   moh stkkf ynrtdf jlgb kstfk ksktf
+   nvysvf mdtdoq bqqvr bqqvr
+   dqyz mzoqtp gzhdgd symsq iwh bpwox
+   pkqi jgzsrah yfjxx kdp xjaf lbj gkpixnj tyvzzso qmjbo skg nlchzbk
+   culxfx jarwu eiwriu vwvg gvwv sgnasz
+   kyfsn dwc sbnoe xwpgjh nbmvec dwc qjdh mpw gefimue fvqjwt kkor
+   hcdcgxs fof flc hfpjy lii fihcao pxg xywei jwsq yxr
+   oxrcv pda oxrcv gdvojsz kmlga mixlmp hdcabsn qvoa fwt
+   poe joylchz humrjy cyxbqfm lyk ybrfmp qmtpqyk vtpr lyk vtpr
+   ffswqs yxbuj tfzkmc yxbuj giog ckubbfy rtigw rtigw rpitxd
+   kcvrn eejyftw ejytfew rnckv
+   lvk lkv cooumh vlk
+   loypv ukowl loypv nyoyfl vehnm uff
+   tst sei zovy itdwibj mcbtst wcf rzp xvbtax ffzp xieenuy aegkj
+   zkhi hvsbgza xbwtdns wypfngy lvabd pybhcd crczm buikdpo vqgon pynfwyg phbcdy
+   ihy irxrj entmc yxfhbta xsdv xsdv
+   ezrcv kfgm pjneez puccy gzpxdlf gkfm yucpc mli xezfug
+   umjppkq idkiri wmnbhi unl nteyw wmnbhi zyv idkiri shhcrau
+   dzj zveqwae ljnikvb baavr dhsohp zveqwae goq zveqwae
+   xhc xch bmttdr snd jakd
+   jmgnvda bdpzfw dfwpzb pimpv blqtbyo lzdzo bgrlfy anmjvdg
+   lwvu ksg gqbtibd ksg lwvu ohfzlt foajo apyrcwj uaro
+   vel qksrwp zei ipnvd hdua rkspqw bujf
+   iozkiu upa knmcug zidypn yswb zswkvx naqsu
+   tjktoe dqpt pbqi dqpt
+   lcl tui uoizm xrdpmwi fbsuuqq tgeac hpajm tegac nczlic
+   ntmm mskzb arem ntmm jayzfe wyurgsh eqwcqt edhska asxhjv jayzfe
+   jyq juifidx fokzxh cgo xofhzk nhro xyccuq ioa nwk nqaxpfw
+   cvag bpk cuo ocu buehhq tartafi ifs qwh cveurg
+   bwut xpfni qzg cmp cid jftawv twiszmo
+   zgxc sui kypkd vpam ymxicrw jcfbutd fgx jcfbutd
+   tkxn rjqzljh tkxn mdwcho
+   qbv zneocv zneocv zneocv
+   tywf soncr lyepx qzj xdsr pdqv swt
+   ulu rdk iomqu dgouoba icax
+   ddsc oxilqpd ddsc atbekg ouzmxf oxilqpd kwtzz yhmyd otvi
+   vtj llnfrpc vfighju urosrsz vurtse llnfrpc qeuo vfighju nnn smsnp tfom
+   updfjmz ngtgi zaitq rqqhcyn ladzx zaitq fbaphyz hipe
+   rii fpos atl tal qhubqdv lat
+   whxzwdj yznkngr eefbmub wnxitd tnwxid zja ziewilm xylwn ihhsha lrptuyf
+   fhmzaxv mdn udl gyv pqw qlrz flm rqtji
+   bgn clnm cnml qyh hhf qqnur sgvigvm
+   qjtbysc ycbqjts gbgvlz vgzlgb dgxks qbvp grji dcc
+   wmduuq qayymzo zvh ylbipw sin ybwpli ilypwb
+   qsvzktt qsvzktt dasmg knh gcgep qai
+   jxukj qlgr cjssj aavqv
+   xpxa glsdfxq ngxwon ytuue pizqu
+   fxl vegoed tct luwm ulwm eeovdg
+   ntmpe auasx vkwgi cryuiix dmiufo fcb ldl jauncf gyouym asjcryc
+   lgwdcs eoxm hcrpnuf pcfnhru vlye fpurcnh uquukv vjc
+   lfns riwpdh phwxvew hhu jfptvv ofxd hkotgfq
+   qvuwnq wnpvs xdivrfz yaenqr fipwgl
+   vhcexfd bishqsc gsbruxm yzccyot yjloa aptg vbr gsbruxm ihqhyz yzccyot
+   knfst zhihi swhhq zhihi
+   qfto abhjx abhjx bpnijn ogmqxn rclqag dmeb rdogx emfriui hyvp ogmqxn
+   ivaemm wlsc dvjv aivemm xvf shfonv
+   vowhosr vptlu ucrut rdynh ttqvhg rdynh abtja pnvdy puxfmf dyhd
+   uvrenol ycuhvy ygm fjsxiwo oftstid ygm
+   fix qrqeg dfgvlun fix iraxgtt lhgqdo eqkgshd jwmrm qrsbzba
+   mxdj icjqzqw fvew gtvlhm mxdj
+   cyjtkm crb pmg jwo iluc brc ttnd
+   dasmgp ool ool opc
+   ubi pmz mtkh ibu hlx ipcvjki sydw zpm eewfdeu oga
+   avex yjaoghv yjaoghv lwwx
+   kwkdst iuokd nmpw onayet zlavwnd wwvbr jtrkyku wfxx dumydgh gnd zgi
+   ahyjnc rjakp bhabq tsmfi ahyjnc tsmfi yitqgi uwnywil shnkbn
+   krr sbbfjtm yvunas hwppsjf ntuuzw ngyvdmt ynk nfq mfrb pyw hngr
+   eeecesf phoo ijmx sjp kgmtg sjp wyz
+   qwixmou oximqwu ixu lsmf
+   dyrzq lbstdjv ldvowml qjf fqj zpabc dwmvoll jnq
+   pdtlu hgcfvz mnwjyq ymi cvcp kmx mkx ooffp uiwg opoff uevqt
+   hflomt fhlmto gutdbyp xyi zpggxc wqe
+   jpsr wwex yjgdj fqah wrmmw nyrnw hcomcgv teajmu emw zrraid
+   tvgsca bzgzkga ypsxsk dqz exmu tvgsca dqz qnd
+   arzn hojpi bznw ejuupe bznw hojpi
+   rids dule qaefaon sspit mtzgdls cfujw xldhimi igdoy dule
+   nefsys plea obksngc zxqee avsi obksngc vnsxdrl gspadob avsi owmzpeh tcj
+   oweq fkr krf rfk ztwjdry shzcmew jhna
+   hdjizhg dfclic usds luz mcwyj luz qvomls mren otax
+   pmzzfj pmzzfj wfxyq mqv hyp lhf
+   dxeaw ckkey ccvawo keaf izlh oacvcw lgcpgeh kdiky
+   xkwe xekw kwex tzfyx
+   dmmyt mtdnqw pdw vdav ofrtsk
+   klz zlk snxnihg snhigxn zkynpd
+   ijzce xobf uojezxi xiuojez
+   ztepv zvpet nije aditjlg natkkk dtitg jprgia
+   fesuh wadrhc bayf kktfaf nxvhq smbdaop gqx ioez fkjufb abyf
+   hej sta pztkcd pesabzz szp iada iada cdae hej sqst luf
+   xlnuhn oljaf fljao ascxez fojal
+   dprclb fzn wgauz rxewtp cjrlgz zfn
+   fidwoa mvoqy afian ntzokap mkplgy jfukgjv cyfsz
+   hbvqnnt giinuzq uezugy qooxjc zsxr rnihg ipbels
+   qroi wtltjq suj tqit bxtc jidzhpe nizp wtltjq nadcdm wwyhjrg
+   qtr fkbl bpptu baen awjpwsg vvqbxz animt uqbk zvbxvq
+   nznq fdiul jbv umyrf yufrm hrl duilf
+   bkvlfuw onkqzeo iwrg rifqzhj mgroul rnor qqqc sbfi hny zosfp kopxb
+   nvifbx jbowbj fnyskt jbowbj xvun xvun
+   piyl haajm stwzpp xvjg amjah
+   gye efwwwiv kyv zmtcgmi ifwvwew
+   dflx gdtb jyoj jyoj dflx aqhycgi xffnn
+   inc mpys mzqmcwx vryz ibqrzc pmsy fat rojpxwy rcbqzi gjef
+   #+end_example
+
+** day4a
+   #+begin_src python :results output :var data=init_day4
+     ldata = data.splitlines()
+     good_phrases = 0
+     for line in ldata:
+         cur_phrase = set()
+         is_good = 1
+         for word in line.split():
+             if word in cur_phrase:
+                 is_good = 0
+                 break
+             cur_phrase.add(word)
+         good_phrases += is_good
+     print(good_phrases)
+   #+end_src
+
+   #+RESULTS:
+   : 325
+
+** day4b
+   #+begin_src python :results output :var data=init_day4 :session
+     ldata = data.splitlines()
+     good_phrases = 0
+     for line in ldata:
+         cur_phrase = set()
+         is_good = 1
+         for word in line.split():
+             sword = str(sorted(word))
+             if sword in cur_phrase:
+                 is_good = 0
+                 break
+             cur_phrase.add(sword)
+         good_phrases += is_good
+     print(good_phrases)
+   #+end_src
+
+   #+RESULTS:
+   : 119
+
+* day5
+** init_day5
+   #+name: init_day5
+   #+begin_src python :results value :cache yes
+   from lib.autoloader import Autoloader
+   puz_data_url = "https://adventofcode.com/2017/day/5/input"
+   al = Autoloader(puz_data_url)
+   al.connect()
+   data = al.fetch()
+   return data
+   #+end_src
+
+   #+RESULTS[a803fdaefe6b011291b09628f27dd633cb577834]: init_day5
+   #+begin_example
+   1
+   2
+   0
+   0
+   0
+   2
+   -2
+   -2
+   -3
+   -3
+   -7
+   0
+   -1
+   0
+   -10
+   -8
+   -12
+   -8
+   -3
+   -6
+   0
+   0
+   -18
+   -17
+   -11
+   -18
+   1
+   -7
+   -10
+   -4
+   -18
+   -8
+   -26
+   -15
+   -24
+   0
+   -8
+   -17
+   -15
+   -24
+   -7
+   -21
+   -15
+   -19
+   -30
+   -40
+   -44
+   -23
+   -3
+   -25
+   2
+   -31
+   -20
+   -45
+   -51
+   -50
+   -34
+   -4
+   -33
+   -41
+   0
+   -49
+   -43
+   0
+   -62
+   1
+   1
+   -32
+   -50
+   -22
+   -10
+   -60
+   -13
+   -46
+   -57
+   -40
+   -28
+   -33
+   -34
+   -13
+   -40
+   -5
+   -49
+   -17
+   -25
+   -71
+   -5
+   -16
+   -23
+   -58
+   -69
+   -22
+   -28
+   -84
+   -70
+   -71
+   -73
+   -87
+   -8
+   -11
+   -99
+   -65
+   -27
+   -32
+   -48
+   -87
+   -96
+   1
+   -58
+   -101
+   -94
+   2
+   -52
+   -34
+   -22
+   2
+   -25
+   -7
+   -36
+   -66
+   -84
+   -100
+   -45
+   -65
+   -69
+   -52
+   -5
+   -4
+   -93
+   -100
+   -7
+   -13
+   -50
+   -87
+   -87
+   -4
+   -119
+   -25
+   1
+   -41
+   -58
+   -24
+   -12
+   -15
+   -39
+   -140
+   -40
+   -136
+   -88
+   -141
+   -112
+   -43
+   -68
+   -67
+   -128
+   -23
+   -24
+   -90
+   -56
+   -71
+   -146
+   -46
+   -41
+   -76
+   -54
+   -38
+   -144
+   -53
+   -1
+   -97
+   0
+   0
+   -70
+   -60
+   -171
+   -12
+   -97
+   -147
+   -21
+   -174
+   -108
+   -101
+   -91
+   -56
+   -76
+   -13
+   -177
+   -1
+   -40
+   -2
+   -177
+   -136
+   -168
+   -126
+   -5
+   -175
+   -177
+   -144
+   -104
+   -174
+   -4
+   -172
+   -114
+   -69
+   -18
+   -24
+   -157
+   -47
+   -110
+   -6
+   -155
+   -79
+   -157
+   -93
+   -93
+   -114
+   -77
+   -148
+   -32
+   -100
+   -192
+   -144
+   -123
+   -192
+   -65
+   -220
+   -143
+   -1
+   -40
+   -149
+   -69
+   -230
+   -202
+   -69
+   -52
+   -112
+   -175
+   -72
+   -69
+   -168
+   -198
+   -181
+   -156
+   -37
+   -179
+   -168
+   -81
+   -51
+   -205
+   -2
+   -104
+   -25
+   -199
+   -83
+   -176
+   -115
+   -174
+   -204
+   -207
+   -127
+   -161
+   -219
+   -27
+   -107
+   -160
+   -141
+   -34
+   -39
+   -182
+   -46
+   -41
+   -90
+   -267
+   -234
+   -48
+   -72
+   -49
+   -110
+   -266
+   -167
+   -194
+   -124
+   -183
+   -184
+   -108
+   -49
+   -130
+   -166
+   -198
+   -87
+   -196
+   -183
+   -275
+   -130
+   -275
+   -39
+   -70
+   -143
+   -257
+   -22
+   -53
+   -12
+   -93
+   -30
+   -141
+   -32
+   -239
+   -284
+   -186
+   -211
+   -160
+   -145
+   -21
+   -167
+   -258
+   -67
+   -56
+   -262
+   -272
+   -19
+   -194
+   -244
+   -95
+   -261
+   -27
+   -109
+   -271
+   -7
+   -146
+   -328
+   -266
+   -207
+   -76
+   -204
+   -273
+   -177
+   -159
+   -68
+   -231
+   -215
+   -75
+   -264
+   -27
+   -342
+   -298
+   -338
+   -178
+   -268
+   -303
+   -78
+   -283
+   -149
+   -147
+   -209
+   -146
+   -147
+   -282
+   -131
+   -204
+   -129
+   -319
+   -166
+   -256
+   -114
+   -267
+   -211
+   -15
+   -194
+   -53
+   -114
+   -236
+   -127
+   -33
+   -316
+   -123
+   -180
+   -234
+   -131
+   -107
+   -21
+   -209
+   -174
+   -174
+   -24
+   -1
+   -281
+   -367
+   -251
+   -42
+   -17
+   -158
+   -33
+   -181
+   -26
+   -286
+   -235
+   -262
+   -1
+   -374
+   -121
+   -253
+   -215
+   -19
+   -114
+   -8
+   -372
+   -89
+   -185
+   -50
+   -71
+   -130
+   -248
+   -274
+   -9
+   -99
+   -66
+   -402
+   -256
+   -294
+   -313
+   -256
+   -36
+   -229
+   -64
+   -47
+   -32
+   -259
+   -178
+   -278
+   -416
+   -334
+   -286
+   -229
+   -377
+   -50
+   -424
+   -359
+   -182
+   -41
+   -270
+   -96
+   -372
+   -1
+   -100
+   -45
+   -88
+   -111
+   -373
+   -247
+   -185
+   -356
+   -66
+   -246
+   -157
+   -326
+   -196
+   -258
+   -325
+   -218
+   -43
+   -224
+   -429
+   -461
+   -159
+   -101
+   -21
+   -187
+   -416
+   -154
+   -416
+   -311
+   -54
+   -189
+   -379
+   -375
+   -300
+   0
+   -405
+   -170
+   -478
+   -119
+   -451
+   -121
+   -30
+   -304
+   -320
+   -218
+   -369
+   -294
+   -41
+   -328
+   -482
+   -42
+   -200
+   -254
+   -409
+   -260
+   -447
+   -196
+   -156
+   -394
+   -142
+   -180
+   -376
+   -316
+   -323
+   -455
+   -262
+   -360
+   -143
+   -318
+   -242
+   -226
+   -382
+   -211
+   -493
+   -443
+   -14
+   -231
+   -304
+   -168
+   -396
+   -100
+   -201
+   -187
+   -209
+   -49
+   -45
+   -150
+   -309
+   -275
+   -449
+   -523
+   -260
+   -366
+   -222
+   -483
+   -234
+   -209
+   -398
+   -247
+   -343
+   -266
+   -456
+   -396
+   -528
+   -232
+   -241
+   -482
+   -417
+   -362
+   -406
+   -503
+   -164
+   -146
+   -198
+   -285
+   -23
+   -133
+   -506
+   -159
+   -203
+   -70
+   -35
+   -410
+   -209
+   -482
+   -304
+   -45
+   -550
+   -27
+   -6
+   -117
+   -121
+   -143
+   -265
+   -196
+   -179
+   -334
+   -77
+   -253
+   -526
+   -276
+   -437
+   -212
+   -276
+   -253
+   -414
+   -192
+   -48
+   -53
+   -28
+   -24
+   -139
+   -554
+   -534
+   -82
+   -35
+   -237
+   -447
+   -274
+   -125
+   -377
+   -404
+   -101
+   -241
+   -166
+   -192
+   -120
+   -469
+   -461
+   -534
+   -222
+   -409
+   -363
+   -211
+   -477
+   -300
+   -491
+   -506
+   -512
+   -344
+   -554
+   -31
+   -617
+   -49
+   -268
+   -63
+   -143
+   -512
+   -115
+   -299
+   -344
+   -453
+   -573
+   -590
+   -330
+   -342
+   -347
+   -3
+   -46
+   -344
+   -423
+   -561
+   -411
+   -95
+   -9
+   -323
+   -354
+   -523
+   -523
+   -526
+   -573
+   -162
+   -281
+   -578
+   -326
+   -475
+   -506
+   -319
+   -190
+   -15
+   -193
+   -586
+   -430
+   -166
+   -72
+   -160
+   -530
+   -233
+   -626
+   -345
+   -253
+   -413
+   -152
+   -217
+   -672
+   -675
+   -498
+   -417
+   -104
+   -25
+   -114
+   -283
+   -187
+   -314
+   -51
+   -88
+   -217
+   -311
+   -408
+   -148
+   -420
+   -615
+   -221
+   -454
+   -461
+   -213
+   -131
+   -115
+   -326
+   -244
+   -561
+   -133
+   -50
+   -434
+   -544
+   -616
+   -418
+   -302
+   -366
+   -202
+   -624
+   -302
+   -241
+   -158
+   -494
+   -321
+   -555
+   -136
+   -601
+   -363
+   -246
+   -630
+   -705
+   -121
+   -427
+   -91
+   -453
+   -664
+   -271
+   -210
+   -155
+   -573
+   -232
+   -349
+   -152
+   -208
+   -233
+   -395
+   -185
+   -121
+   -291
+   -149
+   -11
+   -263
+   -55
+   -488
+   -78
+   -155
+   -447
+   -667
+   -556
+   -730
+   -406
+   -454
+   -382
+   -496
+   -568
+   -235
+   -374
+   -200
+   -475
+   -513
+   -275
+   -423
+   -95
+   -643
+   -434
+   -144
+   -527
+   -418
+   -577
+   -564
+   -211
+   -485
+   -122
+   -387
+   -484
+   -212
+   -129
+   -763
+   -268
+   -83
+   -428
+   -518
+   -394
+   -784
+   -223
+   -549
+   -232
+   -175
+   -566
+   -569
+   -329
+   -300
+   -3
+   -563
+   -571
+   -369
+   -753
+   -111
+   -609
+   -461
+   -514
+   -514
+   -174
+   -800
+   -702
+   -808
+   -780
+   -708
+   -774
+   -811
+   -518
+   -741
+   -404
+   -364
+   -48
+   -74
+   -228
+   -333
+   -380
+   -90
+   -813
+   -457
+   -275
+   -414
+   -281
+   -723
+   -101
+   -123
+   -438
+   -657
+   -406
+   -779
+   -161
+   -825
+   -715
+   -79
+   -358
+   -183
+   -554
+   -716
+   -596
+   -56
+   -39
+   -505
+   -268
+   -425
+   -609
+   -69
+   -92
+   -7
+   -44
+   -10
+   -681
+   -86
+   -30
+   -225
+   -551
+   -213
+   -335
+   -829
+   -817
+   -804
+   -74
+   -109
+   -732
+   -781
+   -401
+   -370
+   -40
+   -526
+   -694
+   -336
+   -859
+   -294
+   -682
+   -264
+   -325
+   -27
+   -679
+   -135
+   -82
+   -711
+   -570
+   -159
+   -179
+   -604
+   -41
+   -580
+   -403
+   -540
+   -262
+   -69
+   -329
+   -5
+   -879
+   -345
+   -632
+   -367
+   -183
+   -38
+   -80
+   -63
+   -448
+   -832
+   -656
+   -774
+   -292
+   -474
+   -596
+   -862
+   -842
+   -16
+   -107
+   -243
+   -647
+   -782
+   -336
+   -785
+   -816
+   -78
+   -416
+   -712
+   -810
+   -389
+   -264
+   -304
+   -847
+   -520
+   -619
+   -161
+   1
+   -584
+   -719
+   -486
+   -516
+   -360
+   -747
+   -363
+   -672
+   -134
+   -177
+   -894
+   -778
+   -582
+   -766
+   -769
+   -114
+   -843
+   -287
+   -493
+   -30
+   -620
+   -467
+   -141
+   -206
+   -437
+   -367
+   -426
+   -799
+   -943
+   -508
+   -594
+   -545
+   -61
+   -829
+   -844
+   -589
+   -775
+   -409
+   -28
+   -726
+   -452
+   -261
+   -613
+   -106
+   -441
+   -496
+   -643
+   -606
+   -742
+   -408
+   -321
+   -260
+   -333
+   -328
+   -751
+   -21
+   -768
+   -36
+   -265
+   -936
+   -697
+   -702
+   -924
+   -89
+   -215
+   -896
+   -216
+   -477
+   #+end_example
+
+** day5a
+   #+begin_src python :results output :var data=init_day5
+     sdata = [int(s) for s in data.splitlines()]
+     in_maze = True
+     pointer = 0
+     counter = 0
+     while in_maze:
+         try:
+             jump_dist = sdata[pointer]
+         except:
+             in_maze = False
+             break
+         sdata[pointer] += 1
+         pointer += jump_dist
+         counter += 1
+     print(counter)
+   #+end_src
+
+   #+RESULTS:
+   : 326618
+
+** day5b
+   #+begin_src python :results output :var data=init_day5
+     sdata = [int(s) for s in data.splitlines()]
+     in_maze = True
+     pointer = 0
+     counter = 0
+     while in_maze:
+         try:
+             jump_dist = sdata[pointer]
+         except:
+             in_maze = False
+             break
+         if jump_dist >= 3:
+             sdata[pointer] -= 1
+         else:
+             sdata[pointer] += 1
+         pointer += jump_dist
+         counter += 1
+     print(counter)
+   #+end_src
+
+   #+RESULTS:
+   : 21841249
+
+* END
+# Local Variables:
+# eval: (progn (org-babel-goto-named-src-block "startup") (org-babel-execute-src-block) (outline-hide-sublevels 1))
+# End:

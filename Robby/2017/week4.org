@@ -1,0 +1,10 @@
+* Startup
+  #+NAME: startup
+  #+begin_src emacs-lisp :results silent
+  (setq org-babel-python-command "~/anaconda3/envs/aoc/bin/python" org-src-tab-acts-natively nil)
+  #+END_SRC
+
+* END
+  # Local Variables:
+  # eval: (progn (org-babel-goto-named-src-block "startup") (org-babel-execute-src-block) (outline-hide-sublevels 1))
+  # End:
