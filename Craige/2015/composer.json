@@ -1,0 +1,12 @@
+{
+    "name": "craiga/2015",
+    "require": {
+        "symfony/var-dumper": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "Craig Blanchette",
+            "email": "craig.blanchette@gmail.com"
+        }
+    ]
+}
