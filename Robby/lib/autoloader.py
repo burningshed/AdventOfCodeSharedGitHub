@@ -35,8 +35,7 @@ class Autoloader():
             f = open(in_filename, 'wb')
             pickle.dump(s, f)
             f.close()
-        return s.splitlines():while expression:
-            pass
+        return s.splitlines()
 
 
     def connect(self):
