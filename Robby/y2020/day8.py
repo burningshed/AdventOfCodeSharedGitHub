@@ -17,3 +17,4 @@ class handheld():
         if type(raw_ins_set) == str:
             s_ins_set = raw_ins_set
 
+print("test")
